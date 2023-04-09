@@ -18,7 +18,7 @@ const projectsList = ref([
   }
 ])
 
-function toProject(item:any) {
+function toProject (item:any) {
   router.push({
     name: 'projects',
     params: {
