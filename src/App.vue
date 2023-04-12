@@ -1,15 +1,16 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
+const route = useRoute()
+const layout = computed(() => route.meta.layout || null)
 
 </script>
 
 <template>
-  <Header></Header>
-  <div class="min-h-[100vh] pt-56px">
-    <router-view  v-slot="{ Component, route }">
-      <transition name="fade" mode="out-in">
-        <component :is="Component" :key="route" />
-      </transition>
-    </router-view>
+  <div>
+    <component :is="layout" v-if="layout">
+      <router-view></router-view>
+    </component>
+    <router-view v-else></router-view>
   </div>
 </template>
 

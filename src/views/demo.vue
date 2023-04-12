@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// com
+import { SET_TOKEN } from '@/utils'
+// composables
 import { calculateDiscount } from '@/composables/project'
 // store 運用
 import { storeToRefs } from 'pinia'
@@ -29,7 +30,8 @@ function openModal() {
 
 const projectList = ref<any>([])
 async function getProductAll(): Promise<void> {
-  const { data, code } = await api.project.getProjectAll()
+  const params = { id: '123' }
+  const { data, code } = await api.project.getProjectAll(params)
   if (code !== 200) return
   projectList.value = data.projectList
 }
@@ -41,6 +43,23 @@ function toProject(item:any) {
       id: item.id
     }
   })
+}
+
+function saveCookie() {
+  const cookie = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIyNDAyODI5NTcyNzExMDkiLCJuYW1lIjoic3lzdGVtIiwiZ2l2ZW5fbmFtZSI6IlN5c3RlbSIsInN1YiI6IjI0MDI4Mjk1NzI3MTEwOSIsImp0aSI6ImEzYTY4ODE4LTE2YWMtNGE0MC1iM2ZiLTY5OGY5OWM1YTE3OSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvZXhwaXJhdGlvbiI6IjIwMjMvNC8xMyDkuIrljYggMDI6MjM6MDQiLCJyb2xlIjoiU3lzdGVtIiwibmJmIjoxNjgxMjg2NTg0LCJleHAiOjE2ODEzMjI1ODQsImlhdCI6MTY4MTI4NjU4NCwiaXNzIjoiU2luZ2xlU2lnbiJ9.by4lxi8xuxf7zleknkxdM9vVWaJaxL3FGxuEzHaokR0'
+  SET_TOKEN(cookie)
+}
+
+const form = {
+  name: '',
+  content: '',
+  comments: 0
+}
+
+function submitForm() {
+  const { data } = api.posts.createPosts(form)
+  console.log(data, '新增成功')
+  // if (code !== 200) return
 }
 </script>
 
@@ -59,6 +78,11 @@ function toProject(item:any) {
         class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
         獲得商品列表
       </button>
+      <button @click.prevent="saveCookie"
+      class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
+        儲存 cookie
+      </button>
+
     </div>
     <h2 class="my-6 text-8 fw-700">商品列表</h2>
     <div class="grid grid-cols-3 gap-4">
@@ -98,6 +122,21 @@ function toProject(item:any) {
           </tr>
         </tbody>
       </table>
+      <div>
+        <div class="flex">
+          <label for="name">名稱</label>
+          <input v-model="form.name" id="name" class="border-2 b-blue" type="text">
+        </div>
+        <div class="flex">
+          <label for="content">內容</label>
+          <input v-model="form.content" id="content" class="border-2 b-blue" type="text">
+        </div>
+        <div class="flex">
+          <label for="comments">頻論數量</label>
+          <input v-model="form.comments" id="comments" class="border-2 b-blue" type="text">
+        </div>
+        <button @click.prevent="submitForm">送出表單</button>
+      </div>
     </Modal>
   </section>
 </template>
