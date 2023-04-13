@@ -8,6 +8,9 @@ import { userInfoStore } from '@/stores'
 const store = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(store)
 
+// 判斷環境
+const env = import.meta.env.MODE
+
 // 使用 router
 const router = useRouter()
 
@@ -56,10 +59,14 @@ const form = {
   comments: 0
 }
 
-function submitForm() {
-  const { data } = api.posts.createPosts(form)
+async function submitForm() {
+  const { data, code } = await api.posts.createPosts(form)
+  if (code !== 200) return
   console.log(data, '新增成功')
-  // if (code !== 200) return
+}
+
+function logout () {
+  userInfoStore.FN_LOGOUT()
 }
 </script>
 
@@ -69,6 +76,10 @@ function submitForm() {
       <button @click.prevent="getMemberInfo"
         class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
         獲得使用者資料至 store
+      </button>
+      <button @click.prevent="logout"
+        class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
+        登出
       </button>
       <button @click.prevent="openModal"
         class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
@@ -97,7 +108,9 @@ function submitForm() {
         </div>
       </div>
     </div>
-
+    <div>
+      <h1>獲得環境:{{ env }}</h1>
+    </div>
     <!-- 彈窗 -->
     <Modal v-model="demoModal" title="測試彈窗">
       <table class="w-full border-separate border border-slate-400 ...">

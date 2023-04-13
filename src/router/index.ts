@@ -157,17 +157,22 @@ const router = createRouter({
       component: () => import('../views/setting/index.vue'),
       meta: {
         keepAlive: false,
-        layout: DefaultLayout 
+        layout: DefaultLayout,
       },
       children: [
         {
           path: 'resetPassword',
           component: () => import('../views/setting/resetPassword.vue'),
-
+          meta: {
+            requiresAuth: true 
+          },
         },
         {
           path: 'profile',
           component: () => import('../views/setting/profile.vue'),
+          meta: {
+            requiresAuth: true 
+          },
         },
       ],
     },

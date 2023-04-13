@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { GET_TOKEN } from './index'
+import { errorMsg } from '@/utils/msg'
 const defaultConfig = {
   timeOut: 30000,
   // 判斷環境變數
@@ -22,7 +23,7 @@ class Http {
       if (handleConfig.headers) {
         handleConfig.headers.Authorization = `Bearer ${GET_TOKEN()}`;
       }
-      return config
+      return handleConfig
     },error => {
       return Promise.reject(error)
     })
@@ -30,10 +31,16 @@ class Http {
 
   private httpInterceptorsResponse() {
     // TODO: axios response 攔截器，API 統一設定可來此
-    Http.axiosInstance.interceptors.response.use((res) => {
-      return res
+    Http.axiosInstance.interceptors.response.use((response) => {
+      console.log(response)
+      const { status } = response
+      if ( status === 200  || status < 300 || status === 304 ) {
+        return response
+      }
+      errorMsg(response.data.message)
+      return response
     },error => {
-      return Promise.reject(error)
+      errorMsg(error.message)
     })
   }
 

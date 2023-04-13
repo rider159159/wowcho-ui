@@ -21,7 +21,7 @@ const router = useRouter()
             <li>
               <a
                 class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                @click.prevent="router.push('demo')"
+                @click.prevent="router.push('/demo')"
                 >測試範例頁面</a
               >
             </li>

@@ -1,17 +1,18 @@
 import { defineStore } from 'pinia'
-import { UserInfo } from '@/interface'
+import { UserInfo_interFace, UserInfo } from '@/interface'
+import { REMOVE_TOKEN } from '@/utils';
 
 export const userInfoStore = defineStore('user-info-store', () => {
   // 也可以使用 any   const USER_INFO_REF: any = ref({})
-  const USER_INFO_REF = ref<UserInfo>({
-    id: 0,
-    name:'',
-    nickName: '',
-    photo:'',
-    email: ''
-  })
-  
+  const USER_INFO_REF = ref<UserInfo_interFace>(UserInfo)
+
+  const FN_LOGOUT = () => {
+    USER_INFO_REF.value = UserInfo;
+    REMOVE_TOKEN();
+  };
+
   return {
-    USER_INFO_REF
+    USER_INFO_REF,
+    FN_LOGOUT
   }
 })
