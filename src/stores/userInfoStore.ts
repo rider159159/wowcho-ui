@@ -6,7 +6,7 @@ export const userInfoStore = defineStore('user-info-store', () => {
   // 也可以使用 any   const USER_INFO_REF: any = ref({})
   const USER_INFO_REF = ref<UserInfo_interFace>(UserInfo)
 
-  const FN_LOGOUT = () => {
+  function FN_LOGOUT(): void {
     USER_INFO_REF.value = UserInfo;
     REMOVE_TOKEN();
   };

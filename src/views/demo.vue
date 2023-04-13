@@ -5,8 +5,9 @@ import { calculateDiscount } from '@/composables/project'
 // store 運用
 import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
-const store = userInfoStore()
-const { USER_INFO_REF } = storeToRefs(store)
+
+const { FN_LOGOUT } = userInfoStore()
+const { USER_INFO_REF } = storeToRefs(userInfoStore())
 
 // 判斷環境
 const env = import.meta.env.MODE
@@ -65,9 +66,6 @@ async function submitForm() {
   console.log(data, '新增成功')
 }
 
-function logout () {
-  userInfoStore.FN_LOGOUT()
-}
 </script>
 
 <template>
@@ -77,8 +75,8 @@ function logout () {
         class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
         獲得使用者資料至 store
       </button>
-      <button @click.prevent="logout"
-        class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
+      <button @click.prevent="FN_LOGOUT()"
+        class="relative flex-none text-sm te`xt-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
         登出
       </button>
       <button @click.prevent="openModal"
