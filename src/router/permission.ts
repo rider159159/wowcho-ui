@@ -5,7 +5,6 @@ import { GET_TOKEN } from '@/utils';
 const permission = (router:Router) => {
   router.beforeEach(async (to) => {
     const USER_TOKEN = GET_TOKEN();
-    console.log(USER_TOKEN,to.meta)
     // 前往頁面有權限
     if (to.meta.requiresAuth) {
       // 未登入進入權限頁面
