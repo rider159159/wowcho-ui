@@ -57,3 +57,48 @@
 
 
 ## 操作
+### 使用 API
+```js
+// 使用 API
+const api = inject('$api') as any
+
+// : Promise<void> 也可以移除
+async function getMemberInfo() : Promise<void> {
+  const { data, code } = await api.member.getMemberInfo()
+  if (code !== 200) return
+  // API 丟置 store
+  USER_INFO_REF.value = data.userInfo
+}
+
+```
+
+### 使用 router
+```js
+const router = useRouter()
+
+function toProject(item:any) {
+  router.push({
+    name: 'projects',
+    params: {
+      id: item.id
+    }
+  })
+}
+```
+
+
+### 使用 store
+```js
+
+import { storeToRefs } from 'pinia'
+import { userInfoStore } from '@/stores'
+const store = userInfoStore()
+const { USER_INFO_REF } = storeToRefs(store)
+
+async function getMemberInfo() : Promise<void> {
+  const { data, code } = await api.member.getMemberInfo()
+  if (code !== 200) return
+  // API 丟置 store
+  USER_INFO_REF.value = data.userInfo
+}
+```
