@@ -1,6 +1,6 @@
-# 渦潮 
+# 渦潮 - 前台
 - 需要 node 版本 16 以上，16.19 穩定啟動。
-- 有使用 autoImport 套件
+- 有使用 autoImport 套件，引入 Vue components 時，無需使用 import 方式引入元件，直接在 `<template>` 引入即可。
 
 ## 資料夾結構介紹
   - public 放置圖片

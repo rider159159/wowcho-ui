@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
-
+import { GET_TOKEN } from './index'
+import { errorMsg } from '@/utils/msg'
 const defaultConfig = {
   timeOut: 30000,
   // 判斷環境變數
@@ -17,8 +18,12 @@ class Http {
   private httpInterceptorsRequest() {
     // TODO: axios request 攔截器，API 統一設定可來此
     Http.axiosInstance.interceptors.request.use((config) => {
-      console.log('test')
-      return config
+      const handleConfig = { ...config };
+      
+      if (handleConfig.headers) {
+        handleConfig.headers.Authorization = `Bearer ${GET_TOKEN()}`;
+      }
+      return handleConfig
     },error => {
       return Promise.reject(error)
     })
@@ -26,10 +31,16 @@ class Http {
 
   private httpInterceptorsResponse() {
     // TODO: axios response 攔截器，API 統一設定可來此
-    Http.axiosInstance.interceptors.response.use((res) => {
-      return res
+    Http.axiosInstance.interceptors.response.use((response) => {
+      console.log(response)
+      const { status } = response
+      if ( status === 200  || status < 300 || status === 304 ) {
+        return response
+      }
+      errorMsg(response.data.message)
+      return response
     },error => {
-      return Promise.reject(error)
+      errorMsg(error.message)
     })
   }
 
@@ -38,18 +49,18 @@ class Http {
     return Http.axiosInstance.get(url, params).then(res => res.data).catch()
   }
 
-  public httPost<T>(url: string, data?: AxiosRequestConfig):Promise<T> {
+  public httpPost<T>(url: string, data?: AxiosRequestConfig):Promise<T> {
     return Http.axiosInstance.post(url, data).then(res => res.data).catch()
   }
 
-  public httPut<T>(url: string, data?: AxiosRequestConfig):Promise<T> {
+  public httpPut<T>(url: string, data?: AxiosRequestConfig):Promise<T> {
     return Http.axiosInstance.put(url, data).then(res => res.data).catch()
   }
 
-  public httPatch<T>(url: string, data?: AxiosRequestConfig):Promise<T> {
+  public httpPatch<T>(url: string, data?: AxiosRequestConfig):Promise<T> {
     return Http.axiosInstance.patch(url, data).then(res => res.data).catch()
   }
-  public httDelete<T>(url: string, params?: AxiosRequestConfig):Promise<T> {
+  public httpDelete<T>(url: string, params?: AxiosRequestConfig):Promise<T> {
     return Http.axiosInstance.delete(url, params).then(res => res.data).catch()
   }
 }
