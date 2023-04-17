@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { SET_TOKEN } from '@/utils'
 // composables
-import { calculateDiscount } from '@/composables/project'
+import { calculateDiscount, timeStampChange } from '@/composables'
 // store 運用
 import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
+import { fetchMember, fetchPost, fetchProject } from '@/api'
 
 const { FN_LOGOUT } = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(userInfoStore())
-
 // 判斷環境
 const env = import.meta.env.MODE
 
@@ -16,11 +16,11 @@ const env = import.meta.env.MODE
 const router = useRouter()
 
 // 使用 API
-const api = inject('$api') as any
+// const api = inject('$api') as any
 
 // : Promise<void> 也可以移除
 async function getMemberInfo() : Promise<void> {
-  const { data, code } = await api.member.getMemberInfo()
+  const { data, code } = await fetchMember.getMemberInfo()
   if (code !== 200) return
   // API 丟置 store
   USER_INFO_REF.value = data.userInfo
@@ -35,7 +35,7 @@ function openModal() {
 const projectList = ref<any>([])
 async function getProductAll(): Promise<void> {
   const params = { id: '123' }
-  const { data, code } = await api.project.getProjectAll(params)
+  const { data, code } = await fetchProject.getProjectAll(params)
   if (code !== 200) return
   projectList.value = data.projectList
 }
@@ -61,7 +61,7 @@ const form = {
 }
 
 async function submitForm() {
-  const { data, code } = await api.posts.createPosts(form)
+  const { data, code } = await fetchPost.createPosts(form)
   if (code !== 200) return
   console.log(data, '新增成功')
 }
@@ -108,6 +108,7 @@ async function submitForm() {
     </div>
     <div>
       <h1>獲得環境:{{ env }}</h1>
+      <div> timeStamp 轉換{{ timeStampChange(1680307200000) }}</div>
     </div>
     <!-- 彈窗 -->
     <Modal v-model="demoModal" title="測試彈窗">

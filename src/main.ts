@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import '../src/style/style.scss'
 import App from './App.vue'
-import api from './api/index'
+// import api from './api/index'
 import 'uno.css'
 import { setupStore } from './stores';
 import { setupRouter } from './router';
@@ -13,7 +13,7 @@ function setupApp() {
   setupStore(app);
   setupRouter(app)
   setupPlugins(app)
-  app.provide('$api', api)
+  // app.provide('$api', api)
   app.mount('#app')
 }
 setupApp();
