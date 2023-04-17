@@ -1,7 +1,7 @@
 # 渦潮 - 前台
 - 需要 node 版本 16 以上，16.19 穩定啟動。
 - 有使用 autoImport 套件，引入 Vue components 時，無需使用 import 方式引入元件，直接在 `<template>` 引入即可。
-
+- Uno CSS 文件: https://unocss.dev/guide/
 ## 資料夾結構介紹
   - public 放置圖片
   - api 串接後端 Api 的資料夾
@@ -28,6 +28,13 @@
   - 其他元件、頁面引入 components 元件時也以大寫方式引入 如:`<Header></Header>`
   - views 若確認無多層及，可直接將元件放於 views 下，若有可能產生多層及 router ，將元件放於資料夾下做區分
   - views 下元件以小駝峰式命名
+### 元件中 HTML 屬性順序
+  - v-if/v-model 等等 Vue 指令 > id/class/name HTML 原本屬性 = :class/:id 等等動態屬性
+  - 若有使用到 class + :class 狀況時，盡量將兩個屬性寫在前後面例如:
+  ``` HTML
+    <p class="bg-red text-white" :class=:class="{ '!bg-primary !text-white': stepNum === 1 }>返回</p>
+  ```
+
 
 ### UnoCSS
   - 採用最基本功能，樣式寫於 class 上，支援多數 tailwind 、 wind 語法

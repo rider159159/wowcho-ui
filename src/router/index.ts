@@ -13,6 +13,15 @@ const router = createRouter({
         keepAlive: false,
         layout: DefaultLayout 
       }
+    }, 
+    {
+      path: '/demo2',
+      name: 'demo2',
+      component: () => import('../views/demo2.vue'),
+      meta: {
+        keepAlive: false,
+        layout: DefaultLayout 
+      }
     },
     {
       path: '/projects/:id',

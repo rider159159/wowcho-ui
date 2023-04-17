@@ -3,7 +3,6 @@ import '../src/style/style.scss'
 import App from './App.vue'
 import api from './api/index'
 import 'uno.css'
-import '@unocss/reset/tailwind.css';
 import { setupStore } from './stores';
 import { setupRouter } from './router';
 import { setupPlugins } from './plugins';
