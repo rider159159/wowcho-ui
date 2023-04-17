@@ -6,6 +6,7 @@ import { calculateDiscount, timeStampChange } from '@/composables'
 import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
 import { fetchMember, fetchPost, fetchProject } from '@/api'
+import { Swal } from '@/plugins/sweet-alert'
 
 const { FN_LOGOUT } = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(userInfoStore())
@@ -65,7 +66,19 @@ async function submitForm() {
   if (code !== 200) return
   console.log(data, '新增成功')
 }
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+})
 
+onMounted(() => {
+  Toast.fire({
+    icon: 'success',
+    title: '加入書籤成功！'
+  })
+})
 </script>
 
 <template>

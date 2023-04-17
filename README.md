@@ -30,7 +30,7 @@
   - views 下元件以小駝峰式命名
 ### 元件中 HTML 屬性順序
   - v-if/v-model 等等 Vue 指令 > id/class/name HTML 原本屬性 = :class/:id 等等動態屬性
-  - 若有使用到 class + :class 狀況時，盡量將兩個屬性寫在前後面例如:
+  - 若有使用到 class + :class 狀況時，盡量將兩個屬性寫在前後面，例如:
   ``` HTML
     <p class="bg-red text-white" :class=:class="{ '!bg-primary !text-white': stepNum === 1 }>返回</p>
   ```
@@ -56,7 +56,7 @@
 
 ### 推薦 VSCode 套件
   - UnoCSS: https://marketplace.visualstudio.com/items?itemName=antfu.unocss
-  - 若使用上述套件，無法產生 UnoCSS 則須多添加 WindiCSS IntelliSense: https://marketplace.visualstudio.com/items?itemName=voorjaar.windicss-intellisense
+  - 若使用上述套件，無法產生 UnoCSS 提示 class 則須多添加 WindiCSS IntelliSense: https://marketplace.visualstudio.com/items?itemName=voorjaar.windicss-intellisense
   - 上述套件皆會和 Tailwind CSS IntelliSense 衝突，若使用此專案開發時，請關閉此套件。
 
 ### eslint 設定

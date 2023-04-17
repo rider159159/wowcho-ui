@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-
+import { login } from '@/interface'
 const schema = computed(() => ({
   email: 'required|email',
   password: 'password',
@@ -9,11 +9,7 @@ const schema = computed(() => ({
 
 const { errors, useFieldModel, resetForm, handleSubmit, meta } = useForm({
   validationSchema: schema,
-  initialValues: {
-    email: '',
-    password: '',
-    confirmPassword: ''
-  }
+  initialValues: login
 })
 const [email, password, confirmPassword] = useFieldModel(['email', 'password', 'confirmPassword'])
 

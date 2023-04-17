@@ -63,4 +63,5 @@ class Http {
     return Http.axiosInstance.delete(url, params).then(res => res.data).catch()
   }
 }
+
 export const http = new Http()

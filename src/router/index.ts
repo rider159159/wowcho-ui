@@ -2,6 +2,8 @@ import { App } from 'vue';
 import { createRouter, createWebHistory } from "vue-router"
 import permission from './permission';
 import DefaultLayout from '../layouts/DefaultLayout.vue'
+import noneHeader from '../layouts/noneHeader.vue'
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -11,7 +13,7 @@ const router = createRouter({
       component: () => import('../views/demo.vue'),
       meta: {
         keepAlive: false,
-        layout: DefaultLayout 
+        layout: noneHeader 
       }
     }, 
     {
