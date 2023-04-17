@@ -1,8 +1,8 @@
 import { App } from 'vue';
 import { createRouter, createWebHistory } from "vue-router"
 import permission from './permission';
-import DefaultLayout from '../layouts/DefaultLayout.vue'
-import noneHeader from '../layouts/noneHeader.vue'
+import DefaultLayout from '@/components/layoutWrapper/DefaultLayout.vue'
+import noneHeader from '@/components/layoutWrapper/noneHeader.vue'
 
 const router = createRouter({
   history: createWebHistory(),
