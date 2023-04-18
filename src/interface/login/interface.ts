@@ -1,5 +1,7 @@
+import { Field, useForm } from 'vee-validate'
 export interface login_interface {
   email: string,
   password: string,
-  confirmPassword: string
+  role?: number
+  confirmPassword?:string
 }
