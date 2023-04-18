@@ -6,7 +6,7 @@ import 'uno.css'
 import { setupStore } from './stores';
 import { setupRouter } from './router';
 import { setupPlugins } from './plugins';
-
+import '@unocss/reset/tailwind-compat.css'
 
 function setupApp() {
   const app = createApp(App)
