@@ -3,6 +3,6 @@
 
 <template>
   <div>
-    <router-view></router-view>
+    結帳完成
   </div>
 </template>

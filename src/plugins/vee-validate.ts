@@ -31,12 +31,12 @@ defineRule('password', (value:string) => {
 });
 
 
-defineRule('mobile', (val: string, { target, ctx }: MobileRuleParams) => {
-  if (!/^09\d{8}$/.test(val)) {
-    return `${ctx.field}有誤`;
-  }
-  return true;
-});
+// defineRule('mobile', (val: string, { target, ctx }: MobileRuleParams) => {
+//   if (!/^09\d{8}$/.test(val)) {
+//     return `${ctx.field}有誤`;
+//   }
+//   return true;
+// });
 
 configure({
   generateMessage: localize({

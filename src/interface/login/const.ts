@@ -1,6 +1,6 @@
-import { loginInterface } from './interface'
+import { login_interface } from './interface'
 
-export const login:loginInterface = {
+export const login:login_interface = {
   email: '',
   password: '',
   confirmPassword: ''

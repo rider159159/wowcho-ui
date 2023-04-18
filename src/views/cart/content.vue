@@ -3,6 +3,6 @@
 
 <template>
   <div>
-    <router-view></router-view>
+    選擇贊助方式
   </div>
 </template>

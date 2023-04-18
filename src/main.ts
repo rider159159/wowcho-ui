@@ -13,7 +13,6 @@ function setupApp() {
   setupStore(app);
   setupRouter(app)
   setupPlugins(app)
-  // app.provide('$api', api)
   app.mount('#app')
 }
 setupApp();

@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from "vue-router"
 import permission from './permission';
 import DefaultLayout from '@/components/layoutWrapper/DefaultLayout.vue'
 import noneHeader from '@/components/layoutWrapper/noneHeader.vue'
-
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -65,7 +64,7 @@ const router = createRouter({
     
     // 錯誤頁面
     {
-      path: '/error',
+      path: "/:catchAll(.*)",
       name: 'error',
       component: () => import('../views/error.vue'),
       meta: {
@@ -142,14 +141,53 @@ const router = createRouter({
         layout: DefaultLayout 
       }
     },
-    // 商品詳細頁
+    // 商品詳細
     {
       path: '/proposal/:id',
       name: 'proposal',
       component: () => import('../views/proposal/[id].vue'),
       meta: {
         keepAlive: false,
-      }
+        layout: DefaultLayout 
+      },
+      children: [
+        // 查看商品內頁
+        {
+          path: '',
+          name: 'proposalContent',
+          component: () => import('../views/proposal/content.vue'),
+        },
+        // 查看與選擇贊助方案
+        {
+          path: 'plan',
+          name: 'proposalPlan',
+          component: () => import('../views/proposal/plan.vue'),
+        },
+      ]
+    },
+    // 選擇贊助方式
+    {
+      path: '/cart',
+      name: 'cart',
+      component: () => import('../views/cart/index.vue'),
+      meta: {
+        keepAlive: false,
+        layout: DefaultLayout 
+      },
+      children: [
+        // 查看商品內頁
+        {
+          path: '',
+          name: 'cartContent',
+          component: () => import('../views/cart/content.vue'),
+        },
+        // 查看與選擇贊助方案
+        {
+          path: 'success',
+          name: 'cartSuccess',
+          component: () => import('../views/cart/success.vue'),
+        },
+      ]
     },
     // 忘記密碼
     {

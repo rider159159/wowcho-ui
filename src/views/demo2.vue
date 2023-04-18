@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { login } from '@/interface'
+
 const schema = computed(() => ({
   email: 'required|email',
   password: 'password',
