@@ -28,9 +28,9 @@ async function getMemberInfo() : Promise<void> {
 }
 
 // 彈窗控制
-const demoModal = ref(false)
+const modalController = ref(false)
 function openModal() {
-  demoModal.value = true
+  modalController.value = true
 }
 
 const projectList = ref<any>([])
@@ -65,7 +65,7 @@ async function submitForm() {
   const { data, code } = await fetchPost.createPosts(form)
   if (code !== 200) return
   console.log(data, '新增成功')
-  demoModal.value = false
+  modalController.value = false
 }
 
 const Toast = Swal.mixin({
@@ -127,26 +127,26 @@ onMounted(() => {
       <div> timeStamp 轉換{{ timeStampChange(1680307200000) }}</div>
     </div>
     <!-- 彈窗 -->
-    <Modal v-model="demoModal" title="測試彈窗" :titleClass="'text-36px text-red'" :width="'w-full md:w-80%'">
-      <table class="w-full border-separate border border-slate-400 ...">
+    <Modal v-model="modalController" title="測試彈窗" :titleClass="'text-36px text-red'" :headerClass="'b-gray mx-2 border-b-2 !px-0 mx-2'" :width="'w-full md:w-80%'" :bodyClass="'bg-gray opacity-[0.7]'">
+      <table class="w-full border-separate border border-slate-400">
         <thead>
           <tr>
-            <th class="border border-slate-300 ...">State</th>
-            <th class="border border-slate-300 ...">City</th>
+            <th class="border border-slate-300">State</th>
+            <th class="border border-slate-300">City</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="border border-slate-300 ...">Indiana</td>
-            <td class="border border-slate-300 ...">Indianapolis</td>
+            <td class="border border-slate-300">Indiana</td>
+            <td class="border border-slate-300">Indianapolis</td>
           </tr>
           <tr>
-            <td class="border border-slate-300 ...">Ohio</td>
-            <td class="border border-slate-300 ...">Columbus</td>
+            <td class="border border-slate-300">Ohio</td>
+            <td class="border border-slate-300">Columbus</td>
           </tr>
           <tr>
-            <td class="border border-slate-300 ...">Michigan</td>
-            <td class="border border-slate-300 ...">Detroit</td>
+            <td class="border border-slate-300">Michigan</td>
+            <td class="border border-slate-300">Detroit</td>
           </tr>
         </tbody>
       </table>
