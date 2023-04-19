@@ -2,6 +2,7 @@
 - 需要 node 版本 16 以上，16.19 穩定啟動。
 - 有使用 autoImport 套件，引入 Vue components 時，無需使用 import 方式引入元件，直接在 `<template>` 引入即可。
 - Uno CSS 文件: https://unocss.dev/guide/
+- icon 使用 Material Icons，使用 webFont 方法，可參考文件  : https://pictogrammers.com/library/mdi/
 ## 資料夾結構介紹
   - public 放置圖片
   - api 串接後端 Api 的資料夾
