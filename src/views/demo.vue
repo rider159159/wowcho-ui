@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SET_TOKEN, Toast } from '@/utils'
+import { SET_TOKEN, toast } from '@/utils'
 // composables
 import { calculateDiscount, timeStampChange } from '@/composables'
 // store 運用
@@ -66,9 +66,18 @@ async function submitForm() {
   modalController.value = false
 }
 function openToast() {
-  Toast.fire({
-    icon: 'success',
-    title: '成功登入'
+  toast.success('測試', {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 2000,
+    theme: 'colored'
+  })
+  toast.success('登入成功', {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 2000
+  })
+  toast.error('登入失敗', {
+    position: toast.POSITION.TOP_CENTER,
+    autoClose: 2000
   })
 }
 
