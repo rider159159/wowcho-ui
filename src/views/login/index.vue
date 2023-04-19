@@ -47,37 +47,37 @@ function submitHandler () {
 </script>
 
 <template>
-  <section class="flex flex-col gap-4 justify-center items-center mx-4 md:mx-8">
-    <div class="flex flex-col">
-      <label for="email" class="flex flex-col">
-        <p class="mb-2">電子信箱</p>
-        <input v-model="email" type="email" id="email" name="email" class="w-full px-2 mb-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600" />
-      </label>
-      <span v-if="email || submitStatus" class="text-red-500" >{{ errors.email }}</span>
-    </div>
-    <div>
-      <label for="password" class="flex flex-col">
-        <p class="mb-2">密碼:</p>
-        <input v-model="password" type="password" name="password" class="w-full px-2 mb-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600" />
-      </label>
-      <span v-if="password || submitStatus" class="text-red-500">{{ errors.password }}</span>
-    </div>
-    <h5>請選擇你要登入的角色</h5>
-    <div >
-      <div class="flex">
-        <label for="sponsor" class="flex mr-4">
-          <p class="mr-2">贊助者</p>
-          <input v-model="role" :value="1" type="radio" name="role" id="sponsor">
+  <section class="flex justify-center w-full px-4">
+    <div class="w-full md:w-75% xl:w-50% flex flex-col gap-4">
+      <div>
+        <label for="email" class="flex flex-col">
+          <p class="mb-2 h6">電子信箱</p>
+          <input v-model="email" type="email" id="email" name="email" class="w-full text-h6 leading-h4 px-2 mb-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600" />
         </label>
-        <label for="proposer" class="flex mr-4">
-          <p class="mr-2">提案者</p>
-          <input v-model="role" :value="2" type="radio" name="role" id="proposer">
-        </label>
+        <span v-if="email || submitStatus" class="block text-red-500" >{{ errors.email }}</span>
       </div>
-      <span v-if="role || submitStatus" class="text-red-500">{{ errors.role }}</span>
+      <div>
+        <label for="password" class="flex flex-col">
+          <p class="mb-2">密碼:</p>
+          <input v-model="password" type="password" name="password" class="w-full text-h6 leading-h4 px-2 mb-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600" />
+        </label>
+        <span v-if="password || submitStatus" class="block text-red-500">{{ errors.password }}</span>
+      </div>
+      <div>
+        <h5 class="mb-2">請選擇你要登入的角色</h5>
+        <div class="flex">
+          <label for="sponsor" class="flex mr-4">
+            <p class="mr-2 cursor-pointer">贊助者</p>
+            <input v-model="role" :value="1" type="radio" name="role" id="sponsor">
+          </label>
+          <label for="proposer" class="flex mr-4">
+            <p class="mr-2 cursor-pointer">提案者</p>
+            <input v-model="role" :value="2" type="radio" name="role" id="proposer">
+          </label>
+        </div>
+        <span v-if="role || submitStatus" class="block text-red-500">{{ errors.role }}</span>
+      </div>
+      <button @click="submitHandler" type="button" class="w-full py-2 bg-brand-1 rounded-3xl">登入</button>
     </div>
-
-    <button @click="submitHandler" type="button" class="w-120px">登入</button>
-    <!-- <Dropdown v-model="role" :item-list="array" name="role"></Dropdown> -->
   </section>
 </template>
