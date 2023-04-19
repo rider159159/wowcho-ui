@@ -65,7 +65,9 @@ async function submitForm() {
   const { data, code } = await fetchPost.createPosts(form)
   if (code !== 200) return
   console.log(data, '新增成功')
+  demoModal.value = false
 }
+
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -125,7 +127,7 @@ onMounted(() => {
       <div> timeStamp 轉換{{ timeStampChange(1680307200000) }}</div>
     </div>
     <!-- 彈窗 -->
-    <Modal v-model="demoModal" title="測試彈窗">
+    <Modal v-model="demoModal" title="測試彈窗" :titleClass="'text-36px text-red'" :width="'w-full md:w-80%'">
       <table class="w-full border-separate border border-slate-400 ...">
         <thead>
           <tr>
