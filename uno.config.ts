@@ -7,18 +7,6 @@ export default defineConfig({
   presets: [
     presetUno(),
   ],
-  // rules: [
-  //   // 文字顏色搭配 theme
-  //   [/^text-(.*)$/, ([, c], { theme }) => {
-  //     if (theme.colors[c])
-  //       return { color: theme.colors[c] }
-  //   }],
-  //   // 背景顏色搭配 theme
-  //   [/^bg-(.*)$/, function bgColor([, c], { theme }) {
-  //     if (theme.colors[c]) return { 'background-color': theme.colors[c] };
-  //     return false;
-  //   }],
-  // ],
   theme: {
     colors: {
       'brand1': '#2378BF',
