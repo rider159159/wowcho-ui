@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { SET_TOKEN } from '@/utils'
+import { SET_TOKEN, Toast } from '@/utils'
 // composables
 import { calculateDiscount, timeStampChange } from '@/composables'
 // store 運用
 import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
 import { fetchMember, fetchPost, fetchProject } from '@/api'
-import { Swal } from '@/plugins/sweet-alert'
-
 const { FN_LOGOUT } = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(userInfoStore())
 // 判斷環境
@@ -67,20 +65,13 @@ async function submitForm() {
   console.log(data, '新增成功')
   modalController.value = false
 }
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000
-})
-
-onMounted(() => {
+function openToast() {
   Toast.fire({
     icon: 'success',
-    title: '加入書籤成功！'
+    title: '成功登入'
   })
-})
+}
+
 </script>
 
 <template>
@@ -98,6 +89,10 @@ onMounted(() => {
       <button @click.prevent="openModal"
         class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
         開啟彈窗
+      </button>
+      <button @click.prevent="openToast"
+        class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
+        開啟吐司
       </button>
       <button @click.prevent="getProductAll"
         class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
