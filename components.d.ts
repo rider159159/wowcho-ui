@@ -9,7 +9,6 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     DefaultLayout: typeof import('./src/components/layoutWrapper/DefaultLayout.vue')['default']
     Header: typeof import('./src/components/layout/Header.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Modal: typeof import('./src/components/common/Modal.vue')['default']
     NoneHeader: typeof import('./src/components/layoutWrapper/noneHeader.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
