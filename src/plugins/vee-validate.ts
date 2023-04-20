@@ -34,19 +34,11 @@ defineRule('password', (value:string) => {
 
 defineRule('email', email);
 
-
-// defineRule('mobile', (val: string, { target, ctx }: MobileRuleParams) => {
-//   if (!/^09\d{8}$/.test(val)) {
-//     return `${ctx.field}有誤`;
-//   }
-//   return true;
-// });
 export function setupVeeValidate(AppInstance:App<Element>) {
   AppInstance.component('VField', Field);
   AppInstance.component('VForm', Form);
   AppInstance.component('ErrorMessage', ErrorMessage);
 }
-
 
 configure({
   generateMessage: localize({
