@@ -1,16 +1,18 @@
-import { configure, defineRule,FieldContext  } from 'vee-validate';
+import { Field, Form, ErrorMessage,configure, defineRule,FieldContext  } from 'vee-validate';
 import { localize, setLocale } from '@vee-validate/i18n';
 import zh_TW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 import {
-  email, required, min, max, confirmed
+  required, min, max, email
 } from '@vee-validate/rules';
+import { App } from 'vue';
+
+
 interface MobileRuleParams {
   target: any; // 請根據您的需求更改這個類型
   ctx: FieldContext;
 }
 
 defineRule('required', required);
-defineRule('email', email);
 defineRule('min', min);
 
 defineRule('confirmed', (value:string, [target]:any) => {
@@ -30,6 +32,8 @@ defineRule('password', (value:string) => {
   return '密碼必須在 8 至 20 碼之間'
 });
 
+defineRule('email', email);
+
 
 // defineRule('mobile', (val: string, { target, ctx }: MobileRuleParams) => {
 //   if (!/^09\d{8}$/.test(val)) {
@@ -37,6 +41,12 @@ defineRule('password', (value:string) => {
 //   }
 //   return true;
 // });
+export function setupVeeValidate(AppInstance:App<Element>) {
+  AppInstance.component('VField', Field);
+  AppInstance.component('VForm', Form);
+  AppInstance.component('ErrorMessage', ErrorMessage);
+}
+
 
 configure({
   generateMessage: localize({

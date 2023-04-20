@@ -15,5 +15,6 @@ declare module '@vue/runtime-core' {
     NoneHeader: typeof import('./src/components/layoutWrapper/noneHeader.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TextInput: typeof import('./src/components/common/TextInput.vue')['default']
   }
 }
