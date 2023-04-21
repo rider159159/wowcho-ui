@@ -4,7 +4,7 @@ import { ApiResponse } from '@/interface'
 export const fetchMember = {
   getMemberInfo: (params?:any):Promise<ApiResponse> => http.httpGet('/api/memberInfo',{ params }),
   // 註冊
-  signup:(data?:any):Promise<ApiResponse> => http.httpPost('/sign-up',data),
+  register:(data?:any):Promise<ApiResponse> => http.httpPost('/register',data),
   // 登入
   login: (data?:any):Promise<ApiResponse> => http.httpPost('/login',data),
   // 取得帳戶資料

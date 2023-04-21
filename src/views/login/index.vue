@@ -13,7 +13,7 @@ async function submitForm(value:any) {
     SET_TOKEN('wowcho', data.token)
     router.push({ name: 'home' })
   } else if (formBody.role === 'proposer') {
-    axios.post('http://localhost:3034/api/login', formBody)
+    axios.post('http://localhost:3000/register', formBody)
       .then((res) => {
         const { data } = res.data
         SET_TOKEN('wowchoAdmin', data.token)

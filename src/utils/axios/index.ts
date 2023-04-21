@@ -19,10 +19,11 @@ class Http {
     // TODO: axios request 攔截器，API 統一設定可來此
     Http.axiosInstance.interceptors.request.use((config) => {
       const handleConfig = { ...config };
-
-      if (handleConfig.headers) {
+      // console.log(handleConfig)
+      if (GET_TOKEN()) {
         handleConfig.headers.Authorization = `Bearer ${GET_TOKEN()}`;
       }
+      // handleConfig.withCredentials = true;
       return handleConfig
     },error => {
       return Promise.reject(error)
@@ -32,6 +33,7 @@ class Http {
   private httpInterceptorsResponse() {
     // TODO: axios response 攔截器，API 統一設定可來此
     Http.axiosInstance.interceptors.response.use((response) => {
+      console.log(response)
       const { status } = response
       if ( status === 200  || status < 300 || status === 304 ) {
         return response
@@ -39,7 +41,7 @@ class Http {
       errorMsg(response.data.message)
       return response
     },error => {
-      errorMsg(error.message)
+      errorMsg(error.response.data.message)
     })
   }
 

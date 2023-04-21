@@ -6,8 +6,9 @@ const router = useRouter()
 
 async function submitForm(value:any) {
   const formBody = value
-  const { code } = await fetchMember.signup(formBody)
-  if (code !== 200) return
+  const response = await fetchMember.register(formBody)
+  console.log(response)
+  if (response.status !== 'Success') return
   Swal.fire({
     icon: 'success',
     title: '註冊成功',
@@ -22,6 +23,8 @@ function togglePasswordType(show:boolean, type:string) {
   passwordShow.value = show
   passwordType.value = type
 }
+onMounted(() => {
+})
 </script>
 
 <template>
