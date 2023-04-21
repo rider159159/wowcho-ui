@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { login } from '@/interface'
+import Upload from '@/components/common/Upload.vue'
 
 const schema = computed(() => ({
   email: 'required|email',
   password: 'password',
   confirmPassword: 'confirmed:@password'
 }))
-
+const test = ref('')
 const { errors, useFieldModel, resetForm, handleSubmit, meta } = useForm({
   validationSchema: schema,
   initialValues: login
@@ -32,6 +33,7 @@ function resetHandler () {
 
 <template>
   <section class="flex flex-col gap-4">
+    <Upload v-model="test"></Upload>
     <div class="flex flex-col">
       <label for="email" class="flex">
         <p>email:</p>

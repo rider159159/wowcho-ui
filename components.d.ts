@@ -13,5 +13,6 @@ declare module '@vue/runtime-core' {
     NoneHeader: typeof import('./src/components/layoutWrapper/noneHeader.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Upload: typeof import('./src/components/common/Upload.vue')['default']
   }
 }
