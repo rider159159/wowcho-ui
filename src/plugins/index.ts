@@ -2,7 +2,7 @@ import { setupDayjs } from './dayjs';
 import { setupGSAP } from './gsap';
 import { setupSweetAlert } from './sweet-alert';
 import { setupVeeValidate } from './vee-validate';
-import { setDatePicker } from './DatePicker';
+import { setDatePicker } from './datePicker';
 import { App } from 'vue';
 // import './vee-validate';
 

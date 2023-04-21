@@ -21,7 +21,9 @@ async function getProfile() {
 }
 
 async function submitForm() {
-  const { code } = await fetchMember.editProfile(formBody.value)
+  const formData = JSON.parse(JSON.stringify(formBody.value))
+  formData.birthday = Date.parse(formData.birthday)
+  const { code } = await fetchMember.editProfile(formData)
   if (code !== 200) return
   Swal.fire({
     title: '修改成功'
@@ -31,6 +33,7 @@ async function submitForm() {
 onMounted(() => {
   getProfile()
   formBody.value.name = 'test'
+  console.log()
 })
 </script>
 
@@ -77,7 +80,11 @@ onMounted(() => {
       </div>
       <label for="birthday" class="flex flex-col">
         <p class="mb-2 h6">生日</p>
-        <input type="date" v-model="formBody.birthday" id="birthday" class="text-h6 leading-h4 px-2 mb-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600">
+        <VueDatePicker v-model="formBody.birthday" :enableTimePicker="false" :format="'yyyy/MM/dd'" locale="zh-TW" auto-apply>
+          <template #dp-input="{ value }">
+            <input :value="value" type="text" class="w-full text-h6 leading-h4 px-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600">
+          </template>
+        </VueDatePicker>
       </label>
       <label for="address" class="flex flex-col">
         <p class="mb-2 h6">地址</p>
