@@ -47,7 +47,7 @@ onMounted(() => {
       <div>
         <label for="password" class="flex flex-col">
           <p class="mb-2">密碼:</p>
-          <VField name="password" label="密碼" rules="required" v-slot="{ field }">
+          <VField name="password" label="密碼" rules="required|min:8" v-slot="{ field }">
             <div class="relative">
               <input v-bind="field" :type="passwordType" class="w-full text-h6 leading-h4 px-2 mb-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600">
               <span v-if="passwordShow" @click="togglePasswordType(false,'text')" class="mdi mdi-eye text-h4 absolute right-4"></span>

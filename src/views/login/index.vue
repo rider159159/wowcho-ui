@@ -1,28 +1,23 @@
 <script setup lang="ts">
-import { fetchMember } from '@/api'
-import { SET_TOKEN } from '@/utils'
+// import { fetchMember } from '@/api'
+// import { SET_TOKEN } from '@/utils'
 import axios from 'axios'
 
-const env = import.meta.env.MODE
-const router = useRouter()
+// const router = useRouter()
 
 async function submitForm(value:any) {
+  // console.log(value)
   const formBody = value
-  if (formBody.role === 'sponsor') {
-    const { data } = await fetchMember.login(formBody)
-    SET_TOKEN('wowcho', data.token)
-    router.push({ name: 'home' })
-  } else if (formBody.role === 'proposer') {
-    axios.post('http://localhost:3000/register', formBody)
-      .then((res) => {
-        const { data } = res.data
-        SET_TOKEN('wowchoAdmin', data.token)
-        if (env === 'development') {
-          location.replace('http://localhost:1804')
-        }
-      })
-      .catch((error) => { console.error(error) })
-  }
+  // await fetchMember.login(formBody)
+  // // SET_TOKEN('wowcho', data.token)
+  // router.push({ name: 'home' })
+  // } else if (formBody.role === 'proposer') {
+  axios.post('http://localhost:3000/login', formBody)
+    .then((res:any) => {
+      const test = res.headers.get('set-cookie')
+      console.log(res, test)
+    })
+    .catch((error) => { console.error(error) })
 }
 
 const passwordShow = ref(true)
@@ -58,7 +53,7 @@ function togglePasswordType(show:boolean, type:string) {
       </div>
       <div>
         <h5 class="mb-2">請選擇你要登入的角色</h5>
-        <div class="flex">
+        <!-- <div class="flex">
           <label for="sponsor" class="flex mr-4">
             <p class="mr-2 cursor-pointer">贊助者</p>
             <VField value="sponsor" rules="required" name="role" label="角色" type="radio" id="sponsor" />
@@ -67,7 +62,7 @@ function togglePasswordType(show:boolean, type:string) {
             <p class="mr-2 cursor-pointer">提案者</p>
             <VField :value="'proposer'" rules="required" name="role" label="角色" type="radio" id="proposer"/>
           </label>
-        </div>
+        </div> -->
         <ErrorMessage name="role" class="block text-red-500"/>
       </div>
       <button type="submit" class="mt-4 w-full py-2 bg-brand-1 text-white rounded-3xl">登入</button>
