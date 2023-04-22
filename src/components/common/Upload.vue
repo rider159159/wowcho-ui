@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { fetchUpload } from '@/api'
 const showErrorMessage = ref(false)
 const props = defineProps({
   modelValue: {
@@ -21,21 +22,18 @@ const props = defineProps({
 // const { modelValue } = toRefs(props)
 const emits = defineEmits(['update:modelValue'])
 
-async function uploadImage(file:any) {
-  // const { error, data } = await FETCH_UPLOADFILE.Create(file).catch((err) => console.error(err));
-
-  // if (error) return;
-
-  // formValue.picture = `${data[0].filePath}`;
+async function uploadImage(files:any) : Promise<void> {
+  const { data, status } = await fetchUpload.upload(files)
+  if (status !== 'Success') return
 
   // uploadInputRef.value.value = '';
-  emits('update:modelValue', 'test')
+  emits('update:modelValue', data.imgUrl)
 }
 function checkImage(e:any) {
   const files = e.target.files
   const file = files[0]
   const formData = new FormData()
-  formData.append('files', file)
+  formData.append('file', file)
   // 有上傳圖片
   if (files.length > 0) {
     // props 限制大於 0 有限制，若等於 0 無限制
@@ -46,9 +44,9 @@ function checkImage(e:any) {
         return
       }
       showErrorMessage.value = false
-      uploadImage(file)
+      uploadImage(formData)
     } else {
-      uploadImage(file)
+      uploadImage(formData)
     }
   }
 }

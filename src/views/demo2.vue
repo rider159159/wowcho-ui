@@ -8,7 +8,7 @@ const schema = computed(() => ({
   password: 'password',
   confirmPassword: 'confirmed:@password'
 }))
-const test = ref('')
+const image = ref('')
 const { errors, useFieldModel, resetForm, handleSubmit, meta } = useForm({
   validationSchema: schema,
   initialValues: login
@@ -33,7 +33,8 @@ function resetHandler () {
 
 <template>
   <section class="flex flex-col gap-4">
-    <Upload v-model="test"></Upload>
+    <Upload v-model="image"></Upload>
+    <img :src="image" alt="">
     <div class="flex flex-col">
       <label for="email" class="flex">
         <p>email:</p>
