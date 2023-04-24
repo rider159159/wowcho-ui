@@ -5,7 +5,7 @@ import { calculateDiscount, timeStampChange } from '@/composables'
 // store 運用
 import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
-import { fetchMember, fetchPost, fetchProject } from '@/api'
+import { fetchDemo } from '@/api'
 import { Swal } from '@/plugins/sweet-alert'
 
 const { FN_LOGOUT } = userInfoStore()
@@ -21,7 +21,7 @@ const router = useRouter()
 
 // : Promise<void> 也可以移除
 async function getMemberInfo() : Promise<void> {
-  const { data, code } = await fetchMember.getMemberInfo()
+  const { data, code } = await fetchDemo.getMemberInfo()
   if (code !== 200) return
   // API 丟置 store
   USER_INFO_REF.value = data.userInfo
@@ -36,7 +36,7 @@ function openModal() {
 const projectList = ref<any>([])
 async function getProductAll(): Promise<void> {
   const params = { id: '123' }
-  const { data, code } = await fetchProject.getProjectAll(params)
+  const { data, code } = await fetchDemo.getProjectAll(params)
   if (code !== 200) return
   projectList.value = data.projectList
 }
@@ -62,7 +62,7 @@ const form = {
 }
 
 async function submitForm() {
-  const { data, code } = await fetchPost.createPosts(form)
+  const { data, code } = await fetchDemo.createPosts(form)
   if (code !== 200) return
   console.log(data, '新增成功')
 }
