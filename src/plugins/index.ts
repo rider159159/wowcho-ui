@@ -11,5 +11,6 @@ export function setupPlugins(AppInstance:App<Element>) {
   setupDayjs(AppInstance);
 }
 
+export * from './toast'
 export * from './sweet-alert'
 export * from './dayjs'
