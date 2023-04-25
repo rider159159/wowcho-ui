@@ -96,6 +96,8 @@ onMounted(() => {
     title: '加入書籤成功！'
   })
 })
+const upload = ref('')
+
 </script>
 
 <template>
@@ -144,6 +146,8 @@ onMounted(() => {
       <h1>獲得環境:{{ env }}</h1>
       <div> timeStamp 轉換{{ timeStampChange(1680307200000) }}</div>
     </div>
+    <Upload v-model="upload"></Upload>
+    <img :src="upload" alt="">
     <!-- 彈窗 -->
     <Modal v-model="demoModal" title="測試彈窗">
       <table class="w-full border-separate border border-slate-400 ...">
