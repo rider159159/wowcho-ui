@@ -10,3 +10,6 @@ export function setupPlugins(AppInstance:App<Element>) {
   setupSweetAlert(AppInstance);
   setupDayjs(AppInstance);
 }
+
+export * from './sweet-alert'
+export * from './dayjs'
