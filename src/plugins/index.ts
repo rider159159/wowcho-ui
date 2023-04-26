@@ -13,5 +13,6 @@ export function setupPlugins(AppInstance:App<Element>) {
   setupVeeValidate(AppInstance)
 }
 
+export * from './toast'
 export * from './sweet-alert'
 export * from './dayjs'

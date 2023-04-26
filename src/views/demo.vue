@@ -7,6 +7,7 @@ import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
 import { fetchDemo } from '@/api'
 import { Swal } from '@/plugins/sweet-alert'
+import { toast } from '@/plugins'
 
 const { FN_LOGOUT } = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(userInfoStore())
@@ -73,12 +74,30 @@ const Toast = Swal.mixin({
   timer: 3000
 })
 
+function openToast() {
+  toast.success('測試', {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 2000,
+    theme: 'colored'
+  })
+  toast.success('登入成功', {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 2000
+  })
+  toast.error('登入失敗', {
+    position: toast.POSITION.TOP_CENTER,
+    autoClose: 2000
+  })
+}
+
 onMounted(() => {
   Toast.fire({
     icon: 'success',
     title: '加入書籤成功！'
   })
 })
+const upload = ref('')
+
 </script>
 
 <template>
@@ -105,7 +124,10 @@ onMounted(() => {
       class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
         儲存 cookie
       </button>
-
+      <button @click.prevent="openToast"
+        class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
+        開啟吐司
+      </button>
     </div>
     <h2 class="my-6 text-8 fw-700">商品列表</h2>
     <div class="grid grid-cols-3 gap-4">
@@ -124,6 +146,8 @@ onMounted(() => {
       <h1>獲得環境:{{ env }}</h1>
       <div> timeStamp 轉換{{ timeStampChange(1680307200000) }}</div>
     </div>
+    <Upload v-model="upload"></Upload>
+    <img :src="upload" alt="">
     <!-- 彈窗 -->
     <Modal v-model="demoModal" title="測試彈窗">
       <table class="w-full border-separate border border-slate-400 ...">
