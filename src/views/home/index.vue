@@ -70,6 +70,12 @@ function toProject (item:any) {
       </li>
     </ul>
   </div>
+  <div class="container m-auto gap-10 flex">
+    <MemberMenu active="sponsor" />
+    <div class="content">
+      lorem
+    </div>
+  </div>
 </template>
 
 <style>
