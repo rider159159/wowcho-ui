@@ -9,20 +9,30 @@ const props = defineProps({
   subtitle: {
     type: String,
   },
-  percent: {
-    type: Number,
-    default: 0,
-  },
   currentPrice: {
     type: Number,
     default: 0,
   },
-  remainingDays: {
+  targetPrice: {
+    type: Number,
+    default: 0,
+  },
+  endTime: {
     type: Number,
     default: 0,
   }
 });
 
+// 計算募資達成率
+const complianceRate = ref(
+  ((props.currentPrice / props.targetPrice) * 100).toFixed(2)
+);
+
+// 計算募資剩餘天數
+const timeDifference = Math.abs(props.endTime - Date.now()); // 到期時間戳與目前時間戳的絕對值
+const expiryDate = Math.floor(timeDifference / (24 * 60 * 60 * 1000));
+
+// 加上千分位符號
 const formattedCurrentPrice = computed(() => {
   return props.currentPrice.toLocaleString();
 });
@@ -35,13 +45,13 @@ const formattedCurrentPrice = computed(() => {
     <p class="text-gray-2 mb-5 md:mb-6">{{ props.subtitle }}</p>
     <div class="flex justify-between mb-2 md:mb-3">
       <div class="w-full bg-gray-4 rounded-md overflow-hidden mr-2">
-        <div class="bg-brand-3 h-full" :style="`width: ${props.percent}%`"></div>
+        <div class="bg-brand-3 h-full" :style="`width: ${complianceRate}%`"></div>
       </div>
-      {{ props.percent }}%
+      {{ complianceRate }}%
     </div>
     <div class="flex justify-between">
       <span>NT$ {{ formattedCurrentPrice }}</span>
-      <span>倒數 {{ props.remainingDays }} 天</span>
+      <span>倒數 {{ expiryDate }} 天</span>
     </div>
   </div>
 </template>
