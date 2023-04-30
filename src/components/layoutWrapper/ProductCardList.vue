@@ -23,18 +23,20 @@ const props = defineProps({
         </svg>
       </a>
     </div>
-    <div class="md:flex gap-x-6">
-      <ProductCard
-      v-for="i in 3"
-      :key="i"
-      image="/frame-709.png"
-      title="豬哥亮出國深造支持"
-      subtitle="有夢最美，希望相隨"
-      :percent="75"
-      :current-price="36036"
-      :remaining-days="41"
-    />
-    <!-- Timetramp 目標金額 目前金額 -->
-    </div>
+    <ul class="md:flex gap-x-6">
+      <li v-for="i in 3" :key="i">
+        <a href="#">
+          <ProductCard
+            image="/frame-709.png"
+            title="豬哥亮出國深造支持"
+            subtitle="有夢最美，希望相隨"
+            :percent="75"
+            :current-price="36036"
+            :target-price="100000"
+            :end-time="1687018501000"
+          />
+        </a>
+      </li>
+    </ul>
   </div>
 </template>
