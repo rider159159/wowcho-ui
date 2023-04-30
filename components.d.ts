@@ -11,6 +11,8 @@ declare module '@vue/runtime-core' {
     Header: typeof import('./src/components/layout/Header.vue')['default']
     Modal: typeof import('./src/components/common/Modal.vue')['default']
     NoneHeader: typeof import('./src/components/layoutWrapper/noneHeader.vue')['default']
+    ProductCard: typeof import('./src/components/layoutWrapper/ProductCard.vue')['default']
+    ProductCardList: typeof import('./src/components/layoutWrapper/ProductCardList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Upload: typeof import('./src/components/common/Upload.vue')['default']
