@@ -43,4 +43,5 @@ function toProject (item:any) {
       lorem
     </div>
   </div>
+  <Carousel />
 </template>
