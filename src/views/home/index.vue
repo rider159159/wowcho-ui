@@ -47,5 +47,6 @@ function toProject (item:any) {
     <plan-list
       :data="[{}, {}, {}, {}]"
     />
+    <progress-bar :percent="75" />
   </div>
 </template>
