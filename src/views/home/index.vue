@@ -30,33 +30,74 @@ function toProject (item:any) {
 
 <template>
   <!-- Banner -->
-  <div class="container lg:flex mx-auto mt-24 mb-16 md:mb-40">
+  <div class="container lg:flex px-5 md:px-0 mx-auto mt-24 mb-16 md:mb-40">
     <div class="mr-6">
       <p class="text-brand-1 text-lg md:text-2lg font-medium mb-3 md:mb-4">Create value, share success!</p>
       <h2 class="font-bold text-3xl md:text-4xl mb-4 md:mb-6">支持夢想創造價值，<br>共享成功！</h2>
       <p class="mb-6 md:mb-10">每一位賣家都有著獨特的想法和夢想，透過我們的平台而實現。我們的使命是幫助賣家們創造價值，並與支持者共享成功。
   透過我們的平台，賣家們可以輕鬆地進行募資活動，並透過與支持者的互動，得到寶貴的反饋和建議。</p>
-      <Button>
-        我想提案
-      </Button>
-      <Button>
-        我想提贊助
-      </Button>
+      <div class="flex items-center gap-x-3">
+        <Button class="w-1/2 md:w-auto bg-white text-brand-1 outline outline-2 outline-brand-1 hover:bg-brand-1 hover:text-white">
+          我想提案
+        </Button>
+        <Button class="w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">
+          我想贊助
+        </Button>
+      </div>
     </div>
     <img src="/banner.png" alt="Banner">
   </div>
+  <!-- 募資直播 -->
+  <ProductCardList
+    class="px-5 md:px-0"
+    title="募資直播  Celebrities  Live"
+    subtitle="與名人網紅直播互動"
+    :is-live="true"
+  />
+  <!-- 募資專案類別 -->
+  <div class="bg-categories | bg-brand-4 flex flex-col justify-content items-center pt-8 pb-10 md:pt-20 md:pb-22 mb-8 md:mb-20">
+    <h2 class="text-3xl font-bold md:text-4xl mb-6 md:mb-8">募資專案類別</h2>
+    <ul class="flex justify-center items-center flex-wrap w-75 text-gray-2 font-medium md:w-auto">
+      <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
+        <a href="#">社會</a>
+      </li>
+      <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
+        <a href="#">影音</a>
+      </li>
+      <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
+        <a href="#">出版</a>
+      </li>
+      <li class="md:text-2xl border-r-1 md:brand-#C2D7EA md:pr-6 md:mr-6 mb-7 md:mb-0">
+        <a href="#">娛樂</a>
+      </li>
+      <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
+        <a href="#">生活</a>
+      </li>
+      <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
+        <a href="#">設計</a>
+      </li>
+      <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
+        <a href="#">科技</a>
+      </li>
+      <li class="md:text-2xl md:mb-0">
+        <a href="#">休閒</a>
+      </li>
+    </ul>
+  </div>
   <!-- 熱門精選 -->
   <ProductCardList
+    class="px-5 md:px-0"
     title="熱門精選  MOST MOMENTUM"
     subtitle="最近幾天籌集到最多資金的產品"
   />
   <!-- 最近推出 -->
   <ProductCardList
+    class="px-5 md:px-0"
     title="最近推出 RECENTLY LAUNCHED"
     subtitle="最近推出的產品"
   />
   <!-- 信任承諾 -->
-  <div class="container mx-auto">
+  <div class="container px-5 md:px-0 mx-auto">
     <p class="text-center font-bold text-2xl md:text-3xl mb-2 md:mb-6">給予贊助者的信任承諾</p>
     <p class="text-center mb-6 md:mb-10">所有專案皆經由平台把關，<br>致力給贊助會員們最安心的保障！</p>
     <ul class="flex justify-center flex-wrap gap-x-11 md:gap-x-20">
@@ -84,4 +125,11 @@ body {
   background-repeat: no-repeat;
   background-position: -100px -100px;
 }
+
+.bg-categories {
+  background-image: url('/bg-categories.png');
+  background-repeat: no-repeat;
+  background-position: 100%;
+}
+
 </style>

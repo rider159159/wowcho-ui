@@ -20,7 +20,19 @@ const props = defineProps({
   endTime: {
     type: Number,
     default: 0,
-  }
+  },
+  isLive: {
+    type: Boolean,
+    default: false,
+  },
+  vipLive: {
+    type: Boolean,
+    default: false,
+  },
+  liveTime: {
+    type: Number,
+    default: 0,
+  },
 });
 
 // 計算募資達成率
@@ -36,11 +48,29 @@ const expiryDate = Math.floor(timeDifference / (24 * 60 * 60 * 1000));
 const formattedCurrentPrice = computed(() => {
   return props.currentPrice.toLocaleString();
 });
+
+const liveTime = new Date(props.liveTime);
 </script>
 
 <template>
   <div class="w-full cursor-pointer ease-in duration-300 hover:-translate-y-4 mb-7 md:mb-14">
-    <img class="w-full mb-4 md:mb-6" :src="props.image" :alt="props.title">
+    <div class="relative">
+      <img class="w-full mb-4 md:mb-6" :src="props.image" :alt="props.title">
+      <div
+        v-if="props.isLive"
+        class="absolute left-4 bottom-4 flex items-center gap-x-3 font-medium text-white"
+      >
+        <span
+          v-if="props.vipLive"
+          class="block bg-brand-2 rounded-lg py-2 px-3"
+        >
+          VIP會員限定
+        </span>
+        <span v-if="props.liveTime" class="block">
+          直播時間：{{ liveTime.getFullYear() }}/{{ liveTime.getMonth() + 1 }}/{{ liveTime.getDate() }} {{ liveTime.getHours() }}:{{ liveTime.getMinutes() }}
+        </span>
+      </div>
+    </div>
     <h3 class="text-xl font-medium md:text-2xl mb-2 md:mb-3">{{ props.title }}</h3>
     <p class="text-gray-2 mb-5 md:mb-6">{{ props.subtitle }}</p>
     <div class="flex justify-between mb-2 md:mb-3">
