@@ -44,6 +44,8 @@ function toProject (item:any) {
     </div>
   </div>
   <div class="container mx-auto">
-    <plan-list />
+    <plan-list
+      :data="[{}, {}, {}, {}]"
+    />
   </div>
 </template>

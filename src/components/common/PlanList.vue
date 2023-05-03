@@ -1,8 +1,16 @@
+<script setup lang="ts">
+const props = defineProps({
+  data: {
+    type: Array,
+  },
+});
+</script>
+
 <template>
   <div class="flex gap-x-4 w-full overflow-x-auto p-4">
     <plan-card
-      v-for="i in 4"
-      :key="i"
+      v-for="(item, key) in data"
+      :key="key"
       class="w-96 grow-0 shrink-0"
       id="plan_01"
       title="董事長一個人開心方案"
