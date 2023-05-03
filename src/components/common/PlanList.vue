@@ -1,9 +1,9 @@
 <template>
-  <div class="flex gap-x-4 w-full overflow-x-auto">
+  <div class="flex gap-x-4 w-full overflow-x-auto p-4">
     <plan-card
       v-for="i in 4"
       :key="i"
-      class="w-96 grow-0 shrink-0 mb-8"
+      class="w-96 grow-0 shrink-0"
       id="plan_01"
       title="董事長一個人開心方案"
       image="/test.webp"
