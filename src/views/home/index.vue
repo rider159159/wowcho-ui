@@ -48,5 +48,6 @@ function toProject (item:any) {
       :data="[{}, {}, {}, {}]"
     />
     <progress-bar :percent="75" />
+    <share-button />
   </div>
 </template>
