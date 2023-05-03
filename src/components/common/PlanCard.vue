@@ -49,7 +49,7 @@ const discountDifference = computed(() => {
 </script>
 
 <template>
-  <div class="mb-8 md:mb-16">
+  <div>
     <div class="relative">
       <img class="w-full rounded-2xl mb-4 md:mb-6" :src="props.image" :alt="props.title">
       <div class="subtract | absolute top-0 right-4 flex justify-center items-center font-medium text-white">{{ discountText }}</div>
