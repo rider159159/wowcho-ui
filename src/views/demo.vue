@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { SET_TOKEN } from '@/utils'
 // composables
-import { calculateDiscount, timeStampChange } from '@/composables'
+import { numberWithCommas, calculateDiscount, calcTargetPrice, timeStampChangeString, formatRemainingTime, formatDateAccomplish } from '@/composables'
 // store 運用
 import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
@@ -145,7 +145,16 @@ const upload = ref('')
     </div>
     <div>
       <h1>獲得環境:{{ env }}</h1>
-      <div> timeStamp 轉換{{ timeStampChange(1680307200000) }}</div>
+      <div> timeStamp 轉換{{ timeStampChangeString(1680307200000) }}</div>
+      <div>剩餘時間 {{ formatRemainingTime(1696125600000) }}</div>
+      <div>實現時間: {{ formatDateAccomplish(1696425936000) }}</div>
+      <!-- 原價、實際價格 -->
+      <p class="self-center text-xs font-bold text-black bg-yellow-300 p-1"> {{ calculateDiscount(2000, 1550)}} 折</p>
+      <!-- 目標金額，當前金額 -->
+      <div>目標金額1 - {{ calcTargetPrice(4237342, 100000)}}%</div>
+      <div>目標金額2 - {{ calcTargetPrice(1000, 10000)}}%</div>
+      <div> NT${{ numberWithCommas(42500) }}</div>
+
     </div>
     <Upload v-model="upload"></Upload>
     <img :src="upload" alt="">
