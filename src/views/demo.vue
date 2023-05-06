@@ -89,6 +89,7 @@ function openToast() {
     autoClose: 2000
   })
 }
+const formBody:any = ref({})
 
 onMounted(() => {
   Toast.fire({
@@ -130,6 +131,12 @@ const upload = ref('')
         開啟吐司
       </button>
     </div>
+    <VueDatePicker v-model="formBody.birthday" :format="'yyyy/MM/dd HH:mm'" locale="zh-TW" auto-apply>
+      <template #dp-input="{ value }">
+        <input :value="value" type="text" class="w-full text-h6 leading-h4 px-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600">
+      </template>
+    </VueDatePicker>
+
     <h2 class="my-6 text-8 fw-700">商品列表</h2>
     <div class="grid grid-cols-3 gap-4">
       <div @click="toProject(item)" v-for="(item,index) in projectList" :key="index" class="rounded-xl cursor-pointer">
