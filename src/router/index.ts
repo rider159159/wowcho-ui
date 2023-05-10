@@ -179,7 +179,8 @@ const router = createRouter({
         {
           path: '',
           name: 'cartContent',
-          component: () => import('../views/cart/content.vue'),
+          // component: () => import('../views/cart/content.vue'),
+          component: () => import('../views/cart/content2.vue'), //test
         },
         // 查看與選擇贊助方案
         {
