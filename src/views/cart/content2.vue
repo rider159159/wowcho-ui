@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed, reactive, defineExpose } from 'vue';
+import { ref, onMounted, computed, reactive, toRaw } from 'vue';
 import axios from 'axios';
 
 
@@ -57,7 +57,7 @@ const createOrder = async () => {
     enOrder.order = resData.order;
     enOrder.TradeSha = resData.shaEncrypt;
     enOrder.TradeInfo = resData.aesEncrypt;
-    console.log('enOrder', enOrder)
+    console.log('enOrder', toRaw(enOrder))
     // const form = await $refs.orderForm;
     const form = await orderForm.value;
 
@@ -71,10 +71,11 @@ const createOrder = async () => {
 const envInfo = ref(null);
 onMounted(async () => {
   try {
-    const response = await axios.get(`${backendDomain}/money-flow/`);
+    // 取得後端環境變數
+    const response = await axios.get(`${backendDomain}/money-flow`);
     envInfo.value = response.data;
-    console.log('envInfo',envInfo.value)
-
+    console.log('envInfo',toRaw(envInfo.value))
+    
   } catch (error) {
     console.error('Error fetching data:', error);
   }
