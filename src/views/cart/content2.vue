@@ -3,11 +3,12 @@ import axios from 'axios'
 
 // 将 EJS 變數替換成 Vue ref 或 computed 属性
 const backendDomain = import.meta.env.VITE_APP_BACKEND_DOMAIN
-const PayGateWay = import.meta.env.PayGateWay ? import.meta.env.PayGateWay : ''
-const MerchantID = import.meta.env.MerchantID ? import.meta.env.MerchantID : ''
-const Version = import.meta.env.Version ? import.meta.env.Version : ''
-const ReturnURL = import.meta.env.ReturnURL ? import.meta.env.ReturnURL : ''
-const NotifyURL = import.meta.env.NotifyURL ? import.meta.env.NotifyURL : ''
+const PayGateWayEnv = import.meta.env.VITE_PayGateWay ? import.meta.env.VITE_PayGateWay : ''
+const PayGateWay = ref('')
+const MerchantID = import.meta.env.VITE_MerchantID ? import.meta.env.VITE_MerchantID : ''
+const Version = import.meta.env.VITE_Version ? import.meta.env.VITE_Version : ''
+const ReturnURL = import.meta.env.VITE_ReturnURL ? import.meta.env.VITE_ReturnURL : ''
+const NotifyURL = import.meta.env.VITE_NotifyURL ? import.meta.env.VITE_NotifyURL : ''
 
 const title = ref('確認訂單')
 const orderForm = ref <HTMLFormElement | null>(null)
@@ -66,16 +67,10 @@ const createOrder = async () => {
   }
 }
 
-// onMounted(async () => {
-//   try {
-//     // 取得後端環境變數
-//     const response = await axios.get(`${backendDomain}/money-flow`)
-//     envInfo.value = response.data
-//     console.log('envInfo', toRaw(envInfo.value))
-//   } catch (error) {
-//     console.error('Error fetching data:', error)
-//   }
-// })
+onMounted(async () => {
+  console.log(import.meta.env)
+  PayGateWay.value = PayGateWayEnv
+})
 
 // defineExpose({
 //   orderForm,
@@ -89,11 +84,11 @@ const createOrder = async () => {
 
 <template>
   <div v-if="order">
-    選擇贊助方式
+    選擇贊助方式 {{  PayGateWay }}
     <h2>
       {{ title }}
     </h2>
-    <form ref="orderForm" @submit.prevent="createOrder" :action="PayGateWay" method="post">
+    <form ref="orderForm" @submit="createOrder" :action="PayGateWay" method="post">
       <div>
         <label>商品品名:</label> {{ order.ItemDesc }}
         <input type="hidden" name="ItemDesc" :value="order.ItemDesc" required />
