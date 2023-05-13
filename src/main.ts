@@ -11,6 +11,7 @@ import 'vue3-toastify/dist/index.css';
 import 'swiper/scss'
 import 'swiper/scss/pagination'
 import 'swiper/scss/navigation'
+import '@vuepic/vue-datepicker/dist/main.css';
 
 function setupApp() {
   const app = createApp(App)
