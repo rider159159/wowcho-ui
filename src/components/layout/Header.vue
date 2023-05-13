@@ -199,7 +199,7 @@ function closeMemberMenu() {
         >
         <a
           v-if="isLogin"
-          @click="FN_LOGOUT"
+          @click.prevent="FN_LOGOUT"
           class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
           href="#!"
           ><Button class="w-full outline outline-2 outline-brand-1 bg-white text-brand-1 hover:bg-brand-1 hover:text-white">登出</Button></a
