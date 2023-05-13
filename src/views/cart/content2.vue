@@ -1,90 +1,84 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed, reactive, toRaw } from 'vue';
-import axios from 'axios';
-
+import { ref, onMounted, computed, reactive, toRaw } from 'vue'
+import axios from 'axios'
 
 // 将 EJS 變數替換成 Vue ref 或 computed 属性
 const backendDomain = import.meta.env.VITE_APP_BACKEND_DOMAIN
-const title = ref('確認訂單');
-const orderForm = ref(null);
-const PayGateWay = computed(()=>(envInfo.value ? envInfo.value.PayGateWay : '' )); // 藍新API
-const MerchantID = computed(()=>(envInfo.value ? envInfo.value.MerchantID : '')); // 使用 envInfo 中的 MerchantID
-const Version = computed(() => (envInfo.value ? envInfo.value.Version : '')); // 使用 envInfo 中的 Version
+const PayGateWay = import.meta.env.PayGateWay ? import.meta.env.PayGateWay : ''
+const MerchantID = import.meta.env.MerchantID ? import.meta.env.MerchantID : ''
+const Version = import.meta.env.Version ? import.meta.env.Version : ''
+const ReturnURL = import.meta.env.ReturnURL ? import.meta.env.ReturnURL : ''
+const NotifyURL = import.meta.env.NotifyURL ? import.meta.env.NotifyURL : ''
 
-const order = computed(()=>({ //給藍新必填欄位 參數名不可變動
-  ItemDesc: 'Chelly牌雨傘',        //商品品名
-  Amt: 100,                     //訂單金額
-  Email: 'wowcho2023@gmail.com',  //付款人信箱 （非收件人
-  TimeStamp: '',                  //時間戳記
-  MerchantOrderNo: '',            //商店訂單編號
-  ReturnURL: envInfo.value ? envInfo.value.ReturnURL : '',  //支付完成 返回商店網址
-  NotifyURL: envInfo.value ? envInfo.value.NotifyURL : '',  //支付通知網址
-  EncryptType: 0,                 //加密模式 AES256方式加密參帶0, AES GCM方式加密帶1
-  CREDIT: 1,                    //信用卡一次付清 1=啟用 0=不啟用
-  CVSCOM: 0,                    //物流啟用(方式) 店到店物流啟用 3=啟用超商取貨不付款及超商取貨付款 0=不開啟店到店(郵寄）
-}));
+const title = ref('確認訂單')
+const orderForm = ref <HTMLFormElement | null>(null)
+
+const order = computed(() => ({ // 給藍新必填欄位 參數名不可變動
+  ItemDesc: 'Chelly牌雨傘', // 商品品名
+  Amt: 100, // 訂單金額
+  Email: 'wowcho2023@gmail.com', // 付款人信箱 （非收件人
+  TimeStamp: '', // 時間戳記
+  MerchantOrderNo: '', // 商店訂單編號
+  ReturnURL, // 支付完成 返回商店網址
+  NotifyURL, // 支付通知網址
+  EncryptType: 0, // 加密模式 AES256方式加密參帶0, AES GCM方式加密帶1
+  CREDIT: 1, // 信用卡一次付清 1=啟用 0=不啟用
+  CVSCOM: 0 // 物流啟用(方式) 店到店物流啟用 3=啟用超商取貨不付款及超商取貨付款 0=不開啟店到店(郵寄）
+}))
 const enOrder = reactive({
-  order: {},    //未加密
-  TradeSha: '', //加密DATA 給藍新必填欄位 參數名不可變動
-  TradeInfo: '' //加密DATA 給藍新必填欄位 參數名不可變動
-});
+  order: {}, // 未加密
+  TradeSha: '', // 加密DATA 給藍新必填欄位 參數名不可變動
+  TradeInfo: '' // 加密DATA 給藍新必填欄位 參數名不可變動
+})
 
 // 使用深拷貝物件，將循環引用的屬性替換為指定值
 // 使用一個名為 deepClone 的遞迴函式來實現深拷貝，並在遇到循環引用時將其替換為 null
 const deepClone = (obj, seen = new WeakSet()) => {
-  if (typeof obj !== 'object' || obj === null) return obj;
-  if (seen.has(obj)) return null;
+  if (typeof obj !== 'object' || obj === null) return obj
+  if (seen.has(obj)) return null
 
-  seen.add(obj);
-  const newObj = Array.isArray(obj) ? [] : {};
+  seen.add(obj)
+  const newObj = Array.isArray(obj) ? [] : {}
   for (const key in obj) {
-    newObj[key] = deepClone(obj[key], seen);
+    newObj[key] = deepClone(obj[key], seen)
   }
-  return newObj;
-};
-
+  return newObj
+}
 
 const createOrder = async () => {
   try {
-    const url = `${backendDomain}/money-flow/createOrder`; //後端加密api
-    console.log('order', order.value);
+    const url = `${backendDomain}/pay/createOrder` // 後端加密api
+    console.log('order', order.value)
 
-    const cleanOrder = deepClone(order.value);
-    const res = await axios.post(url, cleanOrder); //後端加密
+    const cleanOrder = deepClone(order.value)
+    const res = await axios.post(url, cleanOrder) // 後端加密
 
-    console.log('res', res);
-    const resData = res.data;
-    enOrder.order = resData.order;
-    enOrder.TradeSha = resData.shaEncrypt;
-    enOrder.TradeInfo = resData.aesEncrypt;
-    console.log('enOrder', toRaw(enOrder))
-    // const form = await $refs.orderForm;
-    const form = await orderForm.value;
-
-    form.submit(); //藍新僅接收Form Post
-
+    const resData = res.data
+    enOrder.order = resData.order
+    enOrder.TradeSha = resData.shaEncrypt
+    enOrder.TradeInfo = resData.aesEncrypt
+    // const form = await $refs.orderForm
+    orderForm.value?.submit() // 藍新僅接收Form Post
   } catch (error) {
-    console.log('Encode Error:', error.message);
+    console.log('Encode Error:', error.message)
   }
 }
 
-const envInfo = ref(null);
-onMounted(async () => {
-  try {
-    // 取得後端環境變數
-    const response = await axios.get(`${backendDomain}/money-flow`);
-    envInfo.value = response.data;
-    console.log('envInfo',toRaw(envInfo.value))
-    
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-});
+// onMounted(async () => {
+//   try {
+//     // 取得後端環境變數
+//     const response = await axios.get(`${backendDomain}/money-flow`)
+//     envInfo.value = response.data
+//     console.log('envInfo', toRaw(envInfo.value))
+//   } catch (error) {
+//     console.error('Error fetching data:', error)
+//   }
+// })
 
-defineExpose({
-  orderForm,
-  createOrder,
-});
+// defineExpose({
+//   orderForm,
+//   createOrder
+// })
 
 </script>
 
