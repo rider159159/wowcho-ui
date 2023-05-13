@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Button: typeof import('./src/components/common/Button.vue')['default']
+    Carousel: typeof import('./src/components/common/Carousel.vue')['default']
     DefaultLayout: typeof import('./src/components/layoutWrapper/DefaultLayout.vue')['default']
     Header: typeof import('./src/components/layout/Header.vue')['default']
     MemberMenu: typeof import('./src/components/common/MemberMenu.vue')['default']
@@ -17,6 +18,8 @@ declare module '@vue/runtime-core' {
     ProductCardList: typeof import('./src/components/common/ProductCardList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Swiper: typeof import('swiper/vue')['Swiper']
+    SwiperSlide: typeof import('swiper/vue')['SwiperSlide']
     Upload: typeof import('./src/components/common/Upload.vue')['default']
   }
 }

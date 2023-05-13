@@ -8,6 +8,9 @@ import '@unocss/reset/tailwind-compat.css'
 import 'uno.css'
 import '../src/style/style.scss'
 import 'vue3-toastify/dist/index.css';
+import 'swiper/scss'
+import 'swiper/scss/pagination'
+import 'swiper/scss/navigation'
 
 function setupApp() {
   const app = createApp(App)
