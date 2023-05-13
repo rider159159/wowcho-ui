@@ -26,6 +26,44 @@ function toProject (item:any) {
     }
   })
 }
+
+const selectCategory = ref('社會')
+
+// 假資料
+const lists = ref({
+  社會: [
+    'a000000001',
+    'a000000002'
+  ],
+  影音: [
+    'b000000001',
+    'b000000002'
+  ],
+  出版: [
+    'c000000001',
+    'c000000002'
+  ],
+  娛樂: [
+    'd000000001',
+    'd000000002'
+  ],
+  生活: [
+    'e000000001',
+    'e000000002'
+  ],
+  設計: [
+    'f000000001',
+    'f000000002'
+  ],
+  科技: [
+    'g000000001',
+    'g000000002'
+  ],
+  休閒: [
+    'h000000001',
+    'h000000002'
+  ]
+})
 </script>
 
 <template>
@@ -54,33 +92,34 @@ function toProject (item:any) {
     subtitle="與名人網紅直播互動"
     :is-live="true"
   />
+  <Carousel :list="lists[selectCategory]" />
   <!-- 募資專案類別 -->
   <div class="bg-categories | bg-brand-4 flex flex-col justify-content items-center pt-8 pb-10 md:pt-20 md:pb-22 mb-8 md:mb-20">
     <h2 class="text-3xl font-bold md:text-4xl mb-6 md:mb-8">募資專案類別</h2>
     <ul class="flex justify-center items-center flex-wrap w-75 text-gray-2 font-medium md:w-auto">
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
-        <a href="#">社會</a>
+        <a @click.prevent="selectCategory = '社會'">社會</a>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
-        <a href="#">影音</a>
+        <a @click.prevent="selectCategory = '影音'">影音</a>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
-        <a href="#">出版</a>
+        <a @click.prevent="selectCategory = '出版'">出版</a>
       </li>
       <li class="md:text-2xl border-r-1 md:brand-#C2D7EA md:pr-6 md:mr-6 mb-7 md:mb-0">
-        <a href="#">娛樂</a>
+        <a @click.prevent="selectCategory = '娛樂'">娛樂</a>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
-        <a href="#">生活</a>
+        <a @click.prevent="selectCategory = '生活'">生活</a>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
-        <a href="#">設計</a>
+        <a @click.prevent="selectCategory = '設計'">設計</a>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
-        <a href="#">科技</a>
+        <a @click.prevent="selectCategory = '科技'">科技</a>
       </li>
       <li class="md:text-2xl md:mb-0">
-        <a href="#">休閒</a>
+        <a @click.prevent="selectCategory = '休閒'">休閒</a>
       </li>
     </ul>
   </div>
@@ -117,7 +156,6 @@ function toProject (item:any) {
       lorem
     </div>
   </div>
-  <Carousel />
 </template>
 
 <style>
