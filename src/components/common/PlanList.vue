@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const props = defineProps({
   data: {
-    type: Array,
-  },
-});
+    type: Array
+  }
+})
 </script>
 
 <template>

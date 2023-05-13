@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import Clipboard from 'clipboard';
-import { toast } from '@/plugins';
+import Clipboard from 'clipboard'
+import { toast } from '@/plugins'
 
 function copyUrl(): void {
   const clipboard = new Clipboard('.copy_url') // 點選事件連結的 class 名
   clipboard.on('success', () => {
     toast.success('您已成功複製網址', {
       position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-    });
-    clipboard.destroy(); // 釋放記憶體
-  });
+      autoClose: 2000
+    })
+    clipboard.destroy() // 釋放記憶體
+  })
   clipboard.on('error', () => {
     toast.error('網址複製失敗', {
       position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-    });
-    clipboard.destroy(); // 釋放記憶體
-  });
+      autoClose: 2000
+    })
+    clipboard.destroy() // 釋放記憶體
+  })
 }
 
-const currentUrl: string = window.location.href;
+const currentUrl: string = window.location.href
 </script>
 
 <template>

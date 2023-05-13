@@ -8,16 +8,16 @@ const { FN_LOGOUT } = userInfoStore()
 
 const router = useRouter()
 
-const showMenu = ref(false);
-const showMemberMenu = ref(false);
-const isLogin = ref(true);
-const showBgWhite = ref(false);
+const showMenu = ref(false)
+const showMemberMenu = ref(false)
+const isLogin = ref(true)
+const showBgWhite = ref(false)
 
 onMounted(() => {
   window.addEventListener('scroll', () => {
-    showBgWhite.value = window.pageYOffset > 0;
+    showBgWhite.value = window.pageYOffset > 0
   })
-});
+})
 
 function closeMemberMenu() {
   setTimeout(() => {

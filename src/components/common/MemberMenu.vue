@@ -3,7 +3,7 @@ const props = defineProps({
   active: {
     type: String,
     default: () => 'sponsor'
-  },
+  }
 })
 </script>
 

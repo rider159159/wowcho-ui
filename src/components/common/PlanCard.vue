@@ -1,51 +1,51 @@
 <script setup lang="ts">
 const props = defineProps({
   id: {
-    type: String,
+    type: String
   },
   title: {
-    type: String,
+    type: String
   },
   image: {
-    type: String,
+    type: String
   },
   discountText: {
-    type: String,
+    type: String
   },
   count: {
     type: Number,
-    default: 0,
+    default: 0
   },
   price: {
     type: Number,
-    default: 0,
+    default: 0
   },
   originPrice: {
     type: Number,
-    default: 0,
+    default: 0
   },
   spotGoods: {
-    type: String,
+    type: String
   },
   content: {
-    type: String,
+    type: String
   },
   shipping: {
-    type: String,
-  },
-});
+    type: String
+  }
+})
 
 const price = computed(() => {
-  return props.price.toLocaleString();
-});
+  return props.price.toLocaleString()
+})
 
 const originPrice = computed(() => {
-  return props.originPrice.toLocaleString();
-});
+  return props.originPrice.toLocaleString()
+})
 
 const discountDifference = computed(() => {
-  return (props.originPrice - props.price).toLocaleString();
-});
+  return (props.originPrice - props.price).toLocaleString()
+})
 </script>
 
 <template>
