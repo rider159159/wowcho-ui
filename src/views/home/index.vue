@@ -75,12 +75,12 @@ const lists = ref({
       <p class="mb-6 md:mb-10">每一位賣家都有著獨特的想法和夢想，透過我們的平台而實現。我們的使命是幫助賣家們創造價值，並與支持者共享成功。
   透過我們的平台，賣家們可以輕鬆地進行募資活動，並透過與支持者的互動，得到寶貴的反饋和建議。</p>
       <div class="flex items-center gap-x-3">
-        <Button class="w-1/2 md:w-auto bg-white text-brand-1 outline outline-2 outline-brand-1 hover:bg-brand-1 hover:text-white">
+        <MyButton class="w-1/2 md:w-auto bg-white text-brand-1 outline outline-2 outline-brand-1 hover:bg-brand-1 hover:text-white">
           我想提案
-        </Button>
-        <Button class="w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">
+        </MyButton>
+        <MyButton class="w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">
           我想贊助
-        </Button>
+        </MyButton>
       </div>
     </div>
     <img src="/banner.png" alt="Banner">
