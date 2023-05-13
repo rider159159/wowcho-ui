@@ -51,11 +51,9 @@ const deepClone = (obj:any, seen = new WeakSet()) => {
 const createOrder = async () => {
   try {
     const url = `${backendDomain}/pay/createOrder` // 後端加密api
-    console.log('order', order.value)
-
     const cleanOrder = deepClone(order.value)
     const res = await axios.post(url, cleanOrder) // 後端加密
-
+    console.log(res)
     const resData = res.data
     enOrder.order = resData.order
     enOrder.TradeSha = resData.shaEncrypt
@@ -68,7 +66,6 @@ const createOrder = async () => {
 }
 
 onMounted(async () => {
-  console.log(import.meta.env)
   PayGateWay.value = PayGateWayEnv
 })
 
@@ -88,7 +85,7 @@ onMounted(async () => {
     <h2>
       {{ title }}
     </h2>
-    <form ref="orderForm" @submit="createOrder" :action="PayGateWay" method="post">
+    <form ref="orderForm" @submit.prevent="createOrder" :action="PayGateWay" method="post">
       <div>
         <label>商品品名:</label> {{ order.ItemDesc }}
         <input type="hidden" name="ItemDesc" :value="order.ItemDesc" required />
