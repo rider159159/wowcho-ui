@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed, reactive, toRaw } from 'vue'
 import axios from 'axios'
 
 // 将 EJS 變數替換成 Vue ref 或 computed 属性
@@ -28,18 +27,21 @@ const order = computed(() => ({ // 給藍新必填欄位 參數名不可變動
 const enOrder = reactive({
   order: {}, // 未加密
   TradeSha: '', // 加密DATA 給藍新必填欄位 參數名不可變動
-  TradeInfo: '' // 加密DATA 給藍新必填欄位 參數名不可變動
+  TradeInfo: '', // 加密DATA 給藍新必填欄位 參數名不可變動
+  TimeStamp: '',
+  MerchantOrderNo: ''
 })
 
 // 使用深拷貝物件，將循環引用的屬性替換為指定值
 // 使用一個名為 deepClone 的遞迴函式來實現深拷貝，並在遇到循環引用時將其替換為 null
-const deepClone = (obj, seen = new WeakSet()) => {
+const deepClone = (obj:any, seen = new WeakSet()) => {
   if (typeof obj !== 'object' || obj === null) return obj
   if (seen.has(obj)) return null
 
   seen.add(obj)
   const newObj = Array.isArray(obj) ? [] : {}
   for (const key in obj) {
+    // @ts-ignore
     newObj[key] = deepClone(obj[key], seen)
   }
   return newObj
@@ -59,7 +61,7 @@ const createOrder = async () => {
     enOrder.TradeInfo = resData.aesEncrypt
     // const form = await $refs.orderForm
     orderForm.value?.submit() // 藍新僅接收Form Post
-  } catch (error) {
+  } catch (error:any) {
     console.log('Encode Error:', error.message)
   }
 }

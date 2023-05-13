@@ -1,33 +1,31 @@
 <script setup lang="ts">
-  import { ref, onMounted, toRaw } from 'vue';
-  import axios from 'axios';
+// import { ref, onMounted, toRaw } from 'vue'
+// import axios from 'axios'
 
-  const backendDomain = import.meta.env.VITE_APP_BACKEND_DOMAIN
-  const dataInfo = ref({});
-  const result = ref({});
+// const backendDomain = import.meta.env.VITE_APP_BACKEND_DOMAIN
+// const dataInfo = ref({})
+// const result = ref({})
 
-  onMounted(async () => {
-    try {
+// onMounted(async () => {
+//   try {
+//     const response = await axios.get(`${backendDomain}/money-flow/newebpay-return`)
+//     dataInfo.value = response.data
+//     console.log('dataInfo', toRaw(dataInfo.value))
 
-      const response = await axios.get(`${backendDomain}/money-flow/newebpay-return`);
-      dataInfo.value = response.data;
-      console.log('dataInfo',toRaw(dataInfo.value))
-
-      const resData = toRaw(dataInfo.value)
-      result.value = resData.mpgReturnData?.Result || {};
-      console.log(toRaw(result.value))
-      console.log(toRaw(dataInfo.value?.title))
-
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  });
+//     const resData = toRaw(dataInfo.value)
+//     result.value = resData.mpgReturnData?.Result || {}
+//     console.log(toRaw(result.value))
+//     console.log(toRaw(dataInfo.value?.title))
+//   } catch (error) {
+//     console.error('Error fetching data:', error)
+//   }
+// })
 </script>
 
 <template>
   <div>
 
-    <table>
+    <!-- <table>
       <thead>
         <tr>
           <th></th>
@@ -40,6 +38,6 @@
           <td>{{ value }}</td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
   </div>
 </template>
