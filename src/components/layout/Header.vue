@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
+// import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
 
-const store = userInfoStore()
-const { USER_INFO_REF } = storeToRefs(store)
+// const store = userInfoStore()
+// const { USER_INFO_REF } = storeToRefs(store)
 const { FN_LOGOUT } = userInfoStore()
 
 const router = useRouter()
