@@ -98,28 +98,28 @@ const lists = ref({
     <h2 class="text-3xl font-bold md:text-4xl mb-6 md:mb-8">募資專案類別</h2>
     <ul class="flex justify-center items-center flex-wrap w-75 text-gray-2 font-medium md:w-auto">
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
-        <a @click.prevent="selectCategory = '社會'">社會</a>
+        <a class="cursor-pointer" @click.prevent="selectCategory = '社會'">社會</a>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
-        <a @click.prevent="selectCategory = '影音'">影音</a>
+        <a class="cursor-pointer" @click.prevent="selectCategory = '影音'">影音</a>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
-        <a @click.prevent="selectCategory = '出版'">出版</a>
+        <a class="cursor-pointer" @click.prevent="selectCategory = '出版'">出版</a>
       </li>
       <li class="md:text-2xl border-r-1 md:brand-#C2D7EA md:pr-6 md:mr-6 mb-7 md:mb-0">
-        <a @click.prevent="selectCategory = '娛樂'">娛樂</a>
+        <a class="cursor-pointer" @click.prevent="selectCategory = '娛樂'">娛樂</a>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
-        <a @click.prevent="selectCategory = '生活'">生活</a>
+        <a class="cursor-pointer" @click.prevent="selectCategory = '生活'">生活</a>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
-        <a @click.prevent="selectCategory = '設計'">設計</a>
+        <a class="cursor-pointer" @click.prevent="selectCategory = '設計'">設計</a>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
-        <a @click.prevent="selectCategory = '科技'">科技</a>
+        <a class="cursor-pointer" @click.prevent="selectCategory = '科技'">科技</a>
       </li>
       <li class="md:text-2xl md:mb-0">
-        <a @click.prevent="selectCategory = '休閒'">休閒</a>
+        <a class="cursor-pointer" @click.prevent="selectCategory = '休閒'">休閒</a>
       </li>
     </ul>
   </div>
