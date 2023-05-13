@@ -8,7 +8,7 @@ const props = defineProps({
 
 <template>
   <div class="flex gap-x-4 w-full overflow-x-auto p-4">
-    <plan-card
+    <PlanCard
       v-for="(item, key) in props.data"
       :key="key"
       class="w-96 grow-0 shrink-0"

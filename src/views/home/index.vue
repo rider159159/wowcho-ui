@@ -44,10 +44,10 @@ function toProject (item:any) {
     </div>
   </div>
   <div class="container mx-auto">
-    <plan-list
+    <PlanList
       :data="[{}, {}, {}, {}]"
     />
-    <progress-bar :percent="75" />
-    <share-button />
+    <ProgressBar :percent="75" />
+    <ShareButton />
   </div>
 </template>
