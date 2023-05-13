@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Clipboard from 'clipboard';
 import { toast } from '@/plugins';
-import { Swal } from '@/plugins/sweet-alert';
 
 function copyUrl(): void {
   const clipboard = new Clipboard('.copy_url') // 點選事件連結的 class 名
@@ -20,13 +19,6 @@ function copyUrl(): void {
     clipboard.destroy(); // 釋放記憶體
   });
 }
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-});
 
 const currentUrl: string = window.location.href;
 </script>
