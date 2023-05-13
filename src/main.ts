@@ -8,6 +8,7 @@ import '@unocss/reset/tailwind-compat.css'
 import 'uno.css'
 import '../src/style/style.scss'
 import 'vue3-toastify/dist/index.css';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 function setupApp() {
   const app = createApp(App)
