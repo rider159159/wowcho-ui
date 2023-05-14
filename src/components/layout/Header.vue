@@ -1,15 +1,23 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
+// import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
 
-const store = userInfoStore()
-const { USER_INFO_REF } = storeToRefs(store)
+// const store = userInfoStore()
+// const { USER_INFO_REF } = storeToRefs(store)
+const { FN_LOGOUT } = userInfoStore()
 
 const router = useRouter()
 
-const showMenu = ref(false);
-const showMemberMenu = ref(false);
-const isLogin = ref(true);
+const showMenu = ref(false)
+const showMemberMenu = ref(false)
+const isLogin = ref(true)
+const showBgWhite = ref(false)
+
+onMounted(() => {
+  window.addEventListener('scroll', () => {
+    showBgWhite.value = window.pageYOffset > 0
+  })
+})
 
 function closeMemberMenu() {
   setTimeout(() => {
@@ -21,7 +29,9 @@ function closeMemberMenu() {
 <template>
   <header class="fixed z-10 top-0 left-0 w-full">
     <nav
-      class="relative flex w-full items-center justify-between bg-white py-2 text-neutral-600 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 dark:text-neutral-200 md:flex-wrap md:justify-start">
+      class="relative flex w-full items-center justify-between ease-in duration-300 py-2 text-neutral-600 hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 dark:text-neutral-200 md:flex-wrap md:justify-start"
+      :class="{'bg-white': showBgWhite}"
+      >
       <div class="flex w-full flex-wrap items-center justify-between px-6">
         <div
           class="container mx-auto !visible grow basis-[100%] items-center flex lg:basis-auto justify-between"
@@ -95,6 +105,7 @@ function closeMemberMenu() {
                 </li>
                 <li class="px-4 py-3 border-t-1 border-line" data-te-nav-item-ref>
                   <a
+                    @click="FN_LOGOUT"
                     class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                     href="#!"
                     >登出</a
@@ -188,6 +199,7 @@ function closeMemberMenu() {
         >
         <a
           v-if="isLogin"
+          @click.prevent="FN_LOGOUT"
           class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
           href="#!"
           ><Button class="w-full outline outline-2 outline-brand-1 bg-white text-brand-1 hover:bg-brand-1 hover:text-white">登出</Button></a
