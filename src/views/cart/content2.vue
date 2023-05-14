@@ -7,8 +7,6 @@ const backendDomain = import.meta.env.VITE_APP_BACKEND_DOMAIN
 const PayGateWay = ref('')
 const MerchantID = ref('')
 const Version = ref('')
-const ReturnURL = import.meta.env.VITE_ReturnURL ? import.meta.env.VITE_ReturnURL : ''
-const NotifyURL = import.meta.env.VITE_NotifyURL ? import.meta.env.VITE_NotifyURL : ''
 
 const title = ref('確認訂單')
 const orderForm = ref <HTMLFormElement | null>(null)
@@ -19,8 +17,6 @@ const order = ref({
   Email: 'wowcho2023@gmail.com', // 付款人信箱 （非收件人
   TimeStamp: '', // 時間戳記
   MerchantOrderNo: '', // 商店訂單編號
-  ReturnURL, // 支付完成 返回商店網址
-  NotifyURL, // 支付通知網址
   EncryptType: 0, // 加密模式 AES256方式加密參帶0, AES GCM方式加密帶1
   CREDIT: 1, // 信用卡一次付清 1=啟用 0=不啟用
   CVSCOM: 0 //
@@ -42,7 +38,6 @@ const createOrder = async () => {
     const url = `${backendDomain}/pay/createOrder` // 後端加密api
     const res = await axios.post(url, order.value) // 後端加密
     const resData = res.data
-    payInfo.order = resData.order
     payInfo.TradeSha = resData.shaEncrypt
     payInfo.TradeInfo = resData.aesEncrypt
     const form:any = await orderForm.value
@@ -70,7 +65,7 @@ onMounted(async () => {
 
 <template>
   <div v-if="order">
-    選擇贊助方式 {{  PayGateWay }}
+    選擇贊助方式
     <h2>
       {{ title }}
     </h2>
@@ -98,14 +93,9 @@ onMounted(async () => {
       <!-- 必傳參數 -->
       <input type="hidden" name="MerchantID" :value="MerchantID" required />
       <input type="hidden" name="Version" :value="Version" required />
-
       <input type="hidden" name="CREDIT" :value="order.CREDIT" required />
       <input type="hidden" name="CVSCOM" :value="order.CVSCOM" required />
-      <input type="hidden" name="ReturnURL" :value="order.ReturnURL" required />
-      <input type="hidden" name="NotifyURL" :value="order.NotifyURL" required />
 
-      <input type="hidden" name="TimeStamp" :value="payInfo.TimeStamp" required />
-      <input type="hidden" name="MerchantOrderNo" :value="payInfo.MerchantOrderNo" required />
       <input type="hidden" name="TradeSha" v-model="payInfo.TradeSha" required />
       <input type="hidden" name="TradeInfo" v-model="payInfo.TradeInfo" required />
 
