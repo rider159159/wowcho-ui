@@ -92,8 +92,11 @@ const lists = ref({
     subtitle="與名人網紅直播互動"
     :is-live="true"
   />
-  <Carousel :list="lists[selectCategory]" />
   <!-- 募資專案類別 -->
+  <Carousel
+    :list="lists[selectCategory]"
+    :slidesPerView="3"
+  />
   <div class="bg-categories | bg-brand-4 flex flex-col justify-content items-center pt-8 pb-10 md:pt-20 md:pb-22 mb-8 md:mb-20">
     <h2 class="text-3xl font-bold md:text-4xl mb-6 md:mb-8">募資專案類別</h2>
     <ul class="flex justify-center items-center flex-wrap w-75 text-gray-2 font-medium md:w-auto">
