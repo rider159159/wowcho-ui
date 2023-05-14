@@ -24,7 +24,9 @@
 
 <template>
   <div>
-
+    <div>
+    購買成功
+    </div>
     <!-- <table>
       <thead>
         <tr>
