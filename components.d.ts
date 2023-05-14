@@ -18,6 +18,7 @@ declare module '@vue/runtime-core' {
     PlanCard: typeof import('./src/components/common/PlanCard.vue')['default']
     PlanList: typeof import('./src/components/common/PlanList.vue')['default']
     ProductCard: typeof import('./src/components/common/ProductCard.vue')['default']
+    ProductInfo: typeof import('./src/components/common/ProductInfo.vue')['default']
     ProgressBar: typeof import('./src/components/common/ProgressBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
