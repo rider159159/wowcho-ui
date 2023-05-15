@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-img | bg-no-repeat bg-cover">
+  <div class="bg-img | bg-no-repeat bg-cover mt-5 md:mt-17">
     <div class="container border-b-1 border-#C2D7EA pt-9 md:pt-14 pb-7 md:pb-8 mx-auto mb-8">
       <div class="lg:w-850px mx-auto">
         <img class="mx-auto mb-5 md:mb-8" src="/footer_logo.svg" alt="Logo">

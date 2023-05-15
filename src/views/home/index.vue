@@ -1,53 +1,221 @@
 <script lang="ts" setup>
-const router = useRouter()
-const projectsList = ref([
-  {
-    title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
-    image: './test.webp',
-    id: 'revopoint-range-1'
-  },
-  {
-    title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
-    image: './test.webp',
-    id: 'revopoint-range-2'
-  },
-  {
-    title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
-    image: './test.webp',
-    id: 'revopoint-range-3'
-  }
-])
+// const router = useRouter()
 
-function toProject (item:any) {
-  router.push({
-    name: 'projects',
-    params: {
-      id: item.id
-    }
-  })
-}
+// const projectsList = ref([
+//   {
+//     title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
+//     image: './test.webp',
+//     id: 'revopoint-range-1'
+//   },
+//   {
+//     title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
+//     image: './test.webp',
+//     id: 'revopoint-range-2'
+//   },
+//   {
+//     title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
+//     image: './test.webp',
+//     id: 'revopoint-range-3'
+//   }
+// ])
+
+// function toProject (item:any) {
+//   router.push({
+//     name: 'projects',
+//     params: {
+//       id: item.id
+//     }
+//   })
+// }
+
+const categories = [
+  {
+    path: '',
+    name: '社會'
+  },
+  {
+    path: '',
+    name: '影音'
+  },
+  {
+    path: '',
+    name: '出版'
+  },
+  {
+    path: '',
+    name: '娛樂'
+  },
+  {
+    path: '',
+    name: '生活'
+  },
+  {
+    path: '',
+    name: '設計'
+  },
+  {
+    path: '',
+    name: '科技'
+  },
+  {
+    path: '',
+    name: '休閒'
+  }
+]
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-4">
-    <div @click="toProject(item)" v-for="(item,index) in projectsList" :key="index" class="rounded-xl cursor-pointer">
-      <div class="flex flex-col w-full">
-        <img :src="item.image" alt="">
-        <p>{{ item.title }}</p>
+  <div class="mx-auto flex flex-col items-center">
+    <!-- Background -->
+    <div class="absolute left-0 top-0 -z-10">
+      <img class="hidden md:block w-1/2" src="/bg_01.png">
+      <img class="block md:hidden w-9/10" src="/bg_01_mb.png">
+    </div>
+
+    <!-- Banner -->
+    <div class="md:max-w-324 pt-12 md:pt-24 pb-8 md:pb-20 px-3 md:px-0">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        <div class="flex flex-col">
+          <div class="text-brand-1 text-h5 md:text-h4 md:leading-h4 font-medium">Create value, share success!</div>
+          <div class="text-gray-1 text-h2 md:text-h1 leading-h2 md:leading-h1 font-bold mt-3 md:mt-4">支持夢想創造價值，<br>共享成功！</div>
+          <p class="text-gray-2 md:text-h5 leading-30px md:leading-30px mt-4 md:mt-5">每一位賣家都有著獨特的想法和夢想，透過我們的平台而實現。我們的使命是幫助賣家們創造價值，並與支持者共享成功。</p>
+          <p class="text-gray-2 md:text-h5 leading-30px md:leading-30px">透過我們的平台，賣家們可以輕鬆地進行募資活動，並透過與支持者的互動，得到寶貴的反饋和建議。</p>
+          <div class="mt-6 md:mt-10 flex gap-4 md:gap-6">
+            <MyButton class="flex-1 md:flex-none border bg-white bg-opacity-0 border-2 border-brand-1 text-brand-1 py-3 md:text-h5 leading-h6 md:leading-h5 hover:bg-brand-2 hover:border-brand-2 hover:text-white">我想提案</MyButton>
+            <MyButton class="flex-1 md:flex-none border bg-brand-1 text-white border-2 border-brand-1 py-3 md:text-h5 leading-h6 md:leading-h5 hover:bg-brand-2 hover:border-brand-2">我想贊助</MyButton>
+          </div>
+        </div>
+        <div>
+          <img src="/cheers.png">
+        </div>
+      </div>
+    </div>
+
+    <!-- Celebrities  Live -->
+    <div class="w-full md:max-w-324 px-3 md:px-0 py-8 md:py-20 flex flex-col justify-center items-center gap-6 md:gap-10">
+      <div class="flex flex-col justify-center items-center gap-2 md:gap-4">
+        <div class="text-center text-h4 md:text-h2 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">募資直播  Celebrities  Live</div>
+        <div class="text-h5 md:text-h4 leading-30px md:leading-9 text-gray-2">與名人網紅直播互動</div>
+      </div>
+      <div class="w-full flex flex-col md:flex-row justify-between gap-7 md:gap-6">
+        <div v-for="i in 3" class="md:w-416px h-334px md:h-410px flex justify-center items-center border-2 border-gray-2 bg-gray-4" :key="i">
+          我是為了直播專案預留的區塊 {{ i }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="w-full pt-8 md:py-20">
+      <div class="flex justify-center items-center border-2 border-gray-2 bg-gray-4 h-100">
+        我是為了輪播牆預留的區塊
+      </div>
+    </div>
+
+    <!-- Category -->
+    <div class="w-full py-8 md:py-20 flex flex-col gap-8 items-center relative bg-brand-4 -z-20 overflow-hidden">
+      <!-- Background -->
+      <div class="hidden md:block absolute -right-10 top-0 bottom-0 -z-10 transform -translate-y-1/2">
+        <img class="w-150 h-130" src="/bg_02.png">
+      </div>
+      <div class="text-h2 md:text-h1 leading-h2 md:leading-h1 text-gray-1 font-bold">募資專案類別</div>
+      <ul class="hidden md:flex">
+        <li v-for="category in categories" :key="category.path" class="border-line md:text-h4 leading-h6 md:leading-h4 text-gray-2 font-medium px-6">{{ category.name }}</li>
+      </ul>
+      <div class="flex flex-col md:hidden gap-7">
+        <ul class="flex">
+          <li v-for="category in categories.slice(0,4)" :key="category.path" class="border-line md:text-h4 leading-h6 md:leading-h4 text-gray-2 font-medium px-6">{{ category.name }}</li>
+        </ul><ul class="flex">
+          <li v-for="category in categories.slice(4)" :key="category.path" class="border-line md:text-h4 leading-h6 md:leading-h4 text-gray-2 font-medium px-6">{{ category.name }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Hot -->
+    <div class="w-full md:max-w-324 px-3 md:px-0 pt-8 md:pt-20 pb-14 flex flex-col justify-center items-center gap-6 md:gap-10 border-b-1 border-line">
+      <div class="w-full flex justify-between items-center">
+        <div class="w-full flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6">
+          <div class="text-center text-h4 md:text-h2 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">熱門精選  MOST MOMENTUM</div>
+          <div class="text-h5 md:text-h4 leading-30px md:leading-9 text-gray-2">最近幾天籌集到最多資金的產品</div>
+        </div>
+        <div class="hidden text-h5 text-gray-2 md:flex gap-10px cursor-pointer items-center">
+          <div>查看更多</div>
+          <img class="w-4 h-4" src="/arrow.svg" >
+        </div>
+      </div>
+      <div class="w-full flex flex-col md:flex-row justify-between gap-7 md:gap-6">
+        <div v-for="i in 3" class="w-full md:w-416px h-334px md:h-410px flex justify-center items-center border-2 border-gray-2 bg-gray-4" :key="i">
+          我是為了熱門精選預留的區塊 {{ i }}
+        </div>
+      </div>
+      <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2">
+        <div>查看更多</div>
+        <img class="w-3 h-3" src="/arrow.svg" >
+      </div>
+    </div>
+
+    <!-- Recently -->
+    <div class="w-full md:max-w-324 px-3 md:px-0 pt-7 md:pt-14 pb-10 md:pb-20 flex flex-col justify-center items-center gap-6 md:gap-10">
+      <div class="w-full flex justify-between items-center">
+        <div class="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6">
+          <div class="text-center text-h4 md:text-h2 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">最近推出 RECENTLY LAUNCHED</div>
+          <div class="text-h5 md:text-h4 leading-30px md:leading-9 text-gray-2">最近推出的產品</div>
+        </div>
+        <div class="hidden text-h5 text-gray-2 md:flex gap-10px cursor-pointer items-center">
+          <div>查看更多</div>
+          <img class="w-4 h-4" src="/arrow.svg" >
+        </div>
+      </div>
+      <div class="w-full flex flex-col md:flex-row justify-between gap-7 md:gap-6">
+        <div v-for="i in 3" class="w-full md:w-416px h-334px md:h-410px flex justify-center items-center border-2 border-gray-2 bg-gray-4" :key="i">
+          我是為了最近推出預留的區塊 {{ i }}
+        </div>
+      </div>
+      <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2">
+        <div>查看更多</div>
+        <img class="w-3 h-3" src="/arrow.svg" >
+      </div>
+    </div>
+
+    <!-- Promises -->
+    <div class="py-8 md:py-20 flex flex-col items-center gap-6 md:gap-10">
+      <div class="flex flex-col items-center gap-2 md:gap-4">
+        <div class="text-gray-1 text-h4 md:text-h2 leading-h4 md:leading-h2 font-medium md:font-bold">給予贊助者的信任承諾</div>
+        <div class="text-center text-gray-2 text-h5 md:text-h4 leading-30px md:leading-9">所有專案皆經由平台把關，<br>致力給贊助會員們最安心的保障！</div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-24">
+        <div class="flex flex-col gap-4 items-center">
+          <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
+            <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_01.svg">
+          </div>
+          <div class="text-brand-1 text-h5 md:text-h4 leading-h5 md:leading-h4 font-medium">平台徽章認證</div>
+        </div>
+        <div class="flex flex-col gap-4 items-center">
+          <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
+            <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_02.svg">
+          </div>
+          <div class="text-brand-1 text-h5 md:text-h4 leading-h5 md:leading-h4 font-medium">渦潮保障基金</div>
+        </div>
+        <div class="flex flex-col gap-4 items-center">
+          <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
+            <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_03.svg">
+          </div>
+          <div class="text-brand-1 text-h5 md:text-h4 leading-h5 md:leading-h4 font-medium">公信力檢驗</div>
+        </div>
+        <div class="flex flex-col gap-4 items-center">
+          <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
+            <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_04.svg">
+          </div>
+          <div class="text-brand-1 text-h5 md:text-h4 leading-h5 md:leading-h4 font-medium">專案進度標示</div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="container m-auto gap-10 flex justify-between items-start">
-    <MemberMenu active="sponsor" />
-    <div class="w-full">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium recusandae voluptas aliquam quisquam esse corrupti fugit sint consequuntur voluptates fuga reprehenderit error, totam quam voluptatibus nemo illum veniam. Dignissimos fugiat numquam consequuntur soluta impedit dolorem placeat exercitationem a ipsam, iste possimus cumque, quod, repellendus itaque libero corporis sapiente vel voluptate eos quam. Deleniti magnam, vitae dolor voluptate ad, ducimus veniam voluptatum necessitatibus labore quasi officia natus quo quas eius architecto inventore quibusdam illum est amet aliquid laudantium incidunt. Perspiciatis nihil voluptatem quae, cupiditate blanditiis placeat commodi tempore eaque illo laboriosam illum, non porro ut iure hic, quia velit similique exercitationem nam quasi veniam sapiente! Consectetur accusantium quo ipsum neque tenetur laboriosam magni ut saepe praesentium nihil! Aliquid quidem debitis enim, maxime ex quis voluptatem molestias temporibus nesciunt molestiae, dignissimos itaque quos modi sint rerum, at libero dolore illum ipsum totam qui? Autem qui maiores labore rerum veritatis natus eaque, magni dolorem optio architecto eveniet sapiente, magnam dolorum molestiae? Cum aliquid voluptatem fugiat suscipit officia minus rerum, soluta exercitationem quae, blanditiis enim accusantium maiores nihil! Vitae magnam repellat alias explicabo impedit eum nobis aliquid nulla, esse tempora minus atque. Dignissimos provident ducimus mollitia nihil doloremque alias quasi. Dolores, debitis. Eveniet, quo itaque. Deleniti saepe assumenda ea dolor, adipisci cupiditate provident beatae exercitationem error molestias expedita vero sapiente voluptates reiciendis quod voluptatum sequi ex accusamus veniam id! Sit quas sunt veritatis deleniti asperiores eius, maxime cupiditate ullam nemo voluptatum voluptates eveniet ratione? Alias reiciendis laudantium repellat dolorem dolorum quia. Sapiente maiores consequatur quibusdam perspiciatis quis nihil aliquid dolorum beatae explicabo culpa consectetur nobis, inventore esse reprehenderit. Aliquam repudiandae voluptate a soluta, unde inventore blanditiis, laudantium, possimus quasi vel esse perferendis? Nesciunt placeat quisquam exercitationem. Nobis incidunt enim itaque in at ipsa earum iste nostrum, quod corporis consequatur natus iusto distinctio porro dolorem! Natus quam, culpa enim soluta quibusdam possimus impedit unde dolores optio perferendis iure explicabo accusamus, similique vero illum quae veniam tenetur, corrupti sunt quisquam. Ratione doloremque porro dolorum eveniet eum assumenda dolore in, ab, delectus praesentium mollitia possimus, laudantium sit illum soluta aliquam! Voluptate, mollitia quisquam unde laudantium accusamus nesciunt. Culpa ratione dolorum debitis ipsa! Quo, illo beatae perspiciatis tempore officiis repellat incidunt cum veritatis praesentium neque fugit saepe consectetur exercitationem velit eius culpa reiciendis nemo temporibus, obcaecati et magnam similique. Facilis ipsam ea nulla dicta at in amet quidem, est tempora, corporis voluptatibus aliquam eligendi consequuntur sint! Rerum facilis et quaerat excepturi animi, natus placeat sequi nostrum non quisquam! Ipsa explicabo voluptatem voluptas provident distinctio culpa quibusdam ratione, commodi odio. Adipisci nostrum doloribus omnis assumenda! Consequuntur corrupti labore quisquam dicta libero laudantium ea illo repellat culpa voluptate ut, dignissimos ex laborum maxime deleniti repellendus quibusdam quae, eligendi exercitationem excepturi adipisci ab aliquid cum fugiat! Quisquam quo, autem voluptatibus officiis aperiam tempora distinctio error cupiditate delectus eius rem harum ex iure nulla dolorem? Voluptate, nostrum dolorem deleniti molestias aliquid ratione officiis voluptates laborum maiores commodi dolor odio ipsum tempore atque ipsam repellendus laboriosam itaque minima praesentium ullam doloremque magni inventore.
-    </div>
-  </div>
-  <div class="container mx-auto">
-    <PlanList
-      :data="[{}, {}, {}, {}]"
-    />
-    <ProgressBar :percent="75" />
-    <ShareButton />
-  </div>
 </template>
+
+<style lang="scss" scoped>
+li {
+   &:not(:first-child) {
+    border-left: 1px solid #C2D7EA;
+   }
+}
+</style>
