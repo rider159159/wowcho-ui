@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { SET_TOKEN } from '@/utils'
 // composables
-import { numberWithCommas, calculateDiscount, calcTargetPrice, timeStampChangeString, formatRemainingTime, formatDateAccomplish } from '@/composables'
+import { numberWithCommas, calculateDiscount, calcTargetPrice, dateYYYYMMDD, formatRemainingTime, formatDateAccomplish } from '@/composables'
 // store 運用
 import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
@@ -155,7 +155,7 @@ const total = ref(50)
     </div>
     <div>
       <h1>獲得環境:{{ env }}</h1>
-      <div> timeStamp 轉換{{ timeStampChangeString(1680307200000) }}</div>
+      <div> timeStamp 轉換{{ dateYYYYMMDD(1680307200000) }}</div>
       <div>剩餘時間 {{ formatRemainingTime(1696125600000) }}</div>
       <div>實現時間: {{ formatDateAccomplish(1696425936000) }}</div>
       <!-- 原價、實際價格 -->
