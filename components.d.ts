@@ -20,6 +20,7 @@ declare module '@vue/runtime-core' {
     Pagination: typeof import('./src/components/common/Pagination.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Tag: typeof import('./src/components/common/Tag.vue')['default']
     ShareButton: typeof import('./src/components/common/ShareButton.vue')['default']
     Upload: typeof import('./src/components/common/Upload.vue')['default']
   }
