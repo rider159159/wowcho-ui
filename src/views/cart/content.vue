@@ -37,7 +37,6 @@ const proposalInfo = ref({
 
 async function submitForm(callBack:any) {
   callBack().then((result:any) => {
-    console.log(result)
     // 如果通過
     if (result.valid) {
       createOrder()
@@ -61,6 +60,7 @@ const createOrder = async () => {
 
 onMounted(async () => {
   MerchantID.value = import.meta.env.VITE_MerchantID ? import.meta.env.VITE_MerchantID : ''
+  console.log(MerchantID.value)
 })
 </script>
 
