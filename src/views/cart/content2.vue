@@ -35,7 +35,7 @@ const payInfo = reactive({
 
 const createOrder = async () => {
   try {
-    const url = `${backendDomain}/pay/createOrder` // 後端加密api
+    const url = `${backendDomain}/sponsors/createOrder` // 後端加密api
     const res = await axios.post(url, order.value) // 後端加密
     const resData = res.data
     payInfo.TradeSha = resData.shaEncrypt
@@ -48,9 +48,7 @@ const createOrder = async () => {
 }
 
 onMounted(async () => {
-  PayGateWay.value = import.meta.env.VITE_PayGateWay ? import.meta.env.VITE_PayGateWay : ''
   MerchantID.value = import.meta.env.VITE_MerchantID ? import.meta.env.VITE_MerchantID : ''
-  Version.value = import.meta.env.VITE_Version ? import.meta.env.VITE_Version : ''
 })
 
 // defineExpose({

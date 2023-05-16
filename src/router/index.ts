@@ -179,14 +179,15 @@ const router = createRouter({
         {
           path: '',
           name: 'cartContent',
-          // component: () => import('../views/cart/content.vue'),
-          component: () => import('../views/cart/content2.vue'), //test
+          component: () => import('../views/cart/content.vue')
         },
         // 查看與選擇贊助方案
         {
           path: 'success',
           name: 'cartSuccess',
           component: () => import('../views/cart/success.vue'),
+          // component: () => import('../views/cart/content2.vue'), //test
+
         },
       ]
     },
