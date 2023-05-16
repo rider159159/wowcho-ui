@@ -1,5 +1,7 @@
 import { defineConfig } from '@unocss/vite';
 import presetUno from '@unocss/preset-uno';
+import transformerDirectives from '@unocss/transformer-directives'
+import transformerVariantGroup from '@unocss/transformer-variant-group'
 
 // 先不使用 presetAttributify
 export default defineConfig({
@@ -11,6 +13,11 @@ export default defineConfig({
     ['rounded-5xl', {
       'border-radius': '2.5rem',
     }],
+  ],
+  // 有紅底線但能正常使用，是 unocss 本身的 error
+  transformers: [
+    transformerDirectives(),
+    transformerVariantGroup(),
   ],
   theme: {
     colors: {
