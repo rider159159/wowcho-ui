@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
+import { GET_TOKEN } from '@/utils'
 
 import Modal from '../common/Modal.vue'
 import Login from '../../views/login/index.vue'
@@ -20,13 +21,18 @@ const router = useRouter()
 
 const showMenu = ref(false)
 const showMemberMenu = ref(false)
-const isLogin = ref(true)
+const isLogin = ref(false)
+const loginTure = () => { isLogin.value = true }
 const showBgWhite = ref(false)
 
 onMounted(() => {
   window.addEventListener('scroll', () => {
     showBgWhite.value = window.pageYOffset > 0
   })
+
+  const token = GET_TOKEN()
+  token ? isLogin.value = true : isLogin.value = false
+
 })
 
 function closeMemberMenu() {
@@ -222,6 +228,7 @@ function closeMemberMenu() {
       <Login v-if="currentComponent === 'Login'" 
             @switchToSignup="currentComponent='Signup'" 
             @closeModal="closeModal"
+            @loginTure="loginTure"
       />
       <Signup v-if="currentComponent === 'Signup'" 
             @switchToLogin="currentComponent='Login'" 
