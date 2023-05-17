@@ -8,23 +8,23 @@ const defaultConfig = {
 }
 
 class Http {
-  constructor(){
+  constructor() {
     this.httpInterceptorsRequest()
     this.httpInterceptorsResponse()
   }
-  
+
   private static axiosInstance = axios.create(defaultConfig)
 
   private httpInterceptorsRequest() {
     // TODO: axios request 攔截器，API 統一設定可來此
     Http.axiosInstance.interceptors.request.use((config) => {
-      const handleConfig = { ...config };
+      const handleConfig = { ...config }
 
       if (handleConfig.headers) {
-        handleConfig.headers.Authorization = `Bearer ${GET_TOKEN()}`;
+        handleConfig.headers.Authorization = `Bearer ${GET_TOKEN()}`
       }
       return handleConfig
-    },error => {
+    }, error => {
       return Promise.reject(error)
     })
   }
@@ -33,19 +33,19 @@ class Http {
     // TODO: axios response 攔截器，API 統一設定可來此
     Http.axiosInstance.interceptors.response.use((response) => {
       const { status } = response
-      if ( status === 200  || status < 300 || status === 304 ) {
+      if (status === 200 || status < 300 || status === 304) {
         return response
       }
       errorMsg(response.data.message)
       return response
-    },error => {
+    }, error => {
       errorMsg(error.response.data.message)
       return error.response
     })
   }
 
   // params = methods、 query 等等 axios 本身封裝，透過參數傳遞給 axios
-  public httpGet<T>(url: string, params?: AxiosRequestConfig ):Promise<T> {
+  public httpGet<T>(url: string, params?: AxiosRequestConfig):Promise<T> {
     return Http.axiosInstance.get(url, params).then(res => res.data).catch()
   }
 
@@ -60,6 +60,7 @@ class Http {
   public httpPatch<T>(url: string, data?: AxiosRequestConfig):Promise<T> {
     return Http.axiosInstance.patch(url, data).then(res => res.data).catch()
   }
+
   public httpDelete<T>(url: string, params?: AxiosRequestConfig):Promise<T> {
     return Http.axiosInstance.delete(url, params).then(res => res.data).catch()
   }

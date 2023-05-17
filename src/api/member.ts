@@ -3,12 +3,11 @@ import { ApiResponse } from '@/interface'
 
 export const fetchMember = {
   // 註冊
-  register:(data?:any):Promise<ApiResponse> => http.httpPost('/sign-up',data),
+  register: (data?:any):Promise<ApiResponse> => http.httpPost('/sign-up', data),
   // 登入
-  login: (data?:any):Promise<ApiResponse> => http.httpPost('/login',data),
+  login: (data?:any):Promise<ApiResponse> => http.httpPost('/login', data),
   // 取得帳戶資料
-  getProfile: (params?:any):Promise<ApiResponse> => http.httpGet('/general/profile',{ params }),
+  getProfile: (params?:any):Promise<ApiResponse> => http.httpGet('/general/profile', { params }),
   // 更新帳戶資料
-  editProfile: (data?:any):Promise<ApiResponse> => http.httpPatch('/general/profile',data),
+  editProfile: (data?:any):Promise<ApiResponse> => http.httpPatch('/general/profile', data)
 }
-
