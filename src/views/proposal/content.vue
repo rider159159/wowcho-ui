@@ -148,7 +148,7 @@ onMounted(() => {
     </div>
     <h1 class="text-h3 leading-h3 md:(text-h2 leading-h2)">{{ proposal.name }}</h1>
     <div class="flex flex-col md:flex-row mt-3 md:mt-5 gap-4 md:gap-10">
-      <img class="md:max-w-210 object-cover aspect-9/5 rounded-2xl" :src="proposal.image" />
+      <img class="md:w-70% object-cover aspect-9/5 rounded-2xl" :src="proposal.image" />
       <div class="flex flex-col justify-between gap-6 md:w-98">
         <div class="flex flex-col gap-4 md:gap-6">
           <div class="flex">
@@ -190,7 +190,8 @@ onMounted(() => {
         </ul>
         <!-- content -->
         <div class="py-6 md:py-10 w-full" :class="content === PROPOSAL.CONTENT ? 'block' : 'hidden'">
-          <div class="Content w-full" v-html="proposal.description"></div>
+
+          <div class="ProposalContent w-full" v-html="proposal.description"></div>
         </div>
         <!-- process -->
         <div class="py-6 md:py-10" :class="content === PROPOSAL.PROCESS ? 'block' : 'hidden'">
@@ -237,7 +238,7 @@ onMounted(() => {
           </div>
         </div>
         <!-- 募資方案 -->
-        <PlanList :data="proposal.planIdList"></PlanList>
+        <PlanList :data="proposal.planIdList" :class="'flex-col gap-12 overflow-x-auto'" :cardClass="'!w-90'"></PlanList>
       </div>
     </div>
   </div>
