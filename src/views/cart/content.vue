@@ -12,7 +12,9 @@ const formBody = ref({
   CVSCOMPhone: '',
   Email: '',
   address: '',
-  remark: ''
+  remark: '',
+  planId: '645e2e5fd6d9d5f1366f9323',
+  projectTitle: ''
 })
 const moneyFlowOrder = ref({
   TradeSha: '', // 加密DATA 給藍新必填欄位 參數名不可變動
