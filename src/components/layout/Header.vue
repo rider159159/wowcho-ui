@@ -2,6 +2,16 @@
 // import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
 
+import Modal from '../common/Modal.vue'
+import Login from '../../views/login/index.vue'
+import Signup from '../../views/signup/index.vue'
+const showModal = ref(false); // 控制 登入註冊 Modal顯示
+const currentComponent = ref('Login')
+// 登入註冊彈窗控制
+const openModal = () => { showModal.value = true }
+const closeModal = () => { showModal.value = false }
+
+
 // const store = userInfoStore()
 // const { USER_INFO_REF } = storeToRefs(store)
 const { FN_LOGOUT } = userInfoStore()
@@ -72,7 +82,7 @@ function closeMemberMenu() {
               <a
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                 href="#!"
-                ><MyButton class="bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton></a
+                ><MyButton @click.prevent="openModal" class="bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton></a
               >
             </li>
             <li v-if="isLogin" class="cursor-pointer relative" data-te-nav-item-ref>
@@ -195,7 +205,7 @@ function closeMemberMenu() {
           v-if="!isLogin"
           class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
           href="#!"
-          ><MyButton class="w-full bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton></a
+          ><MyButton @click.prevent="openModal" class="w-full bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton></a
         >
         <a
           v-if="isLogin"
@@ -206,6 +216,19 @@ function closeMemberMenu() {
         >
       </div>
     </div>
+
+    <!-- 登入註冊彈窗 -->
+    <Modal v-model="showModal" @close="closeModal">
+      <Login v-if="currentComponent === 'Login'" 
+            @switchToSignup="currentComponent='Signup'" 
+            @closeModal="closeModal"
+      />
+      <Signup v-if="currentComponent === 'Signup'" 
+            @switchToLogin="currentComponent='Login'" 
+      />
+    </Modal>
+
+
   </header>
 </template>
 
