@@ -14,14 +14,16 @@ declare module '@vue/runtime-core' {
     Modal: typeof import('./src/components/common/Modal.vue')['default']
     MyButton: typeof import('./src/components/common/MyButton.vue')['default']
     NoneHeader: typeof import('./src/components/layoutWrapper/noneHeader.vue')['default']
+    Pagination: typeof import('./src/components/common/Pagination.vue')['default']
     PlanCard: typeof import('./src/components/common/PlanCard.vue')['default']
     PlanList: typeof import('./src/components/common/PlanList.vue')['default']
     ProgressBar: typeof import('./src/components/common/ProgressBar.vue')['default']
-    Pagination: typeof import('./src/components/common/Pagination.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Tag: typeof import('./src/components/common/Tag.vue')['default']
     ShareButton: typeof import('./src/components/common/ShareButton.vue')['default']
+    Swiper: typeof import('swiper/vue')['Swiper']
+    SwiperSlide: typeof import('swiper/vue')['SwiperSlide']
     Upload: typeof import('./src/components/common/Upload.vue')['default']
   }
 }

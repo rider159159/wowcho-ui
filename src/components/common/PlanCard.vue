@@ -77,7 +77,7 @@ const discountDifference = computed(() => {
     <p class="text-brand-2 mb-3 md:mb-4">由於螢幕、拍攝會有色差等原因,以實際商品顏色為主</p>
     <div class="bg-gray-4 rounded-2xl px-4 py-3 mb-4 md:mb-6" v-html="props.shipping" />
     <a :href="props.id">
-      <Button class="bg-brand-1 w-full text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">贊助專案</Button>
+      <MyButton class="bg-brand-1 w-full text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">贊助專案</MyButton>
     </a>
   </div>
 </template>
