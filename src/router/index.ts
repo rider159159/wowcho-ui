@@ -143,7 +143,7 @@ const router = createRouter({
     },
     // 商品詳細
     {
-      path: '/proposal/:id',
+      path: '/proposal/:proposal',
       name: 'proposal',
       component: () => import('../views/proposal/[id].vue'),
       meta: {
