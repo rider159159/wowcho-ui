@@ -185,15 +185,9 @@ const router = createRouter({
         {
           path: 'success',
           name: 'cartSuccess',
-<<<<<<< HEAD
           component: () => import('../views/cart/success.vue'),
           // component: () => import('../views/cart/content2.vue'), //test
-
-        },
-=======
-          component: () => import('../views/cart/success.vue')
         }
->>>>>>> dev
       ]
     },
     // 忘記密碼
