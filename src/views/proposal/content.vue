@@ -121,8 +121,10 @@ function categoryName (num:0) {
 
 const proposal:any = ref({
   targetPrice: 0,
-  nowPrice: 0
-
+  nowPrice: 0,
+  ownerId: {
+    username: ''
+  }
 })
 function contentHandler(target: PROPOSAL) {
   content.value = target
@@ -144,7 +146,7 @@ onMounted(() => {
   <div class="flex flex-col gap-5">
     <div class="flex gap-4 text-xl">
       <p>提案人</p>
-      <a class="text-brand-1 font-medium" href="#">{{ data.owner }}</a>
+      <a v-if="proposal.ownerId.username!==null" class="text-brand-1 font-medium" href="#">{{ proposal.ownerId.username }}</a>
     </div>
     <h1 class="text-h3 leading-h3 md:(text-h2 leading-h2)">{{ proposal.name }}</h1>
     <div class="flex flex-col md:flex-row mt-3 md:mt-5 gap-4 md:gap-10">
@@ -165,7 +167,7 @@ onMounted(() => {
           <div class="flex flex-col gap-2 md:gap-6 border-line border-t-1 pt-4 md:pt-6">
             <div class="flex justify-between">
               <div class="text-gray-2">贊助人數</div>
-              <div class="text-gray-1">{{data.donateNumber}} 人</div>
+              <div class="text-gray-1">{{ proposal.nowBuyers }} 人</div>
             </div>
             <div class="flex justify-between">
               <div class="text-gray-2">贊助時間</div>
