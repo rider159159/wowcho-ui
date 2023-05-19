@@ -33,6 +33,10 @@ const props = defineProps({
   },
   shipping: {
     type: String
+  },
+  type: {
+    type: String,
+    default: 'default'
   }
 })
 
@@ -81,7 +85,7 @@ const discountDifference = computed(() => {
     <!-- <p class="text-brand-2 mb-3 md:mb-4">由於螢幕、拍攝會有色差等原因,以實際商品顏色為主</p> -->
     <!-- <div class="bg-gray-4 rounded-2xl px-4 py-3 mb-4 md:mb-6" v-html="props.shipping" /> -->
     <!-- props.id -->
-    <router-link :to="`/cart?id=${props.id}`">
+    <router-link v-if="props.type === 'default'" :to="`/cart?id=${props.id}`">
       <MyButton class="bg-brand-1 w-full text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">贊助專案</MyButton>
     </router-link>
   </div>

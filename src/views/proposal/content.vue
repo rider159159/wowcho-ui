@@ -132,7 +132,6 @@ function contentHandler(target: PROPOSAL) {
 
 async function getProposal() {
   const query = { proposalUrl: route.params.proposal }
-  console.log(query)
   const res = await fetchProposal.get(query)
   if (res.status !== 'Success') return
   proposal.value = res.data
