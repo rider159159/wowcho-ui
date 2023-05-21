@@ -105,7 +105,7 @@ getApiData()
 
 <template>
   <div class="px-4 container mx-auto">
-    <div class="md:flex md:justify-between items-center mt-30 mb-10">
+    <div class="md:flex md:justify-between items-center mb-10">
       <!-- 專案類別篩選 -->
       <div class="relative  mb-4 md:mb-0">
         <div tabindex="0" @click="isShowCategories = !isShowCategories" @blur="closeCategories" class="flex justify-between items-center bg-white border-1 border-gray-3 rounded w-full md:w-50 cursor-pointer px-4 py-1">
