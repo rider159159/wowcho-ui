@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     DefaultLayout: typeof import('./src/components/layoutWrapper/DefaultLayout.vue')['default']
     Footer: typeof import('./src/components/layout/Footer.vue')['default']
     Header: typeof import('./src/components/layout/Header.vue')['default']
+    Loading: typeof import('./src/components/common/Loading.vue')['default']
     MemberMenu: typeof import('./src/components/common/MemberMenu.vue')['default']
     Modal: typeof import('./src/components/common/Modal.vue')['default']
     MyButton: typeof import('./src/components/common/MyButton.vue')['default']
@@ -27,6 +28,7 @@ declare module '@vue/runtime-core' {
     ShareButton: typeof import('./src/components/common/ShareButton.vue')['default']
     Swiper: typeof import('swiper/vue')['Swiper']
     SwiperSlide: typeof import('swiper/vue')['SwiperSlide']
+    Tag: typeof import('./src/components/common/Tag.vue')['default']
     Upload: typeof import('./src/components/common/Upload.vue')['default']
   }
 }

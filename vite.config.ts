@@ -3,13 +3,13 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import AutoImport from 'unplugin-auto-import/vite' // 自動導入 hook
 import Components from 'unplugin-vue-components/vite' // 自動引入 components
-import Unocss from 'unocss/vite';
+import Unocss from 'unocss/vite'
 
 // https://vitejs.dev/config/
-export default  defineConfig(({ command, mode }) => {
-  console.log('====================模式與環境====================');
-  console.log('command', command);
-  console.log('mode', mode);
+export default defineConfig(({ command, mode }) => {
+  console.log('====================模式與環境====================')
+  console.log('command', command)
+  console.log('mode', mode)
   return {
     base: './',
     plugins: [
@@ -18,7 +18,7 @@ export default  defineConfig(({ command, mode }) => {
         include: [
           /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
           /\.vue$/, /\.vue\?vue/, // .vue
-          /\.md$/, // .md
+          /\.md$/ // .md
         ],
         imports: [
           'vue',
@@ -32,7 +32,7 @@ export default  defineConfig(({ command, mode }) => {
           },
         ],
         eslintrc: {
-          enabled: false,
+          enabled: false
         },
         dts: './auto-imports.d.ts',
         vueTemplate: true,
@@ -51,16 +51,16 @@ export default  defineConfig(({ command, mode }) => {
           },
         ],
       }),
-      Unocss(),
+      Unocss()
     ],
     server: {
       host: '0.0.0.0',
-      port: 1803,
+      port: 1803
     },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src')
       }
-    },
+    }
   }
 })
