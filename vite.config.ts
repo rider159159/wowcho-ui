@@ -20,14 +20,36 @@ export default defineConfig(({ command, mode }) => {
           /\.vue$/, /\.vue\?vue/, // .vue
           /\.md$/ // .md
         ],
-        imports: ['vue', 'vue-router'],
+        imports: [
+          'vue',
+          'vue-router',
+          {
+            swiper: [
+              ['Autoplay', 'Autoplay'],
+              ['Navigation', 'Navigation'],
+              ['Pagination', 'Pagination'],
+            ],
+          },
+        ],
         eslintrc: {
           enabled: false
         },
-        dts: './auto-imports.d.ts'
+        dts: './auto-imports.d.ts',
+        vueTemplate: true,
       }),
       Components({
-        dts: './components.d.ts'
+        dts: './components.d.ts',
+        resolvers: [
+          (componentName) => {
+            // where `componentName` is always CapitalCase
+            if (componentName.startsWith('Swiper')) {
+              return {
+                name: componentName,
+                from: 'swiper/vue',
+              }
+            }
+          },
+        ],
       }),
       Unocss()
     ],
