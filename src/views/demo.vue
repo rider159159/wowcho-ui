@@ -5,8 +5,9 @@ import { calculateDiscount, timeStampChange } from '@/composables'
 // store 運用
 import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
-import { fetchMember, fetchPost, fetchProject } from '@/api'
+import { fetchDemo } from '@/api'
 import { Swal } from '@/plugins/sweet-alert'
+import { toast } from '@/plugins'
 
 const { FN_LOGOUT } = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(userInfoStore())
@@ -21,7 +22,7 @@ const router = useRouter()
 
 // : Promise<void> 也可以移除
 async function getMemberInfo() : Promise<void> {
-  const { data, code } = await fetchMember.getMemberInfo()
+  const { data, code } = await fetchDemo.getMemberInfo()
   if (code !== 200) return
   // API 丟置 store
   USER_INFO_REF.value = data.userInfo
@@ -36,7 +37,7 @@ function openModal() {
 const projectList = ref<any>([])
 async function getProductAll(): Promise<void> {
   const params = { id: '123' }
-  const { data, code } = await fetchProject.getProjectAll(params)
+  const { data, code } = await fetchDemo.getProjectAll(params)
   if (code !== 200) return
   projectList.value = data.projectList
 }
@@ -62,7 +63,7 @@ const form = {
 }
 
 async function submitForm() {
-  const { data, code } = await fetchPost.createPosts(form)
+  const { data, code } = await fetchDemo.createPosts(form)
   if (code !== 200) return
   console.log(data, '新增成功')
 }
@@ -73,18 +74,37 @@ const Toast = Swal.mixin({
   timer: 3000
 })
 
+function openToast() {
+  toast.success('測試', {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 2000,
+    theme: 'colored'
+  })
+  toast.success('登入成功', {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 2000
+  })
+  toast.error('登入失敗', {
+    position: toast.POSITION.TOP_CENTER,
+    autoClose: 2000
+  })
+}
+
 onMounted(() => {
   Toast.fire({
     icon: 'success',
     title: '加入書籤成功！'
   })
 })
+const upload = ref('')
+
 </script>
 
 <template>
   <section class="p-4">
     <span class="mdi mdi-close text-brand3 md:text-brand1 text-h1"></span>
     <div class="flex gap-4">
+      <Button class="bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">lorem</Button>
       <button @click.prevent="getMemberInfo"
         class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
         獲得使用者資料至 store
@@ -105,7 +125,10 @@ onMounted(() => {
       class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
         儲存 cookie
       </button>
-
+      <button @click.prevent="openToast"
+        class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
+        開啟吐司
+      </button>
     </div>
     <h2 class="my-6 text-8 fw-700">商品列表</h2>
     <div class="grid grid-cols-3 gap-4">
@@ -124,6 +147,8 @@ onMounted(() => {
       <h1>獲得環境:{{ env }}</h1>
       <div> timeStamp 轉換{{ timeStampChange(1680307200000) }}</div>
     </div>
+    <Upload v-model="upload"></Upload>
+    <img :src="upload" alt="">
     <!-- 彈窗 -->
     <Modal v-model="demoModal" title="測試彈窗">
       <table class="w-full border-separate border border-slate-400 ...">

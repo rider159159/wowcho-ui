@@ -1,8 +1,7 @@
 # 渦潮 - 前台
 - 需要 node 版本 16 以上，16.19 穩定啟動。
 - 有使用 autoImport 套件，引入 Vue components 時，無需使用 import 方式引入元件，直接在 `<template>` 引入即可。
-- Uno CSS 文件: https://unocss.dev/guide/
-- icon 使用 Material Icons，使用 webFont 方法，可參考文件  : https://pictogrammers.com/library/mdi/
+
 ## 資料夾結構介紹
   - public 放置圖片
   - api 串接後端 Api 的資料夾
@@ -29,13 +28,6 @@
   - 其他元件、頁面引入 components 元件時也以大寫方式引入 如:`<Header></Header>`
   - views 若確認無多層及，可直接將元件放於 views 下，若有可能產生多層及 router ，將元件放於資料夾下做區分
   - views 下元件以小駝峰式命名
-### 元件中 HTML 屬性順序
-  - v-if/v-model 等等 Vue 指令 > id/class/name HTML 原本屬性 = :class/:id 等等動態屬性
-  - 若有使用到 class + :class 狀況時，盡量將兩個屬性寫在前後面，例如:
-  ``` HTML
-    <p class="bg-red text-white" :class=:class="{ '!bg-primary !text-white': stepNum === 1 }>返回</p>
-  ```
-
 
 ### UnoCSS
   - 採用最基本功能，樣式寫於 class 上，支援多數 tailwind 、 wind 語法
@@ -57,7 +49,7 @@
 
 ### 推薦 VSCode 套件
   - UnoCSS: https://marketplace.visualstudio.com/items?itemName=antfu.unocss
-  - 若使用上述套件，無法產生 UnoCSS 提示 class 則須多添加 WindiCSS IntelliSense: https://marketplace.visualstudio.com/items?itemName=voorjaar.windicss-intellisense
+  - 若使用上述套件，無法產生 UnoCSS 則須多添加 WindiCSS IntelliSense: https://marketplace.visualstudio.com/items?itemName=voorjaar.windicss-intellisense
   - 上述套件皆會和 Tailwind CSS IntelliSense 衝突，若使用此專案開發時，請關閉此套件。
 
 ### eslint 設定
@@ -65,21 +57,21 @@
 
 
 ## 操作
+
 ### 使用 API
 ```js
 // 使用 API
-const api = inject('$api') as any
+import { fetchMember } from '@/api'
 
 // : Promise<void> 也可以移除
 async function getMemberInfo() : Promise<void> {
-  const { data, code } = await api.member.getMemberInfo()
-  if (code !== 200) return
+  const res = await fetchMember.getMemberInfo()
+  if (res.status !== 'Success') return
   // API 丟置 store
-  USER_INFO_REF.value = data.userInfo
+  USER_INFO_REF.value = res.data.userInfo
 }
 
 ```
-
 ### 使用 router
 ```js
 const router = useRouter()
@@ -109,4 +101,14 @@ async function getMemberInfo() : Promise<void> {
   // API 丟置 store
   USER_INFO_REF.value = data.userInfo
 }
+```
+
+### 額外套件使用
+```js
+import Swal from 'sweetalert2'
+
+Swal.fire({
+  icon: 'success',
+  title: '新增成功'
+})
 ```

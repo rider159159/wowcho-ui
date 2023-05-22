@@ -37,4 +37,11 @@ function toProject (item:any) {
       </div>
     </div>
   </div>
+  <div class="container m-auto gap-10 flex">
+    <MemberMenu active="sponsor" />
+    <div class="content">
+      lorem
+    </div>
+  </div>
+  <Carousel />
 </template>

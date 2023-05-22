@@ -15,9 +15,11 @@
     "js-cookie": "^3.0.1",
     "pinia": "^2.0.33",
     "sweetalert2": "^11.7.3",
+    "swiper": "^9.2.4",
     "vee-validate": "^4.8.4",
     "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vue3-toastify": "^0.1.7"
   },
   "devDependencies": {
     "@mdi/font": "^7.2.96",

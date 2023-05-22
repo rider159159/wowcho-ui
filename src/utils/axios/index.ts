@@ -39,7 +39,8 @@ class Http {
       errorMsg(response.data.message)
       return response
     },error => {
-      errorMsg(error.message)
+      errorMsg(error.response.data.message)
+      return error.response
     })
   }
 
