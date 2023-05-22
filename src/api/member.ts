@@ -2,6 +2,8 @@ import { http } from '@/utils/axios'
 import { ApiResponse } from '@/interface'
 
 export const fetchMember = {
+  // 第三方登入
+  oauthLogin: (data?:any, isUnLoad?: boolean):Promise<ApiResponse> => http.httpPost('/login/oauth', data, isUnLoad),
   // 註冊
   register: (data?:any, isUnLoad?: boolean):Promise<ApiResponse> => http.httpPost('/sign-up', data, isUnLoad),
   // 登入

@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     Modal: typeof import('./src/components/common/Modal.vue')['default']
     MyButton: typeof import('./src/components/common/MyButton.vue')['default']
     NoneHeader: typeof import('./src/components/layoutWrapper/noneHeader.vue')['default']
+    Oauth: typeof import('./src/components/Oauth.vue')['default']
     Pagination: typeof import('./src/components/common/Pagination.vue')['default']
     PlanCard: typeof import('./src/components/common/PlanCard.vue')['default']
     PlanList: typeof import('./src/components/common/PlanList.vue')['default']
