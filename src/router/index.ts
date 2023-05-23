@@ -172,7 +172,8 @@ const router = createRouter({
       component: () => import('../views/cart/index.vue'),
       meta: {
         keepAlive: false,
-        layout: DefaultLayout
+        layout: DefaultLayout,
+        requiresAuth: true
       },
       children: [
         // 查看商品內頁
