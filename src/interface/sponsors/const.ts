@@ -10,6 +10,6 @@ export const sponsorFormBody:ISponsor = {
   Email: '',
   address: '',
   remark: '',
-  planId: '645e2e5fd6d9d5f1366f9323',
+  planId: '',
   projectTitle: ''
 }

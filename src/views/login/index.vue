@@ -9,21 +9,31 @@ const USER_STORE = userInfoStore()
 async function submitForm(value:any) {
   const formBody = value
   const res = await fetchMember.login(formBody)
+  if (res.status !== 'Success') return
+  const toRoute = USER_STORE.USER_LOGIN_ROUTE_REF
   SET_TOKEN(res.data.token)
+
   Swal.fire({
     icon: 'success',
-    title: '登入成功，即將將前往首頁!',
+    title: '登入成功，為您跳轉頁面',
     confirmButtonText: '確定',
     confirmButtonColor: '#2378BF',
     timer: 3000
   })
-  setTimeout(() => {
-    router.push({ path: '/' })
-  }, 2000)
+  if (toRoute.length > 0) {
+    setTimeout(() => {
+      router.push(toRoute)
+      USER_STORE.USER_LOGIN_ROUTE_REF = ''
+    }, 2000)
+  } else {
+    setTimeout(() => {
+      router.push('/')
+    }, 2000)
+  }
+
   // 獲得 token，打 get 個人資料 API
   const profileRes = await fetchMember.getProfile()
   USER_STORE.USER_INFO_REF = profileRes.data
-  console.log(profileRes.data)
 }
 
 const passwordShow = ref(true)

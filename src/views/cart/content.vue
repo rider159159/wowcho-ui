@@ -37,7 +37,7 @@ const createOrder = async () => {
   form.submit() // 藍新僅接收Form Post
 }
 
-const proposal = ref({})
+const proposal:any = ref({})
 const plan:any = ref({
   name: '',
   actualPrice: 0
@@ -64,35 +64,45 @@ onMounted(async () => {
 
 <template>
   <section>
-    <div class="grid grid-cols-1 xl:grid-cols-3 gap-10">
-    <div class="col-span-1">
-      <PlanCard
-        class="mb-15"
-        :id="plan._id"
-        :title="plan.name"
-        :image="plan.image"
-        :price="plan.actualPrice"
-        :origin-price="plan.originalPrice"
-        :count="plan.quantity"
-        :content="plan.summary"
-        :type="'car'"
-      ></PlanCard>
-      <div class="w-full">
-        <div class="flex w-full justify-between text-14px">
-          <p>選項金額</p>
-          <div>{{ plan.actualPrice.toLocaleString() }}</div>
-        </div>
-        <div class="flex w-full justify-between text-14px b-gray-3 border-b-3 py-4">
-          <p>運費 ：N/A</p>
-          <div>+ (未知)</div>
-        </div>
-        <div class="flex w-full justify-between text-h5 pt-4">
-          <p>選項金額</p>
-          <div>{{ plan.actualPrice.toLocaleString() }}</div>
+    <div class="b-b b-gray3 mb-6 lg:mb-4">
+      <ToCartPlanCard
+        :image="proposal.image"
+        :title="proposal.name"
+        :subtitle="proposal.summary"
+        :current-price="proposal.nowPrice"
+        :target-price="proposal.targetPrice"
+        :end-time="proposal.endTime"
+      />
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div class="col-span-1">
+        <PlanCard
+          class="mb-15"
+          :id="plan._id"
+          :title="plan.name"
+          :image="plan.image"
+          :price="plan.actualPrice"
+          :origin-price="plan.originalPrice"
+          :count="plan.quantity"
+          :content="plan.summary"
+          :type="'car'"
+        ></PlanCard>
+        <div class="w-full">
+          <div class="flex w-full justify-between text-14px">
+            <p>選項金額</p>
+            <div>{{ plan.actualPrice.toLocaleString() }}</div>
+          </div>
+          <div class="flex w-full justify-between text-14px b-gray-3 border-b-3 py-4">
+            <p>運費 ：N/A</p>
+            <div>+ (未知)</div>
+          </div>
+          <div class="flex w-full justify-between text-h5 pt-4">
+            <p>選項金額</p>
+            <div>{{ plan.actualPrice.toLocaleString() }}</div>
+          </div>
         </div>
       </div>
-    </div>
-      <div class="col-span-1 xl:col-span-2">
+      <div class="col-span-1 lg:col-span-2">
         <VForm v-slot="{ errors, validate}" as="div">
           <form ref="formHtml" action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post">
             <h5 class="text-28px font-700 mb-6">方案規格</h5>

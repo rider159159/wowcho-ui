@@ -2,6 +2,8 @@
 import { fetchProduct } from '@/api'
 import { useClickOutside } from '@/composables'
 
+const route = useRoute()
+
 // 分類列表
 const categories = ref([
   {
@@ -49,11 +51,11 @@ const sortList = ref([
     value: 2
   },
   {
-    title: '專案金額由大到小',
+    title: '募資總金額由大到小',
     value: 3
   },
   {
-    title: '專案金額由小到大',
+    title: '募資總金額由小到大',
     value: 4
   }
 ])
@@ -121,6 +123,12 @@ function closeSort() {
 useClickOutside(sortRef, closeSort)
 
 onMounted(() => {
+  if (route.query.category) {
+    query.value.category = Number(route.query.category)
+    const category = categories.value.find((item) => item.value === Number(route.query.category))
+    console.log(category)
+    if (category) categoryTitle.value = category.title
+  }
   getApiData()
 })
 

@@ -30,6 +30,7 @@ declare module '@vue/runtime-core' {
     Swiper: typeof import('swiper/vue')['Swiper']
     SwiperSlide: typeof import('swiper/vue')['SwiperSlide']
     Tag: typeof import('./src/components/common/Tag.vue')['default']
+    ToCartPlanCard: typeof import('./src/components/common/ToCartPlanCard.vue')['default']
     Upload: typeof import('./src/components/common/Upload.vue')['default']
   }
 }

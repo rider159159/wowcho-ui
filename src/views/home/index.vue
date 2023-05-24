@@ -77,28 +77,28 @@ const lists = ref({
     <h2 class="text-3xl font-bold md:text-4xl mb-6 md:mb-8">募資專案類別</h2>
     <ul class="flex justify-center items-center flex-wrap w-75 text-gray-2 font-medium md:w-auto">
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
-        <a class="cursor-pointer" @click.prevent="selectCategory = '社會'">社會</a>
+        <RouterLink class="cursor-pointer" to="/proposals?category=1">社會</RouterLink>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
-        <a class="cursor-pointer" @click.prevent="selectCategory = '影音'">影音</a>
+        <RouterLink class="cursor-pointer" to="/proposals?category=2">出版</RouterLink>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 mb-7 md:mb-0">
-        <a class="cursor-pointer" @click.prevent="selectCategory = '出版'">出版</a>
+        <RouterLink class="cursor-pointer" to="/proposals?category=3">影音</RouterLink>
       </li>
       <li class="md:text-2xl border-r-1 md:brand-#C2D7EA md:pr-6 md:mr-6 mb-7 md:mb-0">
-        <a class="cursor-pointer" @click.prevent="selectCategory = '娛樂'">娛樂</a>
+        <RouterLink class="cursor-pointer" to="/proposals?category=4">娛樂</RouterLink>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
-        <a class="cursor-pointer" @click.prevent="selectCategory = '生活'">生活</a>
+        <RouterLink class="cursor-pointer" to="/proposals?category=5">生活</RouterLink>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
-        <a class="cursor-pointer" @click.prevent="selectCategory = '設計'">設計</a>
+        <RouterLink class="cursor-pointer" to="/proposals?category=6">設計</RouterLink>
       </li>
       <li class="md:text-2xl border-r-1 brand-#C2D7EA pr-5 md:pr-6 mr-5 md:mr-6 md:mb-0">
-        <a class="cursor-pointer" @click.prevent="selectCategory = '科技'">科技</a>
+        <RouterLink class="cursor-pointer" to="/proposals?category=7">科技</RouterLink>
       </li>
       <li class="md:text-2xl md:mb-0">
-        <a class="cursor-pointer" @click.prevent="selectCategory = '休閒'">休閒</a>
+        <RouterLink class="cursor-pointer" to="/proposals?category=8">休閒</RouterLink>
       </li>
     </ul>
   </div>

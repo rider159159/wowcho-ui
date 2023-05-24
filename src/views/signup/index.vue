@@ -7,7 +7,6 @@ const router = useRouter()
 async function submitForm(value:any) {
   const formBody = value
   const response = await fetchMember.register(formBody)
-  console.log(response)
   if (response.status !== 'Success') return
   Swal.fire({
     icon: 'success',
