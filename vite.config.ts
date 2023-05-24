@@ -27,15 +27,15 @@ export default defineConfig(({ command, mode }) => {
             swiper: [
               ['Autoplay', 'Autoplay'],
               ['Navigation', 'Navigation'],
-              ['Pagination', 'Pagination'],
-            ],
-          },
+              ['Pagination', 'Pagination']
+            ]
+          }
         ],
         eslintrc: {
           enabled: false
         },
         dts: './auto-imports.d.ts',
-        vueTemplate: true,
+        vueTemplate: true
       }),
       Components({
         dts: './components.d.ts',
@@ -45,11 +45,11 @@ export default defineConfig(({ command, mode }) => {
             if (componentName.startsWith('Swiper')) {
               return {
                 name: componentName,
-                from: 'swiper/vue',
+                from: 'swiper/vue'
               }
             }
-          },
-        ],
+          }
+        ]
       }),
       Unocss()
     ],

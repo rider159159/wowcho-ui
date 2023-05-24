@@ -1,32 +1,4 @@
 <script lang="ts" setup>
-const router = useRouter()
-const projectsList = ref([
-  {
-    title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
-    image: './test.webp',
-    id: 'revopoint-range-1'
-  },
-  {
-    title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
-    image: './test.webp',
-    id: 'revopoint-range-2'
-  },
-  {
-    title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
-    image: './test.webp',
-    id: 'revopoint-range-3'
-  }
-])
-
-function toProject (item:any) {
-  router.push({
-    name: 'projects',
-    params: {
-      id: item.id
-    }
-  })
-}
-
 const selectCategory = ref('社會')
 
 // 假資料
@@ -73,14 +45,18 @@ const lists = ref({
       <p class="text-brand-1 text-lg md:text-2lg font-medium mb-3 md:mb-4">Create value, share success!</p>
       <h2 class="font-bold text-3xl md:text-4xl mb-4 md:mb-6">支持夢想創造價值，<br>共享成功！</h2>
       <p class="mb-6 md:mb-10">每一位賣家都有著獨特的想法和夢想，透過我們的平台而實現。我們的使命是幫助賣家們創造價值，並與支持者共享成功。
-  透過我們的平台，賣家們可以輕鬆地進行募資活動，並透過與支持者的互動，得到寶貴的反饋和建議。</p>
+        透過我們的平台，賣家們可以輕鬆地進行募資活動，並透過與支持者的互動，得到寶貴的反饋和建議。</p>
       <div class="flex items-center gap-x-3">
-        <MyButton class="w-1/2 md:w-auto bg-white text-brand-1 outline outline-2 outline-brand-1 hover:bg-brand-1 hover:text-white">
+        <RouterLink to="/proposals" class="rounded-5xl cursor-pointer transition duration-500 px-6 py-3 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">
           我想提案
-        </MyButton>
-        <MyButton class="w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">
+        </RouterLink >
+        <!-- <MyButton class="w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">
           我想贊助
-        </MyButton>
+        </MyButton> -->
+        <a href="https://wowcho-mgmt-ui.onrender.com/#/login"
+          class="rounded-5xl cursor-pointer transition duration-500 px-6 py-3 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">
+          我想贊助
+        </a>
       </div>
     </div>
     <img src="/banner.png" alt="Banner">
@@ -152,19 +128,6 @@ const lists = ref({
         平台徽章認證
       </li>
     </ul>
-  </div>
-  <div class="container m-auto gap-10 flex justify-between items-start">
-    <MemberMenu active="sponsor" />
-    <div class="w-full">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium recusandae voluptas aliquam quisquam esse corrupti fugit sint consequuntur voluptates fuga reprehenderit error, totam quam voluptatibus nemo illum veniam. Dignissimos fugiat numquam consequuntur soluta impedit dolorem placeat exercitationem a ipsam, iste possimus cumque, quod, repellendus itaque libero corporis sapiente vel voluptate eos quam. Deleniti magnam, vitae dolor voluptate ad, ducimus veniam voluptatum necessitatibus labore quasi officia natus quo quas eius architecto inventore quibusdam illum est amet aliquid laudantium incidunt. Perspiciatis nihil voluptatem quae, cupiditate blanditiis placeat commodi tempore eaque illo laboriosam illum, non porro ut iure hic, quia velit similique exercitationem nam quasi veniam sapiente! Consectetur accusantium quo ipsum neque tenetur laboriosam magni ut saepe praesentium nihil! Aliquid quidem debitis enim, maxime ex quis voluptatem molestias temporibus nesciunt molestiae, dignissimos itaque quos modi sint rerum, at libero dolore illum ipsum totam qui? Autem qui maiores labore rerum veritatis natus eaque, magni dolorem optio architecto eveniet sapiente, magnam dolorum molestiae? Cum aliquid voluptatem fugiat suscipit officia minus rerum, soluta exercitationem quae, blanditiis enim accusantium maiores nihil! Vitae magnam repellat alias explicabo impedit eum nobis aliquid nulla, esse tempora minus atque. Dignissimos provident ducimus mollitia nihil doloremque alias quasi. Dolores, debitis. Eveniet, quo itaque. Deleniti saepe assumenda ea dolor, adipisci cupiditate provident beatae exercitationem error molestias expedita vero sapiente voluptates reiciendis quod voluptatum sequi ex accusamus veniam id! Sit quas sunt veritatis deleniti asperiores eius, maxime cupiditate ullam nemo voluptatum voluptates eveniet ratione? Alias reiciendis laudantium repellat dolorem dolorum quia. Sapiente maiores consequatur quibusdam perspiciatis quis nihil aliquid dolorum beatae explicabo culpa consectetur nobis, inventore esse reprehenderit. Aliquam repudiandae voluptate a soluta, unde inventore blanditiis, laudantium, possimus quasi vel esse perferendis? Nesciunt placeat quisquam exercitationem. Nobis incidunt enim itaque in at ipsa earum iste nostrum, quod corporis consequatur natus iusto distinctio porro dolorem! Natus quam, culpa enim soluta quibusdam possimus impedit unde dolores optio perferendis iure explicabo accusamus, similique vero illum quae veniam tenetur, corrupti sunt quisquam. Ratione doloremque porro dolorum eveniet eum assumenda dolore in, ab, delectus praesentium mollitia possimus, laudantium sit illum soluta aliquam! Voluptate, mollitia quisquam unde laudantium accusamus nesciunt. Culpa ratione dolorum debitis ipsa! Quo, illo beatae perspiciatis tempore officiis repellat incidunt cum veritatis praesentium neque fugit saepe consectetur exercitationem velit eius culpa reiciendis nemo temporibus, obcaecati et magnam similique. Facilis ipsam ea nulla dicta at in amet quidem, est tempora, corporis voluptatibus aliquam eligendi consequuntur sint! Rerum facilis et quaerat excepturi animi, natus placeat sequi nostrum non quisquam! Ipsa explicabo voluptatem voluptas provident distinctio culpa quibusdam ratione, commodi odio. Adipisci nostrum doloribus omnis assumenda! Consequuntur corrupti labore quisquam dicta libero laudantium ea illo repellat culpa voluptate ut, dignissimos ex laborum maxime deleniti repellendus quibusdam quae, eligendi exercitationem excepturi adipisci ab aliquid cum fugiat! Quisquam quo, autem voluptatibus officiis aperiam tempora distinctio error cupiditate delectus eius rem harum ex iure nulla dolorem? Voluptate, nostrum dolorem deleniti molestias aliquid ratione officiis voluptates laborum maiores commodi dolor odio ipsum tempore atque ipsam repellendus laboriosam itaque minima praesentium ullam doloremque magni inventore.
-    </div>
-  </div>
-  <div class="container mx-auto">
-    <PlanList
-      :data="[{}, {}, {}, {}]"
-    />
-    <ProgressBar :percent="75" />
-    <ShareButton />
   </div>
 </template>
 

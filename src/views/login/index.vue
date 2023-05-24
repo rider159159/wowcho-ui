@@ -2,7 +2,9 @@
 import { fetchMember } from '@/api'
 import { SET_TOKEN } from '@/utils'
 import { Swal } from '@/plugins/sweet-alert'
+import { userInfoStore } from '@/stores'
 const router = useRouter()
+const USER_STORE = userInfoStore()
 
 async function submitForm(value:any) {
   const formBody = value
@@ -18,6 +20,10 @@ async function submitForm(value:any) {
   setTimeout(() => {
     router.push({ path: '/' })
   }, 2000)
+  // 獲得 token，打 get 個人資料 API
+  const profileRes = await fetchMember.getProfile()
+  USER_STORE.USER_INFO_REF = profileRes.data
+  console.log(profileRes.data)
 }
 
 const passwordShow = ref(true)

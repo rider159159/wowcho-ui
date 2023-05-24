@@ -1,106 +1,133 @@
 <script setup lang="ts">
 import { fetchProduct } from '@/api'
-
-// 是否正在載入
-const loading = ref(false)
+import { useClickOutside } from '@/composables'
 
 // 分類列表
 const categories = ref([
-  '社會',
-  '影音',
-  '出版',
-  '娛樂',
-  '生活',
-  '設計',
-  '科技',
-  '休閒'
+  {
+    title: '社會',
+    value: 1
+  },
+  {
+    title: '出版',
+    value: 2
+  },
+  {
+    title: '影音',
+    value: 3
+  },
+  {
+    title: '娛樂',
+    value: 4
+  },
+  {
+    title: '生活',
+    value: 5
+  },
+  {
+    title: '設計',
+    value: 6
+  },
+  {
+    title: '科技',
+    value: 7
+  },
+  {
+    title: '休閒',
+    value: 8
+  }
 ])
 
 // 排序列表
 const sortList = ref([
-  '時間由新到舊',
-  '時間由舊到新',
-  '專案金額由大到小',
-  '專案金額由小到大'
+  {
+    title: '時間由新到舊',
+    value: 1
+  },
+  {
+    title: '時間由舊到新',
+    value: 2
+  },
+  {
+    title: '專案金額由大到小',
+    value: 3
+  },
+  {
+    title: '專案金額由小到大',
+    value: 4
+  }
 ])
 
 // 搜尋
-
 const keyword = ref('')
 
-// 分類篩選相關
-const selectCategory = ref(-1)
-
-const isShowCategories = ref(false)
-
-function closeCategories() {
-  setTimeout(() => {
-    isShowCategories.value = false
-  }, 100)
-}
-
-// 選擇分類
-function filterSelectCategory(key: number) {
-  selectCategory.value = key
-  currentPage.value = 1
-  getApiData()
-}
-
-// 排序相關
-const selectSort = ref(0)
-
-const isShowSortList = ref(false)
-
-function closeSortList() {
-  setTimeout(() => {
-    isShowSortList.value = false
-  }, 100)
-}
-
-// 選擇排序
-function sortProducts(key: number) {
-  selectSort.value = key
-  getApiData()
-}
-
-// 分頁
-const currentPage = ref(1)
-
-const postsPerPage = ref(10)
-
-watch(currentPage, (newPage) => {
-  getApiData()
-})
-
 // 取得資料
-const data = ref({
+const data:any = ref({
   list: [],
   totalCount: 0
 })
 
+const query = ref({
+  category: 0,
+  order: 0,
+  page: 1,
+  pageSize: 12
+})
+
 async function getApiData() {
-  try {
-    loading.value = true
-
-    const res = await fetchProduct.getProducts({
-      keyword: keyword.value ? keyword.value : null,
-      order: selectSort.value,
-      category: selectCategory.value !== -1 ? selectCategory.value : null,
-      page: currentPage.value,
-      pageSize: postsPerPage.value
-    })
-
-    data.value = {
-      ...res.data
-    }
-
-    loading.value = false
-  } catch (e) {
-    loading.value = false
+  const res = await fetchProduct.getProducts(
+    query.value
+  )
+  if (res.status !== 'Success') return
+  data.value = {
+    ...res.data
   }
 }
+// 分類篩選相關
+// 分類下拉標題
+const categoryTitle = ref('')
 
-getApiData()
+// 選擇分類
+function filterSelectCategory(item:any) {
+  query.value.category = item.value
+  query.value.page = 1
+  categoryTitle.value = item.title
+  getApiData()
+}
+// 分類 HTML
+const categoriesRef = ref<null | HTMLElement>(null)
+// 分類下拉控制
+const isShowCategories = ref(false)
+
+function closeCategories() {
+  isShowCategories.value = false
+}
+useClickOutside(categoriesRef, closeCategories)
+
+// 排序相關
+const sortTitle = ref('')
+const sortRef = ref<null | HTMLElement>(null)
+const isShowSortList = ref(false)
+
+// 選擇排序
+function sortProducts(item: any) {
+  query.value.order = item.value
+  sortTitle.value = item.title
+  getApiData()
+}
+function closeSort() {
+  isShowSortList.value = false
+}
+useClickOutside(sortRef, closeSort)
+
+onMounted(() => {
+  getApiData()
+})
+
+watch(
+  () => query.value.page,
+  (newPage) => getApiData()
+)
 </script>
 
 <template>
@@ -108,8 +135,8 @@ getApiData()
     <div class="md:flex md:justify-between items-center mb-10">
       <!-- 專案類別篩選 -->
       <div class="relative  mb-4 md:mb-0">
-        <div tabindex="0" @click="isShowCategories = !isShowCategories" @blur="closeCategories" class="flex justify-between items-center bg-white border-1 border-gray-3 rounded w-full md:w-50 cursor-pointer px-4 py-1">
-          {{ selectCategory !== -1 ? categories[selectCategory] : '專案類別' }}
+        <div ref="categoriesRef" @click="isShowCategories = !isShowCategories" class="flex justify-between items-center bg-white border-1 border-gray-3 rounded w-full md:w-50 cursor-pointer px-4 py-1">
+          {{ query.category !== 0 ? categoryTitle : '專案類別' }}
           <svg v-if="!isShowCategories" width='12' height='12' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
             <g transform="matrix(0.5 0 0 0.5 12 12)" >
             <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-24, -23.2)" d="M 40.394 41 L 7.606 41 C 6.303 41 5.1370000000000005 40.326 4.486 39.198 C 3.834999999999999 38.07 3.835 36.722 4.486 35.594 L 20.88 7.2 L 20.88 7.2 C 21.531 6.072 22.697 5.399 24 5.399 C 25.303 5.399 26.469 6.072 27.12 7.2 L 43.513999999999996 35.595 C 44.165 36.723 44.165 38.071 43.513999999999996 39.199 C 42.86299999999999 40.327 41.696 41 40.394 41 z" stroke-linecap="round" />
@@ -124,8 +151,8 @@ getApiData()
         <ul v-if="isShowCategories" class="absolute z-10 bg-white border-1 border-gray-3 mt-1">
           <li
             class="rounded w-50 cursor-pointer px-4 py-2 hover:text-brand-2 active:text-brand-2"
-            :class="{'text-brand-2': selectCategory === -1}"
-            @click="filterSelectCategory(-1)"
+            :class="{'text-brand-2': query.category === 0}"
+            @click="filterSelectCategory({value:0 , title: '全部' })"
           >
             全部
           </li>
@@ -133,10 +160,10 @@ getApiData()
             v-for="(category, key) in categories"
             :key="`${category}_${key}`"
             class="rounded w-50 cursor-pointer px-4 py-2 hover:text-brand-2 active:text-brand-2"
-            :class="{'text-brand-2': selectCategory === key}"
-            @click="filterSelectCategory(key)"
+            :class="{'text-brand-2': query.category === (key+1)}"
+            @click="filterSelectCategory(category)"
           >
-            {{ category }}
+            {{ category.title }}
           </li>
         </ul>
       </div>
@@ -152,8 +179,8 @@ getApiData()
         </div>
         <!-- 排序選擇 -->
         <div class="relative w-full">
-          <div tabindex="0" @click="isShowSortList = !isShowSortList" @blur="closeSortList" class="flex justify-between items-center bg-white border-1 border-gray-3 rounded md:w-50 cursor-pointer px-4 py-1">
-            {{ sortList[selectSort] ? sortList[selectSort] : '排序' }}
+          <div ref="sortRef" @click="isShowSortList = !isShowSortList" class="flex justify-between items-center bg-white border-1 border-gray-3 rounded md:w-50 cursor-pointer px-4 py-1">
+            {{ sortTitle!== '' ? sortTitle : '排序' }}
             <svg v-if="!isShowSortList" width='12' height='12' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
               <g transform="matrix(0.5 0 0 0.5 12 12)" >
               <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-24, -23.2)" d="M 40.394 41 L 7.606 41 C 6.303 41 5.1370000000000005 40.326 4.486 39.198 C 3.834999999999999 38.07 3.835 36.722 4.486 35.594 L 20.88 7.2 L 20.88 7.2 C 21.531 6.072 22.697 5.399 24 5.399 C 25.303 5.399 26.469 6.072 27.12 7.2 L 43.513999999999996 35.595 C 44.165 36.723 44.165 38.071 43.513999999999996 39.199 C 42.86299999999999 40.327 41.696 41 40.394 41 z" stroke-linecap="round" />
@@ -170,10 +197,10 @@ getApiData()
               v-for="(sort, key) in sortList"
               :key="`${sort}_${key}`"
               class="rounded w-50 cursor-pointer px-4 py-2 hover:text-brand-2 active:text-brand-2"
-              :class="{'text-brand-2': selectSort === key}"
-              @click="sortProducts(key)"
+              :class="{'text-brand-2': query.order === (key+1)}"
+              @click="sortProducts(sort)"
             >
-              {{ sort }}
+              {{ sort.title }}
             </li>
           </ul>
         </div>
@@ -186,24 +213,19 @@ getApiData()
         :key="product._id"
         class="w-full md:w-49% lg:w-32%"
       >
-        <a :href="`/proposal/${product.customizedUrl}`">
+        <RouterLink :to="`/proposal/${product.customizedUrl}`">
           <!-- TODO: 商品圖片、目前金額、募資達標率待串接 -->
           <ProductCard
-            image="/frame-709.png"
+            :image="product.image"
             :title="product.name"
             :subtitle="product.summary"
-            :percent="36036 / product.targetPrice"
-            :current-price="36036"
+            :current-price="product.nowPrice"
             :target-price="product.targetPrice"
             :end-time="product.endTime"
           />
-        </a>
+        </RouterLink>
       </li>
     </ul>
-    <!-- loading 顯示文字 -->
-    <div v-else-if="loading" class="mb-8">
-      <p class="text-center">資料載入中，請稍候</p>
-    </div>
     <!-- 沒有資料顯示文字 -->
     <div v-else class="mb-8">
       <p class="text-center">目前沒有資料</p>
@@ -212,8 +234,8 @@ getApiData()
     <Pagination
       v-if="data.totalCount > 0"
       class="mb-10"
-      v-model="currentPage"
-      :page-size="postsPerPage"
+      v-model="query.page"
+      :page-size="12"
       :total="data.totalCount"
     />
   </div>

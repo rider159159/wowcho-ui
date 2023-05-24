@@ -1,55 +1,54 @@
 <script setup lang="ts">
+import { calcTargetPrice, formatRemainingTime } from '@/composables'
 const props = defineProps({
   image: {
-    type: String,
+    type: String
   },
   title: {
-    type: String,
+    type: String
   },
   subtitle: {
-    type: String,
+    type: String
   },
   currentPrice: {
     type: Number,
-    default: 0,
+    default: 0
   },
   targetPrice: {
     type: Number,
-    default: 0,
+    default: 0
   },
   endTime: {
     type: Number,
-    default: 0,
+    default: 0
   },
   isLive: {
     type: Boolean,
-    default: false,
+    default: false
   },
   vipLive: {
     type: Boolean,
-    default: false,
+    default: false
   },
   liveTime: {
     type: Number,
-    default: 0,
-  },
-});
+    default: 0
+  }
+})
 
 // 計算募資達成率
-const complianceRate = ref(
-  ((props.currentPrice / props.targetPrice) * 100).toFixed(2)
-);
 
 // 計算募資剩餘天數
-const timeDifference = Math.abs(props.endTime - Date.now()); // 到期時間戳與目前時間戳的絕對值
-const expiryDate = Math.floor(timeDifference / (24 * 60 * 60 * 1000));
+// const timeDifference = Math.abs(props.endTime - Date.now()) // 到期時間戳與目前時間戳的絕對值
+
+// const expiryDate = Math.floor(timeDifference / (24 * 60 * 60 * 1000))
 
 // 加上千分位符號
 const formattedCurrentPrice = computed(() => {
-  return props.currentPrice.toLocaleString();
-});
+  return props.currentPrice.toLocaleString()
+})
 
-const liveTime = new Date(props.liveTime);
+const liveTime = new Date(props.liveTime)
 </script>
 
 <template>
@@ -75,13 +74,13 @@ const liveTime = new Date(props.liveTime);
     <p class="text-gray-2 mb-5 md:mb-6">{{ props.subtitle }}</p>
     <div class="flex justify-between mb-2 md:mb-3">
       <div class="w-full bg-gray-4 rounded-md overflow-hidden mr-2">
-        <div class="bg-brand-3 h-full" :style="`width: ${complianceRate}%`"></div>
+        <div class="bg-brand-3 h-full" :style="`width: ${calcTargetPrice(props.currentPrice, props.targetPrice)}%`"></div>
       </div>
-      {{ complianceRate }}%
+      {{  calcTargetPrice(props.currentPrice, props.targetPrice) }}%
     </div>
     <div class="flex justify-between">
       <span>NT$ {{ formattedCurrentPrice }}</span>
-      <span>倒數 {{ expiryDate }} 天</span>
+      <span>倒數 {{ formatRemainingTime(props.endTime) }}  天</span>
     </div>
   </div>
 </template>

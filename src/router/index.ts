@@ -223,6 +223,13 @@ const router = createRouter({
           meta: {
             requiresAuth: true
           }
+        },
+        {
+          path: 'sponsorHistory',
+          component: () => import('../views/setting/sponsorHistory.vue'),
+          meta: {
+            requiresAuth: true
+          }
         }
       ]
     }

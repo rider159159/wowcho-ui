@@ -1,16 +1,16 @@
 <script setup lang="ts">
 const props = defineProps({
   title: {
-    type: String,
+    type: String
   },
   subtitle: {
-    type: String,
+    type: String
   },
   isLive: {
     type: Boolean,
-    default: false,
-  },
-});
+    default: false
+  }
+})
 </script>
 
 <template>
