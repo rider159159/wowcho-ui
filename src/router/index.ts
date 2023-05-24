@@ -143,7 +143,7 @@ const router = createRouter({
     },
     // 商品詳細
     {
-      path: '/proposal/:id',
+      path: '/proposal/:proposal',
       name: 'proposal',
       component: () => import('../views/proposal/[id].vue'),
       meta: {
@@ -186,7 +186,8 @@ const router = createRouter({
         {
           path: 'success',
           name: 'cartSuccess',
-          component: () => import('../views/cart/success.vue')
+          component: () => import('../views/cart/success.vue'),
+          // component: () => import('../views/cart/content2.vue'), //test
         }
       ]
     },

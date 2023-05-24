@@ -3,6 +3,17 @@
   font-family: 'Noto Sans TC';
 }
 
+.ProposalContent{
+  img{
+    width:100%;
+    max-width: 100%
+  }
+  figure{
+    width:100%;
+    max-width: 100%
+  }
+}
+
 /* Custom Swiper styles */
 .swiper-button-disabled {
   @apply opacity-30 cursor-default pointer-events-none;

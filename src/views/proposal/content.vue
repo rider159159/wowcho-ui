@@ -2,7 +2,7 @@
 <script lang="ts" setup>
 // composables
 import { numberWithCommas, calculateDiscount, calcTargetPrice, timeStampChangeString, formatRemainingTime, formatDateAccomplish } from '@/composables'
-
+import { fetchProposal } from '@/api'
 enum PROPOSAL {
   CONTENT, PROCESS, PROMISES, FAQ
 }
@@ -79,49 +79,102 @@ const faqs = [
     updatedAt: '2022/12/20'
   }
 ]
-// const $f: any = await inject('$f')
-// console.log('test', $f)
-const content = ref(PROPOSAL.CONTENT)
 
+const content = ref(PROPOSAL.CONTENT)
+const route = useRoute()
+
+const categoryList = ref([
+  {
+    title: '出版',
+    value: 0
+  },
+  {
+    title: '社會',
+    value: 1
+  },
+  {
+    title: '教育',
+    value: 2
+  },
+  {
+    title: '影音',
+    value: 3
+  },
+  {
+    title: '科技',
+    value: 4
+  },
+  {
+    title: '休閒',
+    value: 5
+  },
+  {
+    title: '設計',
+    value: 6
+  }
+])
+
+function categoryName (num:0) {
+  const category = categoryList.value.find((item) => item.value === num)
+  return category?.title
+}
+
+const proposal:any = ref({
+  targetPrice: 0,
+  nowPrice: 0,
+  ownerId: {
+    username: ''
+  }
+})
 function contentHandler(target: PROPOSAL) {
   content.value = target
 }
+
+async function getProposal() {
+  const query = { proposalUrl: route.params.proposal }
+  const res = await fetchProposal.get(query)
+  if (res.status !== 'Success') return
+  proposal.value = res.data
+}
+onMounted(() => {
+  getProposal()
+})
 </script>
 
 <template>
   <div class="flex flex-col gap-5">
     <div class="flex gap-4 text-xl">
       <p>提案人</p>
-      <a class="text-brand-1 font-medium" href="#">{{ data.owner }}</a>
+      <a v-if="proposal.ownerId.username!==null" class="text-brand-1 font-medium" href="#">{{ proposal.ownerId.username }}</a>
     </div>
-    <h1 class="text-h3 leading-h3 md:(text-h2 leading-h2)">{{ data.title }}</h1>
+    <h1 class="text-h3 leading-h3 md:(text-h2 leading-h2)">{{ proposal.name }}</h1>
     <div class="flex flex-col md:flex-row mt-3 md:mt-5 gap-4 md:gap-10">
-      <img class="md:max-w-210 object-cover aspect-9/5 rounded-2xl" :src="data.image" />
+      <img class="md:w-70% object-cover aspect-9/5 rounded-2xl" :src="proposal.image" />
       <div class="flex flex-col justify-between gap-6 md:w-98">
         <div class="flex flex-col gap-4 md:gap-6">
           <div class="flex">
-            <tag class="leading-h6 px-3 py-2">{{ data.category }}</tag>
+            <tag class="leading-h6 px-3 py-2">{{ categoryName(proposal.category) }}</tag>
           </div>
-          <div>{{ data.summary }}</div>
+          <div>{{ proposal.summary }}</div>
           <div class="flex gap-4">
-            <div class="w-20 h-20 text-brand-2 text-h5 flex justify-center items-center">{{ data.currentMoney / data.targetPrice * 100 }}%</div>
+            <div class="w-20 h-20 text-brand-2 text-h5 flex justify-center items-center">{{ proposal.nowPrice / proposal.targetPrice * 100 }}%</div>
             <div class="flex flex-col gap-1">
-              <div class="text-h2 leading-10 font-bold">NT$ {{ numberWithCommas(data.currentMoney) }}</div>
-              <div class="text-gray-2">目標 NT$ {{ numberWithCommas(data.targetPrice) }}</div>
+              <div class="text-h2 leading-10 font-bold">NT$ {{ numberWithCommas(proposal.nowPrice) }}</div>
+              <div class="text-gray-2">目標 NT$ {{ numberWithCommas(proposal.targetPrice) }}</div>
             </div>
           </div>
           <div class="flex flex-col gap-2 md:gap-6 border-line border-t-1 pt-4 md:pt-6">
             <div class="flex justify-between">
               <div class="text-gray-2">贊助人數</div>
-              <div class="text-gray-1">{{data.donateNumber}} 人</div>
+              <div class="text-gray-1">{{ proposal.nowBuyers }} 人</div>
             </div>
             <div class="flex justify-between">
               <div class="text-gray-2">贊助時間</div>
-              <div class="text-gray-1">{{ timeStampChangeString(data.startTime) }} ~ {{ timeStampChangeString(data.endTime) }}</div>
+              <div class="text-gray-1">{{ timeStampChangeString(proposal.startTime) }} ~ {{ timeStampChangeString(proposal.endTime) }}</div>
             </div>
             <div class="flex justify-between">
               <div class="text-gray-2">剩餘時間</div>
-              <div class="text-gray-1">{{ formatRemainingTime(data.endTime) }} 天</div>
+              <div class="text-gray-1">{{ formatRemainingTime(proposal.endTime) }} 天</div>
             </div>
           </div>
         </div>
@@ -137,8 +190,9 @@ function contentHandler(target: PROPOSAL) {
           <li class="text-h5 leading-30px md:(text-h4 leading-9) py-4 cursor-pointer text-center" :class="content === PROPOSAL.FAQ ? 'text-gray-1 border-b-4 border-brand-2' : ''" @click="contentHandler(PROPOSAL.FAQ)">常見問答</li>
         </ul>
         <!-- content -->
-        <div class="py-6 md:py-10" :class="content === PROPOSAL.CONTENT ? 'block' : 'hidden'">
-          {{ data.content }}
+        <div class="py-6 md:py-10 w-full" :class="content === PROPOSAL.CONTENT ? 'block' : 'hidden'">
+
+          <div class="ProposalContent w-full" v-html="proposal.description"></div>
         </div>
         <!-- process -->
         <div class="py-6 md:py-10" :class="content === PROPOSAL.PROCESS ? 'block' : 'hidden'">
@@ -185,9 +239,8 @@ function contentHandler(target: PROPOSAL) {
           </div>
         </div>
         <!-- 募資方案 -->
+        <PlanList :data="proposal.planIdList" :class="'flex-col gap-12 overflow-x-auto'" :cardClass="'!w-90'"></PlanList>
       </div>
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

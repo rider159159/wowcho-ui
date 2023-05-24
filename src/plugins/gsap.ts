@@ -7,4 +7,4 @@ export function setupGSAP(AppInstance:App<Element>) {
   AppInstance.provide('$gsap', gsap)
 }
 
-export { dayjs }
+export { gsap }
