@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { SET_TOKEN } from '@/utils'
 // composables
-import { calculateDiscount, timeStampChange } from '@/composables'
+import { numberWithCommas, calculateDiscount, calcTargetPrice, timeStampChangeString, formatRemainingTime, formatDateAccomplish } from '@/composables'
 // store 運用
 import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
@@ -89,6 +89,7 @@ function openToast() {
     autoClose: 2000
   })
 }
+const formBody:any = ref({})
 
 onMounted(() => {
   Toast.fire({
@@ -97,14 +98,17 @@ onMounted(() => {
   })
 })
 const upload = ref('')
+const pagination = ref(2)
+const total = ref(50)
 
 </script>
 
 <template>
   <section class="p-4">
+    <Pagination v-model="pagination" :page-size="10" :total="total" ></Pagination>
     <span class="mdi mdi-close text-brand3 md:text-brand1 text-h1"></span>
     <div class="flex gap-4">
-      <Button class="bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">lorem</Button>
+      <MyButton class="bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">lorem</MyButton>
       <button @click.prevent="getMemberInfo"
         class="relative flex-none text-sm text-center font-semibold text-white py-2.5 px-4 rounded-lg bg-slate-900 dark:bg-sky-500 dark:text-white focus:outline-none hover:bg-slate-700 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:highlight-white/20 dark:hover:bg-sky-400 dark:focus:ring-2 dark:focus:ring-sky-600 dark:focus:ring-offset-slate-900">
         獲得使用者資料至 store
@@ -130,6 +134,12 @@ const upload = ref('')
         開啟吐司
       </button>
     </div>
+    <VueDatePicker v-model="formBody.birthday" :format="'yyyy/MM/dd HH:mm'" locale="zh-TW" auto-apply>
+      <template #dp-input="{ value }">
+        <input :value="value" type="text" class="w-full text-h6 leading-h4 px-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600">
+      </template>
+    </VueDatePicker>
+
     <h2 class="my-6 text-8 fw-700">商品列表</h2>
     <div class="grid grid-cols-3 gap-4">
       <div @click="toProject(item)" v-for="(item,index) in projectList" :key="index" class="rounded-xl cursor-pointer">
@@ -145,7 +155,16 @@ const upload = ref('')
     </div>
     <div>
       <h1>獲得環境:{{ env }}</h1>
-      <div> timeStamp 轉換{{ timeStampChange(1680307200000) }}</div>
+      <div> timeStamp 轉換{{ timeStampChangeString(1680307200000) }}</div>
+      <div>剩餘時間 {{ formatRemainingTime(1696125600000) }}</div>
+      <div>實現時間: {{ formatDateAccomplish(1696425936000) }}</div>
+      <!-- 原價、實際價格 -->
+      <p class="self-center text-xs font-bold text-black bg-yellow-300 p-1"> {{ calculateDiscount(2000, 1550)}} 折</p>
+      <!-- 目標金額，當前金額 -->
+      <div>目標金額1 - {{ calcTargetPrice(4237342, 100000)}}%</div>
+      <div>目標金額2 - {{ calcTargetPrice(1000, 10000)}}%</div>
+      <div> NT${{ numberWithCommas(42500) }}</div>
+
     </div>
     <Upload v-model="upload"></Upload>
     <img :src="upload" alt="">

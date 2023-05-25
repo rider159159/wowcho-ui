@@ -1,7 +1,7 @@
-import { App } from 'vue';
-import Swal from 'sweetalert2';
+import { App } from 'vue'
+import Swal from 'sweetalert2'
 
 export function setupSweetAlert(AppInstance:App<Element>) {
-  AppInstance.provide('$swal', Swal);
+  AppInstance.provide('$swal', Swal)
 }
-export { Swal };
+export { Swal }
