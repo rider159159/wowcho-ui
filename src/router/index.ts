@@ -12,7 +12,8 @@ const router = createRouter({
       component: () => import('../views/demo.vue'),
       meta: {
         keepAlive: false,
-        layout: noneHeader
+        layout: noneHeader,
+        requiresAuth: true
       }
     },
     {
@@ -52,15 +53,15 @@ const router = createRouter({
         layout: DefaultLayout
       }
     },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: () => import('../views/signup/index.vue'),
-      meta: {
-        keepAlive: false,
-        layout: DefaultLayout
-      }
-    },
+    // {
+    //   path: '/signup',
+    //   name: 'signup',
+    //   component: () => import('../views/signup/index.vue'),
+    //   meta: {
+    //     keepAlive: false,
+    //     layout: DefaultLayout
+    //   }
+    // },
 
     // 錯誤頁面
     {
