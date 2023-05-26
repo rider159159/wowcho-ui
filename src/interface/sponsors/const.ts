@@ -1,6 +1,6 @@
-import { ISponsor } from './interface'
+import { ISponsors } from './interface'
 
-export const sponsorFormBody:ISponsor = {
+export const sponsorFormBody:ISponsors = {
   ItemDesc: '',
   Amt: '',
   CVSCOM: 0,

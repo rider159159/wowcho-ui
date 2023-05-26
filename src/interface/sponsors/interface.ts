@@ -1,4 +1,4 @@
-export interface ISponsor {
+export interface ISponsors {
   ItemDesc: string,
   Amt: string,
   CVSCOM: number,

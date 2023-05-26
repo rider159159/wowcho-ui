@@ -1,7 +1,7 @@
 <!-- eslint-disable no-unused-vars -->
 <script lang="ts" setup>
 // composables
-import { numberWithCommas, calculateDiscount, calcTargetPrice, timeStampChangeString, formatRemainingTime, formatDateAccomplish } from '@/composables'
+import { numberWithCommas, calculateDiscount, calcTargetPrice, timeStampChangeString, dateWithDashYYYYMMDD, formatRemainingTime, formatDateAccomplish } from '@/composables'
 import { fetchProposal } from '@/api'
 enum PROPOSAL {
   CONTENT, PROCESS, PROMISES, FAQ
@@ -174,6 +174,7 @@ onMounted(() => {
             </div>
             <div class="flex justify-between">
               <div class="text-gray-2">贊助時間</div>
+
               <div class="text-gray-1">{{ timeStampChangeString(proposal.startTime) }} ~ {{ timeStampChangeString(proposal.endTime) }}</div>
             </div>
             <div class="flex justify-between">

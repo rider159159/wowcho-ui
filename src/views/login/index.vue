@@ -46,7 +46,7 @@ function togglePasswordType(show:boolean, type:string) {
 
 <template>
   <section class="flex flex-col items-center w-full px-4">
-  <!-- <Oauth></Oauth> -->
+    <Oauth></Oauth>
     <VForm class="w-full md:w-75% xl:w-50% flex flex-col gap-4" @submit="submitForm">
       <div>
         <label for="account" class="flex flex-col">
