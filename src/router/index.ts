@@ -68,7 +68,7 @@ const router = createRouter({
       component: () => import('../views/sponsor/index.vue'),
       meta: {
         keepAlive: false,
-        layout: DefaultLayout 
+        layout: DefaultLayout
       }
     },
     {
@@ -77,7 +77,7 @@ const router = createRouter({
       component: () => import('../views/sponsor/[id].vue'),
       meta: {
         keepAlive: false,
-        layout: DefaultLayout 
+        layout: DefaultLayout
       }
     },
     // 錯誤頁面

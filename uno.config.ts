@@ -1,5 +1,5 @@
-import { defineConfig } from '@unocss/vite';
-import presetUno from '@unocss/preset-uno';
+import { defineConfig } from '@unocss/vite'
+import presetUno from '@unocss/preset-uno'
 import transformerDirectives from '@unocss/transformer-directives'
 import transformerVariantGroup from '@unocss/transformer-variant-group'
 
@@ -17,7 +17,7 @@ export default defineConfig({
   // 有紅底線但能正常使用，是 unocss 本身的 error
   transformers: [
     transformerDirectives(),
-    transformerVariantGroup(),
+    transformerVariantGroup()
   ],
   theme: {
     colors: {
