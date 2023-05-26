@@ -6,14 +6,12 @@ import { userInfoStore, userLoginStore } from '@/stores'
 // import Swal from 'sweetalert2'
 
 const permission = (router:Router) => {
-  router.beforeEach(async (to, from) => {
-
+  router.beforeEach(async (to) => {
     const USER_TOKEN = GET_TOKEN()
     // console.log('USER_TOKEN:', USER_TOKEN)
 
     const USER_STORE = userInfoStore()
-    const LOGIN_STORE = userLoginStore();
-
+    const LOGIN_STORE = userLoginStore()
 
     if (USER_TOKEN) {
       // console.log('Fetching profile...')
@@ -22,21 +20,21 @@ const permission = (router:Router) => {
 
       if (res.status !== 'Success') {
         USER_STORE.FN_LOGOUT()
-        LOGIN_STORE.SHOW_LOGIN_MODAL = true;
+        LOGIN_STORE.SHOW_LOGIN_MODAL = true
         // console.log('Invalid token, returning false')
-        return false;
+        return false
       }
       USER_STORE.USER_INFO_REF = res.data
-      return true;
+      return true
     } else {
       if (to.meta.requiresAuth) {
-        LOGIN_STORE.TO_ROUTE = to.path;
-        LOGIN_STORE.SHOW_LOGIN_MODAL = true;
+        LOGIN_STORE.TO_ROUTE = to.path
+        LOGIN_STORE.SHOW_LOGIN_MODAL = true
         // console.log('No token and route requires auth, returning false')
-        return false;
+        return false
       } else {
         // console.log('No token and route does not require auth, returning true')
-        return true;
+        return true
       }
     }
 
@@ -51,7 +49,7 @@ const permission = (router:Router) => {
     //       LOGIN_STORE.SHOW_LOGIN_MODAL = true;
     //       return false;
     //     }
-  
+
     //     USER_STORE.USER_INFO_REF = res.data
     //     return true;
     //   } else { // 進入非有權限頁面
@@ -73,7 +71,6 @@ const permission = (router:Router) => {
     //   }
     // }
 
-    
     // 前往頁面有權限
     // if (to.meta.requiresAuth) {
     //   const res = await fetchMember.getProfile()

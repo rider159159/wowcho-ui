@@ -5,14 +5,14 @@ import { Swal } from '@/plugins/sweet-alert'
 import { userInfoStore, userLoginStore } from '@/stores'
 const router = useRouter()
 const USER_STORE = userInfoStore()
-const emits = defineEmits(['switchToSignup','closeModal','loginTure'])
+const emits = defineEmits(['switchToSignup', 'closeModal', 'loginTure'])
 const LOGIN_STORE = userLoginStore()
 
 async function submitForm(value:any) {
   const formBody = value
   const res = await fetchMember.login(formBody)
   if (res.status !== 'Success') return
-  const toRoute = USER_STORE.USER_LOGIN_ROUTE_REF
+  // const toRoute = USER_STORE.USER_LOGIN_ROUTE_REF
   SET_TOKEN(res.data.token)
 
   Swal.fire({
@@ -67,7 +67,7 @@ function togglePasswordType(show:boolean, type:string) {
         <span class="mdi mdi-account-circle text-h3 text-brand6"></span> 登入
       </div>
       <div class="text-14px">
-        尚未成為會員? 
+        尚未成為會員?
         <button @click="emits('switchToSignup')" class="text-brand2 bg-white">註冊帳號</button>
       </div>
 

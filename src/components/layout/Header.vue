@@ -6,20 +6,19 @@ import { GET_TOKEN } from '@/utils'
 import Modal from '../common/Modal.vue'
 import Login from '../../views/login/index.vue'
 import Signup from '../../views/signup/index.vue'
-const showModal = ref(false); // 控制 Modal 的顯示與否
+const showModal = ref(false) // 控制 Modal 的顯示與否
 const currentComponent = ref('Login')
-//監聽登入註冊彈窗狀態
+// 監聽登入註冊彈窗狀態
 const LOGIN_STORE = userLoginStore()
 watch(() => LOGIN_STORE.SHOW_LOGIN_MODAL, (newVal) => {
-  showModal.value = newVal;
-});
+  showModal.value = newVal
+})
 // 登入註冊彈窗控制
 const openModal = () => { showModal.value = true }
-const closeModal = () => { 
-  LOGIN_STORE.SHOW_LOGIN_MODAL = false;
-  showModal.value = false;
+const closeModal = () => {
+  LOGIN_STORE.SHOW_LOGIN_MODAL = false
+  showModal.value = false
 }
-
 
 const store = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(store)
@@ -41,7 +40,6 @@ onMounted(() => {
 
   const token = GET_TOKEN()
   token ? isLogin.value = true : isLogin.value = false
-
 })
 
 function closeMemberMenu() {
@@ -251,16 +249,15 @@ function closeMemberMenu() {
 
     <!-- 登入註冊彈窗 -->
     <Modal v-model="showModal" @update:modelValue="closeModal">
-      <Login v-if="currentComponent === 'Login'" 
-            @switchToSignup="currentComponent='Signup'" 
+      <Login v-if="currentComponent === 'Login'"
+            @switchToSignup="currentComponent='Signup'"
             @closeModal="closeModal"
             @loginTure="loginTure"
       />
-      <Signup v-if="currentComponent === 'Signup'" 
-            @switchToLogin="currentComponent='Login'" 
+      <Signup v-if="currentComponent === 'Signup'"
+            @switchToLogin="currentComponent='Login'"
       />
     </Modal>
-
 
   </header>
 </template>
