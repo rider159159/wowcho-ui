@@ -1,18 +1,18 @@
 <script setup lang="ts">
-// import { storeToRefs } from 'pinia'
+import { storeToRefs } from 'pinia'
 import { userInfoStore } from '@/stores'
 
-// const store = userInfoStore()
-// const { USER_INFO_REF } = storeToRefs(store)
+const store = userInfoStore()
+const { USER_INFO_REF } = storeToRefs(store)
 const { FN_LOGOUT } = userInfoStore()
 
 const router = useRouter()
 
 const showMenu = ref(false)
 const showMemberMenu = ref(false)
-const isLogin = ref(true)
+// const isLogin = ref(true)
 const showBgWhite = ref(false)
-
+const isLogin = computed(() => USER_INFO_REF.value.account.length >= 1)
 onMounted(() => {
   window.addEventListener('scroll', () => {
     showBgWhite.value = window.pageYOffset > 0
@@ -36,7 +36,7 @@ function closeMemberMenu() {
         <div
           class="container mx-auto !visible grow basis-[100%] items-center flex lg:basis-auto justify-between"
           id="navbarSupportedContentX">
-          <img src="/logo.svg" alt="">
+          <img src="/logo.svg" @click="router.push({ name:'home' })" class="cursor-pointer">
           <div class="hidden lg:flex justify-between items-center relative">
             <form action="">
               <input type="text" name="search" placeholder="搜尋" class="w-80 outline outline-1 outline-brand-3 rounded-3xl py-2 px-5 pl-10">
@@ -48,66 +48,70 @@ function closeMemberMenu() {
           <ul
             class="hidden lg:flex items-center gap-4">
             <li>
-              <a
+              <RouterLink
                 class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                @click.prevent="router.push('/demo')"
-                >範例</a
+                to="/demo"
+                >範例</RouterLink
+              >
+            </li>
+            <li data-te-nav-item-ref>
+              <RouterLink
+                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+                to="/proposals"
+                >探索</RouterLink
               >
             </li>
             <li data-te-nav-item-ref>
               <a
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                href="#!"
-                >探索</a
-              >
-            </li>
-            <li data-te-nav-item-ref>
-              <a
-                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                href="#!"
+                href="https://wowcho-mgmt-ui.onrender.com/#/login"
                 >提案</a
               >
             </li>
             <li v-if="!isLogin" data-te-nav-item-ref>
-              <a
-                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                href="#!"
-                ><Button class="bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</Button></a
+              <RouterLink
+                class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
+                to="/signup"
+                >註冊</RouterLink
               >
             </li>
-            <li v-if="isLogin" class="cursor-pointer relative" data-te-nav-item-ref>
-              <svg @click="showMemberMenu = !showMemberMenu" @blur="closeMemberMenu" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <li v-if="!isLogin" data-te-nav-item-ref>
+              <RouterLink
+                class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
+                to="/login"
+                >登入</RouterLink
+              >
+            </li>
+            <li v-if="isLogin"  class="cursor-pointer relative" data-te-nav-item-ref>
+              <!-- 使用者預設頭像 -->
+              <svg v-if="USER_INFO_REF.image == null" @click="showMemberMenu = !showMemberMenu" @blur="closeMemberMenu" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16 33V32C16 28.6863 18.6863 26 22 26H26C29.3137 26 32 28.6863 32 32V33" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
                 <path d="M24 23C21.7909 23 20 21.2091 20 19C20 16.7909 21.7909 15 24 15C26.2091 15 28 16.7909 28 19C28 21.2091 26.2091 23 24 23Z" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
                 <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#70BEFB"/>
               </svg>
-              <ul tabindex="0" v-if="showMemberMenu" class="member-menu absolute right-0 -bottom-65 w-40 bg-white">
+              <!-- 使用者頭像 -->
+              <img v-else :src="USER_INFO_REF.image" @click="showMemberMenu = !showMemberMenu" class="w-48px h-48px rounded-full">
+
+              <!-- 下拉選單 -->
+              <ul tabindex="0" v-if="showMemberMenu" class="member-menu absolute right-0 -bottom-55 w-40 bg-white">
                 <li class="px-4 py-3" data-te-nav-item-ref>
-                  <a
+                  <RouterLink
                     class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    href="#!"
-                    >贊助紀錄</a
+                    to="/setting/sponsorHistory"
+                    >贊助紀錄</RouterLink
                   >
                 </li>
                 <li class="px-4 py-3" data-te-nav-item-ref>
-                  <a
+                  <RouterLink
                     class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    href="#!"
-                    >提案紀錄</a
-                  >
-                </li>
-                <li class="px-4 py-3" data-te-nav-item-ref>
-                  <a
-                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    href="#!"
-                    >個人設定</a
+                    to="/setting/profile"
+                    >個人設定</RouterLink
                   >
                 </li>
                 <li class="px-4 py-3 border-t-1 border-line" data-te-nav-item-ref>
                   <a
-                    @click="FN_LOGOUT"
+                    @click.prevent="FN_LOGOUT"
                     class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    href="#!"
                     >登出</a
                   >
                 </li>
@@ -139,70 +143,69 @@ function closeMemberMenu() {
           </div>
           <ul>
             <li data-te-nav-item-ref class="mb-8">
-              <a
+              <RouterLink
                 class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                @click.prevent="router.push('/demo')"
-                >範例</a
+                to="/demo"
+                >範例</RouterLink
               >
             </li>
             <li data-te-nav-item-ref class="mb-8">
-              <a
+              <RouterLink
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                href="#!"
-                >探索</a
-              >
-            </li>
-            <li data-te-nav-item-ref class="mb-8">
-              <a
-                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                href="#!"
-                >提案</a
+                to="/proposals"
+                >探索</RouterLink
               >
             </li>
             <li v-if="isLogin" data-te-nav-item-ref class="mb-8">
-              <a
+              <div
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 pb-5 [&.active]:text-black/90 border-b-1 border-line"
-                href="#!"
-                >會員專區</a
+                >會員專區</div
               >
               <ul class="mt-3 ml-4">
                 <li data-te-nav-item-ref class="mb-3">
-                  <a
+                  <!-- 需建路由 -->
+                  <RouterLink
                     class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    href="#!"
-                    >贊助紀錄</a
+                    to="/setting/sponsorHistory"
+                    >贊助紀錄</RouterLink
                   >
                 </li>
-                <li data-te-nav-item-ref class="mb-3">
-                  <a
+                <!-- <li data-te-nav-item-ref class="mb-3">
+                  <RouterLink
                     class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    href="#!"
-                    >提案紀錄</a
+                    href=""
+                    >提案紀錄</RouterLink
                   >
-                </li>
+                </li> -->
                 <li data-te-nav-item-ref class="mb-3">
-                  <a
+                  <RouterLink
                     class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    href="#!"
-                    >個人設定</a
+                    to="/setting/profile"
+                    >個人設定</RouterLink
                   >
                 </li>
               </ul>
             </li>
           </ul>
         </div>
-        <a
+        <RouterLink
           v-if="!isLogin"
-          class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-          href="#!"
-          ><Button class="w-full bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</Button></a
+          class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
+          to="/signup"
+          >註冊</RouterLink
+        >
+        <RouterLink
+          v-if="!isLogin"
+          class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
+          to="/login"
+          >登入</RouterLink
         >
         <a
           v-if="isLogin"
           @click.prevent="FN_LOGOUT"
           class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
           href="#!"
-          ><Button class="w-full outline outline-2 outline-brand-1 bg-white text-brand-1 hover:bg-brand-1 hover:text-white">登出</Button></a
+          ><MyButton class="w-full outline outline-2 outline-brand-1 bg-white text-brand-1 hover:bg-brand-1 hover:text-white">登出</MyButton></a
         >
       </div>
     </div>
