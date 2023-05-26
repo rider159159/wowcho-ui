@@ -1,41 +1,41 @@
 <script lang="ts" setup>
-const selectCategory = ref('社會')
+// const selectCategory = ref('社會')
 
 // 假資料
-const lists = ref({
-  社會: [
-    'a000000001',
-    'a000000002'
-  ],
-  影音: [
-    'b000000001',
-    'b000000002'
-  ],
-  出版: [
-    'c000000001',
-    'c000000002'
-  ],
-  娛樂: [
-    'd000000001',
-    'd000000002'
-  ],
-  生活: [
-    'e000000001',
-    'e000000002'
-  ],
-  設計: [
-    'f000000001',
-    'f000000002'
-  ],
-  科技: [
-    'g000000001',
-    'g000000002'
-  ],
-  休閒: [
-    'h000000001',
-    'h000000002'
-  ]
-})
+// const lists = ref({
+//   社會: [
+//     'a000000001',
+//     'a000000002'
+//   ],
+//   影音: [
+//     'b000000001',
+//     'b000000002'
+//   ],
+//   出版: [
+//     'c000000001',
+//     'c000000002'
+//   ],
+//   娛樂: [
+//     'd000000001',
+//     'd000000002'
+//   ],
+//   生活: [
+//     'e000000001',
+//     'e000000002'
+//   ],
+//   設計: [
+//     'f000000001',
+//     'f000000002'
+//   ],
+//   科技: [
+//     'g000000001',
+//     'g000000002'
+//   ],
+//   休閒: [
+//     'h000000001',
+//     'h000000002'
+//   ]
+// })
 </script>
 
 <template>
@@ -69,10 +69,10 @@ const lists = ref({
     :is-live="true"
   />
   <!-- 募資專案類別 -->
-  <Carousel
+  <!-- <Carousel
     :list="lists[selectCategory]"
     :slidesPerView="3"
-  />
+  /> -->
   <div class="bg-categories | bg-brand-4 flex flex-col justify-content items-center pt-8 pb-10 md:pt-20 md:pb-22 mb-8 md:mb-20">
     <h2 class="text-3xl font-bold md:text-4xl mb-6 md:mb-8">募資專案類別</h2>
     <ul class="flex justify-center items-center flex-wrap w-75 text-gray-2 font-medium md:w-auto">

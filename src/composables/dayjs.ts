@@ -51,3 +51,7 @@ export function formatRemainingTime(timeStamp:any) {
 export function formatDateAccomplish(timestamp:number) {
   return dayjs(timestamp).format('預計於 YYYY 年 M 月實現')
 }
+
+export function timeStampChangeString(timeStamp:number):string {
+  return dayjs(timeStamp).format('YYYY/MM/DD')
+}
