@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { Autoplay, Pagination } from 'swiper'
 const props = defineProps({
   list: {
     type: Array,
     default: () => [111111, 222222, 333333, 444444]
   }
 })
+
 </script>
 
 <template>

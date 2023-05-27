@@ -62,7 +62,25 @@ const router = createRouter({
     //     layout: DefaultLayout
     //   }
     // },
-
+    // 贊助紀錄
+    {
+      path: '/sponsorList',
+      name: 'sponsor',
+      component: () => import('../views/sponsor/index.vue'),
+      meta: {
+        keepAlive: false,
+        layout: DefaultLayout
+      }
+    },
+    {
+      path: '/sponsor/:id',
+      name: 'sponsorDetail',
+      component: () => import('../views/sponsor/[id].vue'),
+      meta: {
+        keepAlive: false,
+        layout: DefaultLayout
+      }
+    },
     // 錯誤頁面
     {
       path: '/:catchAll(.*)',

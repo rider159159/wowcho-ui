@@ -32,7 +32,7 @@ const showMemberMenu = ref(false)
 const loginTure = () => { isLogin.value = true }
 
 const showBgWhite = ref(false)
-const isLogin = computed(() => USER_INFO_REF.value.account.length >= 1)
+const isLogin = computed(() => USER_INFO_REF.value.email.length >= 1)
 onMounted(() => {
   window.addEventListener('scroll', () => {
     showBgWhite.value = window.pageYOffset > 0
