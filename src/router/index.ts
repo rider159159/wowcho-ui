@@ -107,7 +107,7 @@ const router = createRouter({
       component: () => import('../views/termsOfUse/index.vue'),
       meta: {
         keepAlive: false,
-        layout: FullWidthLayout
+        layout: DefaultLayout
       }
     },
     // 隱私權條款
