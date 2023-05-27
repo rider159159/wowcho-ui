@@ -127,7 +127,7 @@ const router = createRouter({
       component: () => import('../views/commonProblem/index.vue'),
       meta: {
         keepAlive: false,
-        layout: FullWidthLayout
+        layout: DefaultLayout
       }
     },
     // 商品列表
