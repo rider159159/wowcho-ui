@@ -1,6 +1,24 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { userInfoStore } from '@/stores'
+import { userInfoStore, userLoginStore } from '@/stores'
+import { GET_TOKEN } from '@/utils'
+
+import Modal from '../common/Modal.vue'
+import Login from '../../views/login/index.vue'
+import Signup from '../../views/signup/index.vue'
+const showModal = ref(false) // 控制 Modal 的顯示與否
+const currentComponent = ref('Login')
+// 監聽登入註冊彈窗狀態
+const LOGIN_STORE = userLoginStore()
+watch(() => LOGIN_STORE.SHOW_LOGIN_MODAL, (newVal) => {
+  showModal.value = newVal
+})
+// 登入註冊彈窗控制
+const openModal = () => { showModal.value = true }
+const closeModal = () => {
+  LOGIN_STORE.SHOW_LOGIN_MODAL = false
+  showModal.value = false
+}
 
 const store = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(store)
@@ -10,13 +28,18 @@ const router = useRouter()
 
 const showMenu = ref(false)
 const showMemberMenu = ref(false)
-// const isLogin = ref(true)
+// const isLogin = ref(false)
+const loginTure = () => { isLogin.value = true }
+
 const showBgWhite = ref(false)
 const isLogin = computed(() => USER_INFO_REF.value.email.length >= 1)
 onMounted(() => {
   window.addEventListener('scroll', () => {
     showBgWhite.value = window.pageYOffset > 0
   })
+
+  const token = GET_TOKEN()
+  token ? isLogin.value = true : isLogin.value = false
 })
 
 function closeMemberMenu() {
@@ -69,19 +92,25 @@ function closeMemberMenu() {
               >
             </li>
             <li v-if="!isLogin" data-te-nav-item-ref>
-              <RouterLink
+              <a
+                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+                href="#!"
+                ><MyButton @click.prevent="openModal" class="bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton>
+              </a>
+
+              <!-- <RouterLink
                 class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
                 to="/signup"
                 >註冊</RouterLink
-              >
+              > -->
             </li>
-            <li v-if="!isLogin" data-te-nav-item-ref>
+            <!-- <li v-if="!isLogin" data-te-nav-item-ref>
               <RouterLink
                 class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
                 to="/login"
                 >登入</RouterLink
               >
-            </li>
+            </li> -->
             <li v-if="isLogin"  class="cursor-pointer relative" data-te-nav-item-ref>
               <!-- 使用者預設頭像 -->
               <svg v-if="USER_INFO_REF.image == null" @click="showMemberMenu = !showMemberMenu" @blur="closeMemberMenu" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -188,7 +217,15 @@ function closeMemberMenu() {
             </li>
           </ul>
         </div>
-        <RouterLink
+
+        <a
+          v-if="!isLogin"
+          class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+          href="#!"
+          ><MyButton @click.prevent="openModal" class="w-full bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton>
+        </a>
+
+        <!-- <RouterLink
           v-if="!isLogin"
           class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
           to="/signup"
@@ -199,7 +236,7 @@ function closeMemberMenu() {
           class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
           to="/login"
           >登入</RouterLink
-        >
+        > -->
         <a
           v-if="isLogin"
           @click.prevent="FN_LOGOUT"
@@ -209,6 +246,19 @@ function closeMemberMenu() {
         >
       </div>
     </div>
+
+    <!-- 登入註冊彈窗 -->
+    <Modal v-model="showModal" @update:modelValue="closeModal">
+      <Login v-if="currentComponent === 'Login'"
+            @switchToSignup="currentComponent='Signup'"
+            @closeModal="closeModal"
+            @loginTure="loginTure"
+      />
+      <Signup v-if="currentComponent === 'Signup'"
+            @switchToLogin="currentComponent='Login'"
+      />
+    </Modal>
+
   </header>
 </template>
 
