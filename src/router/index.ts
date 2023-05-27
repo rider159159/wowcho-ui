@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import permission from './permission'
 import DefaultLayout from '@/components/layoutWrapper/DefaultLayout.vue'
 import noneHeader from '@/components/layoutWrapper/noneHeader.vue'
+import FullWidthLayout from '@/components/layoutWrapper/FullWidthLayout.vue'
 const router = createRouter({
   history: createWebHashHistory(),
   scrollBehavior(to, from, savedPosition) {
@@ -93,14 +94,14 @@ const router = createRouter({
         keepAlive: false
       }
     },
-    // 關於我
+    // 關於我們
     {
       path: '/about',
       name: 'about',
       component: () => import('../views/about/index.vue'),
       meta: {
         keepAlive: false,
-        layout: DefaultLayout
+        layout: FullWidthLayout
       }
     },
     // 使用條款
@@ -113,21 +114,11 @@ const router = createRouter({
         layout: DefaultLayout
       }
     },
-    // 隱私權
+    // 隱私權條款
     {
       path: '/privacy_publicy',
       name: 'privacyPublicy',
       component: () => import('../views/privacyPublicy/index.vue'),
-      meta: {
-        keepAlive: false,
-        layout: DefaultLayout
-      }
-    },
-    // 使用條款
-    {
-      path: '/terms_of_use',
-      name: 'termsOfUse',
-      component: () => import('../views/termsOfUse/index.vue'),
       meta: {
         keepAlive: false,
         layout: DefaultLayout
@@ -138,16 +129,6 @@ const router = createRouter({
       path: '/common_problem',
       name: 'commonProblem',
       component: () => import('../views/commonProblem/index.vue'),
-      meta: {
-        keepAlive: false,
-        layout: DefaultLayout
-      }
-    },
-    // 聯絡客服
-    {
-      path: '/contact',
-      name: 'contact',
-      component: () => import('../views/contact/index.vue'),
       meta: {
         keepAlive: false,
         layout: DefaultLayout
