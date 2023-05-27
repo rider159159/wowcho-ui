@@ -3,18 +3,21 @@ import { fetchMember } from '@/api'
 import { SET_TOKEN } from '@/utils'
 import { Swal } from '@/plugins/sweet-alert'
 import { userInfoStore, userLoginStore } from '@/stores'
+const emits = defineEmits(['switchToSignup', 'closeModal', 'loginTure'])
 const router = useRouter()
 const USER_STORE = userInfoStore()
-const emits = defineEmits(['switchToSignup', 'closeModal', 'loginTure'])
 const LOGIN_STORE = userLoginStore()
 
 async function submitForm(value:any) {
   const formBody = value
   const res = await fetchMember.login(formBody)
   if (res.status !== 'Success') return
-  // const toRoute = USER_STORE.USER_LOGIN_ROUTE_REF
   SET_TOKEN(res.data.token)
+  loginSuccess()
+}
 
+// 登入成功，關閉彈窗，切換頁面，並打個人資料 API
+async function loginSuccess() {
   Swal.fire({
     icon: 'success',
     title: '登入成功',
@@ -25,33 +28,23 @@ async function submitForm(value:any) {
 
   setTimeout(() => {
     emits('closeModal')
-    emits('loginTure')
-    router.push({ path: LOGIN_STORE.TO_ROUTE || '/' })
-    // router.push(toRoute)
-    USER_STORE.USER_LOGIN_ROUTE_REF = ''
+    // 前往頁面有值，才做頁面切換，否則停留此頁
+    console.log(LOGIN_STORE.TO_ROUTE.length >= 2)
+    if (LOGIN_STORE.TO_ROUTE.length >= 2) {
+      router.push(LOGIN_STORE.TO_ROUTE)
+      LOGIN_STORE.TO_ROUTE = ''
+    }
   }, 2000)
-
-  // if (toRoute.length > 0) {
-  //   setTimeout(() => {
-  //     emits('closeModal')
-  //     emits('loginTure')
-  //     router.push({ path: LOGIN_STORE.TO_ROUTE || '/' })
-  //     // router.push(toRoute)
-  //     USER_STORE.USER_LOGIN_ROUTE_REF = ''
-  //   }, 2000)
-  // } else {
-  //   setTimeout(() => {
-  //     router.push('/')
-  //   }, 2000)
-  // }
 
   // 獲得 token，打 get 個人資料 API
   const profileRes = await fetchMember.getProfile()
   USER_STORE.USER_INFO_REF = profileRes.data
 }
 
+// 密碼顯示切換
 const passwordShow = ref(true)
 const passwordType = ref('password')
+
 function togglePasswordType(show:boolean, type:string) {
   passwordShow.value = show
   passwordType.value = type
@@ -60,7 +53,6 @@ function togglePasswordType(show:boolean, type:string) {
 
 <template>
   <section class="flex flex-col items-center w-full px-4">
-    <Oauth></Oauth>
     <VForm class="w-full md:w-75% xl:w-50% flex flex-col gap-4" @submit="submitForm">
       <img src="/footer_logo.svg" alt="">
       <div class="text-h3 text-center my-10px">
@@ -68,8 +60,10 @@ function togglePasswordType(show:boolean, type:string) {
       </div>
       <div class="text-14px">
         尚未成為會員?
-        <button @click="emits('switchToSignup')" class="text-brand2 bg-white">註冊帳號</button>
+        <button type="button" @click="emits('switchToSignup')" class="text-brand2 bg-white">註冊帳號</button>
       </div>
+
+      <Oauth @oauthLoginSuccess="loginSuccess"></Oauth>
 
       <div>
         <label for="account" class="flex flex-col">
@@ -91,7 +85,8 @@ function togglePasswordType(show:boolean, type:string) {
         </label>
         <ErrorMessage name="password" class="block text-red-500"/>
       </div>
-      <button type="submit" class="mt-4 w-full py-2 bg-brand-1 text-white rounded-3xl">登入</button>
+      <button @keyup.enter="submitForm" type="submit" class="mt-4 w-full py-2 bg-brand-1 text-white rounded-3xl">登入</button>
     </VForm>
+
   </section>
 </template>

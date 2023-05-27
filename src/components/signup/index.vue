@@ -2,8 +2,6 @@
 import { fetchMember } from '@/api'
 import { Swal } from '@/plugins/sweet-alert'
 
-// const router = useRouter()
-
 async function submitForm(value:any) {
   const formBody = value
   const response = await fetchMember.register(formBody)
@@ -11,7 +9,7 @@ async function submitForm(value:any) {
   if (response.status !== 'Success') return
   Swal.fire({
     icon: 'success',
-    title: '註冊成功，請登入帳號',
+    text: '註冊成功，請登入帳號',
     confirmButtonText: '確定',
     confirmButtonColor: '#2378BF',
     timer: 3000
@@ -41,7 +39,7 @@ const emits = defineEmits(['switchToLogin'])
       </div>
       <div class="text-14px">
         已經有帳號了嗎?
-        <button @click="emits('switchToLogin')" class="text-brand2 bg-white">登入</button>
+        <button type="button" @click="emits('switchToLogin')" class="text-brand2 bg-white">登入</button>
       </div>
       <div>
         <label for="account" class="flex flex-col">
@@ -70,7 +68,7 @@ const emits = defineEmits(['switchToLogin'])
         </label>
         <ErrorMessage name="password" class="block text-red-500"/>
       </div>
-      <button type="submit" class="mt-4 w-full py-2 bg-brand-1 text-white rounded-3xl">註冊</button>
+      <button type="submit" @keyup.enter="submitForm" class="mt-4 w-full py-2 bg-brand-1 text-white rounded-3xl">註冊</button>
     </VForm>
   </section>
 </template>

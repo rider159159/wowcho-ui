@@ -4,9 +4,10 @@ import { GET_TOKEN } from '@/utils'
 import { fetchMember } from '@/api'
 import { userInfoStore, userLoginStore } from '@/stores'
 // import Swal from 'sweetalert2'
-
 const permission = (router:Router) => {
-  router.beforeEach(async (to) => {
+  router.beforeEach(async (to, from) => {
+    const currentRoute = router.currentRoute
+    console.log(currentRoute, from)
     const USER_TOKEN = GET_TOKEN()
     // console.log('USER_TOKEN:', USER_TOKEN)
 
@@ -28,9 +29,11 @@ const permission = (router:Router) => {
       return true
     } else {
       if (to.meta.requiresAuth) {
-        LOGIN_STORE.TO_ROUTE = to.path
+        LOGIN_STORE.TO_ROUTE = to.fullPath
         LOGIN_STORE.SHOW_LOGIN_MODAL = true
-        // console.log('No token and route requires auth, returning false')
+        if (from.name === undefined) {
+          router.push('/')
+        }
         return false
       } else {
         // console.log('No token and route does not require auth, returning true')

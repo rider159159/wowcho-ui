@@ -5,6 +5,9 @@ import DefaultLayout from '@/components/layoutWrapper/DefaultLayout.vue'
 import noneHeader from '@/components/layoutWrapper/noneHeader.vue'
 const router = createRouter({
   history: createWebHashHistory(),
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 }
+  },
   routes: [
     {
       path: '/demo',
@@ -44,15 +47,15 @@ const router = createRouter({
         layout: DefaultLayout
       }
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/login/index.vue'),
-      meta: {
-        keepAlive: false,
-        layout: DefaultLayout
-      }
-    },
+    // {
+    //   path: '/login',
+    //   name: 'login',
+    //   component: () => import('../views/login/index.vue'),
+    //   meta: {
+    //     keepAlive: false,
+    //     layout: DefaultLayout
+    //   }
+    // },
     // {
     //   path: '/signup',
     //   name: 'signup',
