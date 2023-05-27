@@ -117,7 +117,7 @@ const router = createRouter({
       component: () => import('../views/privacyPublicy/index.vue'),
       meta: {
         keepAlive: false,
-        layout: FullWidthLayout
+        layout: DefaultLayout
       }
     },
     // 常見問題
