@@ -6,6 +6,9 @@ import noneHeader from '@/components/layoutWrapper/noneHeader.vue'
 import FullWidthLayout from '@/components/layoutWrapper/FullWidthLayout.vue'
 const router = createRouter({
   history: createWebHashHistory(),
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 }
+  },
   routes: [
     {
       path: '/demo',
@@ -13,7 +16,8 @@ const router = createRouter({
       component: () => import('../views/demo.vue'),
       meta: {
         keepAlive: false,
-        layout: noneHeader
+        layout: noneHeader,
+        requiresAuth: true
       }
     },
     {
@@ -44,24 +48,24 @@ const router = createRouter({
         layout: DefaultLayout
       }
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/login/index.vue'),
-      meta: {
-        keepAlive: false,
-        layout: DefaultLayout
-      }
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: () => import('../views/signup/index.vue'),
-      meta: {
-        keepAlive: false,
-        layout: DefaultLayout
-      }
-    },
+    // {
+    //   path: '/login',
+    //   name: 'login',
+    //   component: () => import('../views/login/index.vue'),
+    //   meta: {
+    //     keepAlive: false,
+    //     layout: DefaultLayout
+    //   }
+    // },
+    // {
+    //   path: '/signup',
+    //   name: 'signup',
+    //   component: () => import('../views/signup/index.vue'),
+    //   meta: {
+    //     keepAlive: false,
+    //     layout: DefaultLayout
+    //   }
+    // },
     // 贊助紀錄
     {
       path: '/sponsorList',

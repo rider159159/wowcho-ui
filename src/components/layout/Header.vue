@@ -1,29 +1,56 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { userInfoStore } from '@/stores'
+import { userInfoStore, userLoginStore } from '@/stores'
 
 const store = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(store)
+// 登出方法
 const { FN_LOGOUT } = userInfoStore()
-
 const router = useRouter()
-
+// 登入、註冊
+const currentComponent = ref('Login')
+// 監聽登入註冊彈窗狀態
+const LOGIN_STORE = userLoginStore()
+// RWD Menu
 const showMenu = ref(false)
+// PC Menu
 const showMemberMenu = ref(false)
-// const isLogin = ref(true)
+// Header 背景色
 const showBgWhite = ref(false)
+
+// 登入註冊彈窗控制
+const openLoginModal = () => { LOGIN_STORE.SHOW_LOGIN_MODAL = true }
+const closeLoginModal = () => {
+  LOGIN_STORE.SHOW_LOGIN_MODAL = false
+  closeMenu()
+}
+
+function closeMenu() {
+  setTimeout(() => {
+    showMenu.value = false
+    showMemberMenu.value = false
+  }, 100)
+}
+function logoOut() {
+  FN_LOGOUT()
+  const currentRoute = router.currentRoute.value
+  const routeIsRequiresAuth = currentRoute.meta.requiresAuth
+  // 如果所在頁面需要登入踢回首頁頁面
+  if (routeIsRequiresAuth) {
+    router.push('/')
+  } else { // 不需要登入的頁面刷新頁面
+    location.reload()
+  }
+  closeMenu()
+}
+
 const isLogin = computed(() => USER_INFO_REF.value.email.length >= 1)
+
 onMounted(() => {
   window.addEventListener('scroll', () => {
     showBgWhite.value = window.pageYOffset > 0
   })
 })
-
-function closeMemberMenu() {
-  setTimeout(() => {
-    showMemberMenu.value = false
-  }, 100)
-}
 </script>
 
 <template>
@@ -51,6 +78,7 @@ function closeMemberMenu() {
               <RouterLink
                 class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                 to="/demo"
+                @click="closeMenu"
                 >範例</RouterLink
               >
             </li>
@@ -58,33 +86,21 @@ function closeMemberMenu() {
               <RouterLink
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                 to="/proposals"
+                @click="closeMenu"
                 >探索</RouterLink
               >
             </li>
-            <li data-te-nav-item-ref>
-              <a
+
+            <li v-if="!isLogin" data-te-nav-item-ref>
+              <div
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                href="https://wowcho-mgmt-ui.onrender.com/#/login"
-                >提案</a
-              >
-            </li>
-            <li v-if="!isLogin" data-te-nav-item-ref>
-              <RouterLink
-                class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
-                to="/signup"
-                >註冊</RouterLink
-              >
-            </li>
-            <li v-if="!isLogin" data-te-nav-item-ref>
-              <RouterLink
-                class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
-                to="/login"
-                >登入</RouterLink
-              >
+                ><MyButton @click.prevent="openLoginModal" class="bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton>
+              </div>
+
             </li>
             <li v-if="isLogin"  class="cursor-pointer relative" data-te-nav-item-ref>
               <!-- 使用者預設頭像 -->
-              <svg v-if="USER_INFO_REF.image == null" @click="showMemberMenu = !showMemberMenu" @blur="closeMemberMenu" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg v-if="USER_INFO_REF.image == null" @click="showMemberMenu = !showMemberMenu" @blur="closeMenu" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16 33V32C16 28.6863 18.6863 26 22 26H26C29.3137 26 32 28.6863 32 32V33" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
                 <path d="M24 23C21.7909 23 20 21.2091 20 19C20 16.7909 21.7909 15 24 15C26.2091 15 28 16.7909 28 19C28 21.2091 26.2091 23 24 23Z" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
                 <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#70BEFB"/>
@@ -110,7 +126,7 @@ function closeMemberMenu() {
                 </li>
                 <li class="px-4 py-3 border-t-1 border-line" data-te-nav-item-ref>
                   <a
-                    @click.prevent="FN_LOGOUT"
+                    @click.prevent="logoOut"
                     class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                     >登出</a
                   >
@@ -170,13 +186,7 @@ function closeMemberMenu() {
                     >贊助紀錄</RouterLink
                   >
                 </li>
-                <!-- <li data-te-nav-item-ref class="mb-3">
-                  <RouterLink
-                    class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    href=""
-                    >提案紀錄</RouterLink
-                  >
-                </li> -->
+
                 <li data-te-nav-item-ref class="mb-3">
                   <RouterLink
                     class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
@@ -188,27 +198,35 @@ function closeMemberMenu() {
             </li>
           </ul>
         </div>
-        <RouterLink
+
+        <a
           v-if="!isLogin"
-          class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
-          to="/signup"
-          >註冊</RouterLink
-        >
-        <RouterLink
-          v-if="!isLogin"
-          class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
-          to="/login"
-          >登入</RouterLink
-        >
+          class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+          href="#!"
+          ><MyButton @click.prevent="openLoginModal" class="w-full bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton>
+        </a>
+
         <a
           v-if="isLogin"
-          @click.prevent="FN_LOGOUT"
+          @click.prevent="logoOut"
           class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
           href="#!"
           ><MyButton class="w-full outline outline-2 outline-brand-1 bg-white text-brand-1 hover:bg-brand-1 hover:text-white">登出</MyButton></a
         >
       </div>
     </div>
+
+    <!-- 登入註冊彈窗 -->
+    <Modal v-model="LOGIN_STORE.SHOW_LOGIN_MODAL" @update:modelValue="closeLoginModal">
+      <Login v-if="currentComponent === 'Login'"
+            @switchToSignup="currentComponent='Signup'"
+            @closeModal="closeLoginModal"
+      />
+      <Signup v-if="currentComponent === 'Signup'"
+            @switchToLogin="currentComponent='Login'"
+      />
+    </Modal>
+
   </header>
 </template>
 
