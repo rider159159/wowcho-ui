@@ -70,7 +70,7 @@ const liveTime = new Date(props.liveTime)
         </span>
       </div>
     </div>
-    <h3 class="text-xl font-medium md:text-2xl mb-2 md:mb-3">{{ props.title }}</h3>
+    <h3 class="text-lg font-medium mb-2 md:mb-3">{{ props.title }}</h3>
     <p class="text-gray-2 mb-5 md:mb-6">{{ props.subtitle }}</p>
     <div class="flex justify-between mb-2 md:mb-3">
       <div class="w-full bg-gray-4 rounded-md overflow-hidden mr-2">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fetchProduct } from '@/api'
+import { fetchProposal } from '@/api'
 import { useClickOutside } from '@/composables'
 
 const route = useRoute()
@@ -77,7 +77,7 @@ const query = ref({
 })
 
 async function getApiData() {
-  const res = await fetchProduct.getProducts(
+  const res = await fetchProposal.getList(
     query.value
   )
   if (res.status !== 'Success') return
@@ -177,14 +177,14 @@ watch(
       </div>
       <div class="flex flex-col-reverse gap-y-4 md:gap-y-0 md:flex-row items-center gap-x-4">
         <!-- 搜尋框 -->
-        <div class="relative w-full">
-          <input @keyup.enter="getApiData" v-model="keyword" class="bg-white border-1 border-gray-3 rounded w-full md:w-50 pl-8 py-1" type="text" placeholder="Search">
+        <!-- <div class="relative w-full">
+          <input @keyup.enter="searchData" v-model="keyword" class="bg-white border-1 border-gray-3 rounded w-full md:w-50 pl-8 py-1" type="text" placeholder="搜尋">
           <svg class="absolute top-2/4 -translate-y-2/4 left-2" width='20' height='20' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
             <g transform="matrix(1 0 0 1 12 12)" >
             <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -12)" d="M 9 2 C 5.1458514 2 2 5.1458514 2 9 C 2 12.854149 5.1458514 16 9 16 C 10.747998 16 12.345009 15.348024 13.574219 14.28125 L 14 14.707031 L 14 16 L 20 22 L 22 20 L 16 14 L 14.707031 14 L 14.28125 13.574219 C 15.348024 12.345009 16 10.747998 16 9 C 16 5.1458514 12.854149 2 9 2 z M 9 4 C 11.773268 4 14 6.2267316 14 9 C 14 11.773268 11.773268 14 9 14 C 6.2267316 14 4 11.773268 4 9 C 4 6.2267316 6.2267316 4 9 4 z" stroke-linecap="round" />
             </g>
           </svg>
-        </div>
+        </div> -->
         <!-- 排序選擇 -->
         <div class="relative w-full">
           <div ref="sortRef" @click="isShowSortList = !isShowSortList" class="flex justify-between items-center bg-white border-1 border-gray-3 rounded md:w-50 cursor-pointer px-4 py-1">
@@ -226,7 +226,6 @@ watch(
           <ProductCard
             :image="product.image"
             :title="product.name"
-            :subtitle="product.summary"
             :current-price="product.nowPrice"
             :target-price="product.targetPrice"
             :end-time="product.endTime"
