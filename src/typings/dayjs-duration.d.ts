@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
-import 'dayjs/plugin/duration';
+import dayjs from 'dayjs'
+import 'dayjs/plugin/duration'
 
 declare module 'dayjs' {
   export function duration(

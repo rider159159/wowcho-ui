@@ -1,0 +1,92 @@
+<script setup lang="ts">
+import { fetchMember } from '@/api'
+import { SET_TOKEN } from '@/utils'
+import { Swal } from '@/plugins/sweet-alert'
+import { userInfoStore, userLoginStore } from '@/stores'
+const emits = defineEmits(['switchToSignup', 'closeModal', 'loginTure'])
+const router = useRouter()
+const USER_STORE = userInfoStore()
+const LOGIN_STORE = userLoginStore()
+
+async function submitForm(value:any) {
+  const formBody = value
+  const res = await fetchMember.login(formBody)
+  if (res.status !== 'Success') return
+  SET_TOKEN(res.data.token)
+  loginSuccess()
+}
+
+// 登入成功，關閉彈窗，切換頁面，並打個人資料 API
+async function loginSuccess() {
+  Swal.fire({
+    icon: 'success',
+    title: '登入成功',
+    confirmButtonText: '確定',
+    confirmButtonColor: '#2378BF',
+    timer: 3000
+  })
+
+  setTimeout(() => {
+    emits('closeModal')
+    // 前往頁面有值，才做頁面切換，否則停留此頁
+    console.log(LOGIN_STORE.TO_ROUTE.length >= 2)
+    if (LOGIN_STORE.TO_ROUTE.length >= 2) {
+      router.push(LOGIN_STORE.TO_ROUTE)
+      LOGIN_STORE.TO_ROUTE = ''
+    }
+  }, 2000)
+
+  // 獲得 token，打 get 個人資料 API
+  const profileRes = await fetchMember.getProfile()
+  USER_STORE.USER_INFO_REF = profileRes.data
+}
+
+// 密碼顯示切換
+const passwordShow = ref(true)
+const passwordType = ref('password')
+
+function togglePasswordType(show:boolean, type:string) {
+  passwordShow.value = show
+  passwordType.value = type
+}
+</script>
+
+<template>
+  <section class="flex flex-col items-center w-full px-4">
+    <VForm class="w-full md:w-75% xl:w-50% flex flex-col gap-4" @submit="submitForm">
+      <img src="/footer_logo.svg" alt="">
+      <div class="text-h3 text-center my-10px">
+        <span class="mdi mdi-account-circle text-h3 text-brand6"></span> 登入
+      </div>
+      <div class="text-14px">
+        尚未成為會員?
+        <button type="button" @click="emits('switchToSignup')" class="text-brand2 bg-white">註冊帳號</button>
+      </div>
+
+      <Oauth @oauthLoginSuccess="loginSuccess"></Oauth>
+
+      <div>
+        <label for="account" class="flex flex-col">
+          <p class="mb-2 h6">帳號</p>
+          <VField type="text" name="account" label="帳號" rules="required" class="text-h6 leading-h4 px-2 mb-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-brand-1 focus:border-brand-1" placeholder="請輸入帳號"/>
+        </label>
+        <ErrorMessage name="account" class="block text-red-500"/>
+      </div>
+      <div>
+        <label for="password" class="flex flex-col">
+          <p class="mb-2">密碼:</p>
+          <VField name="password" label="密碼" rules="required|password" v-slot="{ field }">
+            <div class="relative">
+              <input v-bind="field" :type="passwordType" class="w-full text-h6 leading-h4 px-2 mb-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-brand-1 focus:border-brand-1" placeholder="請輸入密碼">
+              <span v-if="passwordShow" @click="togglePasswordType(false,'text')" class="mdi mdi-eye text-h4 absolute right-4"></span>
+              <span v-if="!passwordShow" @click="togglePasswordType(true,'password')" class="mdi mdi-eye-off text-h4 absolute right-4"></span>
+            </div>
+          </VField>
+        </label>
+        <ErrorMessage name="password" class="block text-red-500"/>
+      </div>
+      <button @keyup.enter="submitForm" type="submit" class="mt-4 w-full py-2 bg-brand-1 text-white rounded-3xl">登入</button>
+    </VForm>
+
+  </section>
+</template>
