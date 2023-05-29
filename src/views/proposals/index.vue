@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { fetchProposal } from '@/api'
 import { useClickOutside } from '@/composables'
+import { storeToRefs } from 'pinia'
+import { searchStore } from '@/stores'
+import { proposalQuery } from '@/interface'
+const  { SEARCH_REF, SEARCH_CONTROL } = storeToRefs(searchStore())
 
 const route = useRoute()
-
+const router = useRouter()
 // 分類列表
 const categories = ref([
   {
@@ -60,23 +64,18 @@ const sortList = ref([
   }
 ])
 
-// 搜尋
-const keyword = ref('')
-
 // 取得資料
 const data:any = ref({
   list: [],
   totalCount: 0
 })
 
-const query = ref({
-  category: 0,
-  order: 0,
-  page: 1,
-  pageSize: 12
-})
+const query = ref({ ...proposalQuery })
 
+// 獲得募資活動
 async function getApiData() {
+  query.value.search = ''
+  SEARCH_REF.value = ''
   const res = await fetchProposal.getList(
     query.value
   )
@@ -117,29 +116,76 @@ function sortProducts(item: any) {
   sortTitle.value = item.title
   getApiData()
 }
+
 function closeSort() {
   isShowSortList.value = false
 }
 useClickOutside(sortRef, closeSort)
 
-onMounted(() => {
+// 搜尋功能，搜尋時清除 query.category query.order
+async function searchData() {
+  query.value.category = 0
+  query.value.order = 0
+  const res = await fetchProposal.getSearch(query.value)
+  if (res.status !== 'Success') return
+  data.value = {
+    ...res.data
+  }
+}
+
+// 取消搜尋
+function clearSearch() {
+  SEARCH_REF.value = ''
+  router.replace({
+      query: {}
+  })
+  query.value = { ...proposalQuery }
+  getApiData()
+}
+
+// 初始化
+function init() {
+  // query 有帶上 category 使用 category 做 getApiData 搜尋
   if (route.query.category) {
     query.value.category = Number(route.query.category)
     const category = categories.value.find((item) => item.value === Number(route.query.category))
-    console.log(category)
     if (category) categoryTitle.value = category.title
+  } else if(route.query.search) { // 有帶上 search 時 query 帶上並使用 searchData 搜尋
+    query.value.search = String(route.query.search)
+    searchData()
+    return
   }
   getApiData()
-})
+}
+
+// SEARCH_CONTROL.value 由 Header 元件操作
+watch(
+  ()=> SEARCH_CONTROL.value, 
+  ()=> {
+    // query 帶上 search 並調整 query
+    query.value.search = SEARCH_REF.value
+    router.replace({
+      query: { search:query.value.search }
+    })
+    searchData()
+  })
 
 watch(
   () => query.value.page,
   (newPage) => getApiData()
 )
+
+onMounted(() => {
+  init()
+})
 </script>
 
 <template>
   <div class="px-4 container mx-auto">
+    <div v-if="query.search.length>1" class="flex w-full justify-center py-4">
+      <p>從「{{ query.search }}」找到 {{ data.totalCount }} 個有關的專案。</p>
+      <div @click="clearSearch" class="text-brand-2 cursor-pointer">取消搜尋</div>
+    </div>
     <div class="md:flex md:justify-between items-center mb-10">
       <!-- 專案類別篩選 -->
       <div class="relative  mb-4 md:mb-0">
@@ -188,7 +234,7 @@ watch(
         <!-- 排序選擇 -->
         <div class="relative w-full">
           <div ref="sortRef" @click="isShowSortList = !isShowSortList" class="flex justify-between items-center bg-white border-1 border-gray-3 rounded md:w-50 cursor-pointer px-4 py-1">
-            {{ sortTitle!== '' ? sortTitle : '排序' }}
+            {{ query.order !== 0 ? sortTitle : '排序' }}
             <svg v-if="!isShowSortList" width='12' height='12' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
               <g transform="matrix(0.5 0 0 0.5 12 12)" >
               <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-24, -23.2)" d="M 40.394 41 L 7.606 41 C 6.303 41 5.1370000000000005 40.326 4.486 39.198 C 3.834999999999999 38.07 3.835 36.722 4.486 35.594 L 20.88 7.2 L 20.88 7.2 C 21.531 6.072 22.697 5.399 24 5.399 C 25.303 5.399 26.469 6.072 27.12 7.2 L 43.513999999999996 35.595 C 44.165 36.723 44.165 38.071 43.513999999999996 39.199 C 42.86299999999999 40.327 41.696 41 40.394 41 z" stroke-linecap="round" />

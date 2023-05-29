@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { userInfoStore, userLoginStore } from '@/stores'
+import { userInfoStore, userLoginStore, searchStore } from '@/stores'
 
+const  { SEARCH_REF, SEARCH_CONTROL } = storeToRefs(searchStore())
 const store = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(store)
 // 登出方法
@@ -31,6 +32,7 @@ function closeMenu() {
     showMemberMenu.value = false
   }, 100)
 }
+
 function logoOut() {
   FN_LOGOUT()
   const currentRoute = router.currentRoute.value
@@ -44,7 +46,17 @@ function logoOut() {
   closeMenu()
 }
 
+const search = ref('')
 const isLogin = computed(() => USER_INFO_REF.value.email.length >= 1)
+
+function toSearchPage () {
+  if (router.currentRoute.value.name === 'proposals') { // 列表頁調整 control
+    SEARCH_CONTROL.value = !SEARCH_CONTROL.value
+  } else { // 非列表頁，帶 query
+    router.push(`/proposals?search=${search.value}`)
+  }
+}
+
 
 onMounted(() => {
   window.addEventListener('scroll', () => {
@@ -65,10 +77,10 @@ onMounted(() => {
           id="navbarSupportedContentX">
           <img src="/logo.svg" @click="router.push({ name:'home' })" class="cursor-pointer">
           <div class="hidden lg:flex justify-between items-center relative">
-            <form action="">
-              <input type="text" name="search" placeholder="搜尋" class="w-80 outline outline-1 outline-brand-3 rounded-3xl py-2 px-5 pl-10">
-            </form>
-            <svg class="absolute left-3 top-1/2 -translate-y-1/2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div>
+              <input @keyup.enter="toSearchPage" v-model="SEARCH_REF" type="text" name="search" placeholder="搜尋" class="w-80 outline outline-1 outline-brand-3 rounded-3xl py-2 px-5 pl-10">
+            </div>
+            <svg @click="toSearchPage" class="absolute left-3 top-1/2 -translate-y-1/2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M20 20L15.514 15.506M18 9.5C18 11.7543 17.1045 13.9163 15.5104 15.5104C13.9163 17.1045 11.7543 18 9.5 18C7.24566 18 5.08365 17.1045 3.48959 15.5104C1.89553 13.9163 1 11.7543 1 9.5C1 7.24566 1.89553 5.08365 3.48959 3.48959C5.08365 1.89553 7.24566 1 9.5 1C11.7543 1 13.9163 1.89553 15.5104 3.48959C17.1045 5.08365 18 7.24566 18 9.5V9.5Z" stroke="#70BEFB" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </div>
