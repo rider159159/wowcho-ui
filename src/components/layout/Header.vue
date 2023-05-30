@@ -53,7 +53,7 @@ function toSearchPage () {
   if (router.currentRoute.value.name === 'proposals') { // 列表頁調整 control
     SEARCH_CONTROL.value = !SEARCH_CONTROL.value
   } else { // 非列表頁，帶 query
-    router.push(`/proposals?search=${search.value}`)
+    router.push(`/proposals?search=${SEARCH_REF.value}`)
   }
 }
 

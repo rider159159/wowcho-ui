@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 const route = useRoute()
-const result = ref<object>({})
+const result = ref<any>({})
 
 onMounted(async () => {
   try {
