@@ -1,67 +1,77 @@
 <script lang="ts" setup>
 // const router = useRouter()
-
-// const projectsList = ref([
-//   {
-//     title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
-//     image: './test.webp',
-//     id: 'revopoint-range-1'
-//   },
-//   {
-//     title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
-//     image: './test.webp',
-//     id: 'revopoint-range-2'
-//   },
-//   {
-//     title: '日本BROSKI 防水真皮背包｜不怕淋雨高質感牛皮革、包身立體不變型【嘖嘖人氣好評贊助第二彈】',
-//     image: './test.webp',
-//     id: 'revopoint-range-3'
-//   }
-// ])
-
-// function toProject (item:any) {
-//   router.push({
-//     name: 'projects',
-//     params: {
-//       id: item.id
-//     }
-//   })
-// }
+import { fetchProposal } from '@/api'
 
 const categories = [
   {
-    path: '',
+    path: 1,
     name: '社會'
   },
   {
-    path: '',
-    name: '影音'
-  },
-  {
-    path: '',
+    path: 2,
     name: '出版'
   },
   {
-    path: '',
+    path: 3,
+    name: '影音'
+  },
+  {
+    path: 4,
     name: '娛樂'
   },
   {
-    path: '',
+    path: 5,
     name: '生活'
   },
   {
-    path: '',
+    path: 6,
     name: '設計'
   },
   {
-    path: '',
+    path: 7,
     name: '科技'
   },
   {
-    path: '',
+    path: 8,
     name: '休閒'
   }
 ]
+
+const hotProposalList:any = ref([])
+const recentlyProposalList:any = ref([])
+const carouselProposalList:any = ref([])
+
+async function getProposalList (queryObj:any) {
+  const res = await fetchProposal.getList(queryObj)
+  return res
+}
+
+async function init() {
+  const hotQuery = {
+    order: 3,
+    page: 1,
+    pageSize: 3
+  }
+  const recentlyQuery = {
+    order: 1,
+    page: 1,
+    pageSize: 3
+  }
+  const carouselQuery = {
+    page: 1,
+    pageSize: 6
+  }
+  const promise = [getProposalList(hotQuery), getProposalList(recentlyQuery), getProposalList(carouselQuery)]
+  const res:any = await Promise.all(promise)
+  if(res[0].status !== 'Success' || res[1].status !== 'Success'  || res[2].status !== 'Success') return
+  hotProposalList.value = res[1].data.list
+  recentlyProposalList.value = res[0].data.list
+  carouselProposalList.value = res[2].data.list
+}
+
+onMounted(()=>{
+  init()
+})
 </script>
 
 <template>
@@ -81,8 +91,7 @@ const categories = [
           <p class="text-gray-2 md:text-h5 leading-30px md:leading-30px mt-4 md:mt-5">每一位賣家都有著獨特的想法和夢想，透過我們的平台而實現。我們的使命是幫助賣家們創造價值，並與支持者共享成功。</p>
           <p class="text-gray-2 md:text-h5 leading-30px md:leading-30px">透過我們的平台，賣家們可以輕鬆地進行募資活動，並透過與支持者的互動，得到寶貴的反饋和建議。</p>
           <div class="mt-6 md:mt-10 flex gap-4 md:gap-6">
-            <MyButton class="flex-1 md:flex-none border bg-white bg-opacity-0 border-2 border-brand-1 text-brand-1 py-3 md:text-h5 leading-h6 md:leading-h5 hover:bg-brand-2 hover:border-brand-2 hover:text-white">我想提案</MyButton>
-            <MyButton class="flex-1 md:flex-none border bg-brand-1 text-white border-2 border-brand-1 py-3 md:text-h5 leading-h6 md:leading-h5 hover:bg-brand-2 hover:border-brand-2">我想贊助</MyButton>
+            <RouterLink class="rounded-5xl cursor-pointer transition duration-500 px-6 py-3 flex-1 md:flex-none border bg-brand-1 text-white border-2 border-brand-1 py-3 md:text-h5 leading-h6 md:leading-h5 hover:bg-brand-2 hover:border-brand-2" to="/proposals" >我想贊助</RouterLink>
           </div>
         </div>
         <div>
@@ -92,7 +101,7 @@ const categories = [
     </div>
 
     <!-- Celebrities  Live -->
-    <div class="w-full md:max-w-324 px-3 md:px-0 py-8 md:py-20 flex flex-col justify-center items-center gap-6 md:gap-10">
+    <!-- <div class="w-full md:max-w-324 px-3 md:px-0 py-8 md:py-20 flex flex-col justify-center items-center gap-6 md:gap-10">
       <div class="flex flex-col justify-center items-center gap-2 md:gap-4">
         <div class="text-center text-h4 md:text-h2 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">募資直播  Celebrities  Live</div>
         <div class="text-h5 md:text-h4 leading-30px md:leading-9 text-gray-2">與名人網紅直播互動</div>
@@ -102,24 +111,25 @@ const categories = [
           我是為了直播專案預留的區塊 {{ i }}
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Carousel -->
-    <div class="w-full pt-8 md:py-20">
-      <div class="flex justify-center items-center border-2 border-gray-2 bg-gray-4 h-100">
-        我是為了輪播牆預留的區塊
-      </div>
+    <div class="flex justify-center items-center w-[calc(100vw-24px)] h-full pt-8 md:py-20 ">
+      <!-- 我是為了輪播牆預留的區塊 -->
+      <Carousel :list="carouselProposalList"></Carousel>
     </div>
 
     <!-- Category -->
-    <div class="w-full py-8 md:py-20 flex flex-col gap-8 items-center relative bg-brand-4 -z-20 overflow-hidden">
+    <div class="w-full py-8 md:py-20 flex flex-col gap-8 items-center relative bg-brand-4 overflow-hidden">
       <!-- Background -->
-      <div class="hidden md:block absolute -right-10 top-0 bottom-0 -z-10 transform -translate-y-1/2">
+      <div class="hidden md:block absolute -right-10 top-0 bottom-0 z-10 transform -translate-y-1/2">
         <img class="w-150 h-130" src="/bg_02.png">
       </div>
       <div class="text-h2 md:text-h1 leading-h2 md:leading-h1 text-gray-1 font-bold">募資專案類別</div>
       <ul class="hidden md:flex">
-        <li v-for="category in categories" :key="category.path" class="border-line md:text-h4 leading-h6 md:leading-h4 text-gray-2 font-medium px-6">{{ category.name }}</li>
+        <li v-for="category in categories" :key="category.path" class="border-line md:text-h4 leading-h6 md:leading-h4 text-gray-2 font-medium px-6">
+          <RouterLink :to="`/proposals?category=${category.path}`" class="block relative z-20">{{ category.name }}</RouterLink>
+        </li>
       </ul>
       <div class="flex flex-col md:hidden gap-7">
         <ul class="flex">
@@ -137,18 +147,26 @@ const categories = [
           <div class="text-center text-h4 md:text-h2 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">熱門精選  MOST MOMENTUM</div>
           <div class="text-h5 md:text-h4 leading-30px md:leading-9 text-gray-2">最近幾天籌集到最多資金的產品</div>
         </div>
-        <div class="hidden text-h5 text-gray-2 md:flex gap-10px cursor-pointer items-center">
-          <div>查看更多</div>
+        <RouterLink to="/proposals?order=3" class="hidden text-h5 text-gray-2 md:flex gap-10px cursor-pointer items-center">
+          <p>查看更多</p>
           <img class="w-4 h-4" src="/arrow.svg" >
-        </div>
+        </RouterLink>
       </div>
       <div class="w-full flex flex-col md:flex-row justify-between gap-7 md:gap-6">
-        <div v-for="i in 3" class="w-full md:w-416px h-334px md:h-410px flex justify-center items-center border-2 border-gray-2 bg-gray-4" :key="i">
-          我是為了熱門精選預留的區塊 {{ i }}
+        <div v-for="recentlyProposal in recentlyProposalList" :key="recentlyProposal.id" class="w-full md:w-416px h-334px md:h-410px ">
+          <ProductCard
+            :image="recentlyProposal.image"
+            :subtitle="recentlyProposal.summary"
+            :title="recentlyProposal.name"
+            :current-price="recentlyProposal.nowPrice"
+            :target-price="recentlyProposal.targetPrice"
+            :end-time="recentlyProposal.endTime"
+          />
         </div>
+
       </div>
       <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2">
-        <div>查看更多</div>
+        <div @click="">查看更多</div>
         <img class="w-3 h-3" src="/arrow.svg" >
       </div>
     </div>
@@ -160,14 +178,21 @@ const categories = [
           <div class="text-center text-h4 md:text-h2 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">最近推出 RECENTLY LAUNCHED</div>
           <div class="text-h5 md:text-h4 leading-30px md:leading-9 text-gray-2">最近推出的產品</div>
         </div>
-        <div class="hidden text-h5 text-gray-2 md:flex gap-10px cursor-pointer items-center">
-          <div>查看更多</div>
+        <RouterLink to="/proposals?order=3" class="hidden text-h5 text-gray-2 md:flex gap-10px cursor-pointer items-center">
+          <p>查看更多</p>
           <img class="w-4 h-4" src="/arrow.svg" >
-        </div>
+        </RouterLink>
       </div>
       <div class="w-full flex flex-col md:flex-row justify-between gap-7 md:gap-6">
-        <div v-for="i in 3" class="w-full md:w-416px h-334px md:h-410px flex justify-center items-center border-2 border-gray-2 bg-gray-4" :key="i">
-          我是為了最近推出預留的區塊 {{ i }}
+        <div v-for="hotProposal in hotProposalList"  :key="hotProposal.id" class="w-full md:w-416px h-334px md:h-410px ">
+          <ProductCard
+            :image="hotProposal.image"
+            :subtitle="hotProposal.summary"
+            :title="hotProposal.name"
+            :current-price="hotProposal.nowPrice"
+            :target-price="hotProposal.targetPrice"
+            :end-time="hotProposal.endTime"
+          />
         </div>
       </div>
       <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2">

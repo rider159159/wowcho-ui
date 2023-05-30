@@ -5,7 +5,6 @@ import { Swal } from '@/plugins/sweet-alert'
 async function submitForm(value:any) {
   const formBody = value
   const response = await fetchMember.register(formBody)
-  console.log(response)
   if (response.status !== 'Success') return
   Swal.fire({
     icon: 'success',

@@ -5,8 +5,6 @@ import { dateTime, numberWithCommas } from '@/composables'
 const router = useRouter()
 const route = useRoute()
 
-// console.log(router, route)
-
 const data = {
   order: {
     title: '超早鳥 - 潮到出水短T',

@@ -150,6 +150,10 @@ function init() {
     query.value.category = Number(route.query.category)
     const category = categories.value.find((item) => item.value === Number(route.query.category))
     if (category) categoryTitle.value = category.title
+  } else if(route.query.order) {
+    query.value.order = Number(route.query.order)
+    const sort = sortList.value.find((item) => item.value === Number(route.query.order))
+    if (sort) sortTitle.value = sort.title
   } else if(route.query.search) { // 有帶上 search 時 query 帶上並使用 searchData 搜尋
     query.value.search = String(route.query.search)
     searchData()
