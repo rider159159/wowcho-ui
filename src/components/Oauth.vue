@@ -1,28 +1,44 @@
+
 <script setup lang="ts">
 import { fetchMember } from '@/api'
-
-declare global {
-  // eslint-disable-next-line no-unused-vars
-  interface Window {
-    handleCredentialResponse: (response: any) => void;
-  }
-}
-// function callback(response) {
-//   console.log(response.credential)
-// }
+import { SET_TOKEN } from '@/utils'
+// import { Swal } from '@/plugins/sweet-alert'
+// import { userInfoStore } from '@/stores'
+const emits = defineEmits(['oauthLoginSuccess'])
+const oauthId = import.meta.env.VITE_OAUTH_ID
 async function handleCredentialResponse (response:any) {
-  console.log(response.credential)
   const formBody = {
     token: response.credential
   }
-  console.log('formBody', formBody)
   const res = await fetchMember.oauthLogin(formBody)
-  console.log(res)
+  if (res.status !== 'Success') return
+  SET_TOKEN(res.data.token)
+  emits('oauthLoginSuccess')
+  // Swal.fire({
+  //   icon: 'success',
+  //   title: '登入成功，為您跳轉頁面',
+  //   confirmButtonText: '確定',
+  //   confirmButtonColor: '#2378BF',
+  //   timer: 3000
+  // })
+  // if (toRoute.length > 0) {
+  //   setTimeout(() => {
+  //     router.push(toRoute)
+  //     USER_STORE.USER_LOGIN_ROUTE_REF = ''
+  //   }, 2000)
+  // } else {
+  //   setTimeout(() => {
+  //     router.push('/')
+  //   }, 2000)
+  // }
+
+  // // 獲得 token，打 get 個人資料 API
+  // const profileRes = await fetchMember.getProfile()
+  // USER_STORE.USER_INFO_REF = profileRes.data
 }
 
 onMounted(() => {
   window.handleCredentialResponse = handleCredentialResponse
-  // window.handleCredentialResponse = handleCredentialResponse
   // 在這裡動態加載 Google SDK
   const script = document.createElement('script')
   script.src = 'https://accounts.google.com/gsi/client'
@@ -35,7 +51,7 @@ onMounted(() => {
 <template>
   <div>
     <div id="g_id_onload"
-      data-client_id="725451058317-memrhkm0hp3tp0hkmrrr1dglr387u2lq.apps.googleusercontent.com"
+      :data-client_id="oauthId"
       data-context="signin"
       data-ux_mode="popup"
       data-callback="handleCredentialResponse"

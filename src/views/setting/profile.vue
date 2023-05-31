@@ -54,7 +54,12 @@ onMounted(() => {
     <VForm class="lg-w-1024px m-a flex flex-col lg:flex-row gap-4 items-center lg-items-start" @submit="submitForm">
       <section class="justify-center lg-w-1/4">
         <div class="w-full text-h4 p-5 text-center">個人資料設定</div>
-        <img v-if="formBody.image == undefined" src="/default.webp" class="w-full rounded-5xl">
+        <svg v-if="formBody.image == undefined" class="w-full" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 33V32C16 28.6863 18.6863 26 22 26H26C29.3137 26 32 28.6863 32 32V33" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
+          <path d="M24 23C21.7909 23 20 21.2091 20 19C20 16.7909 21.7909 15 24 15C26.2091 15 28 16.7909 28 19C28 21.2091 26.2091 23 24 23Z" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
+          <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#70BEFB"/>
+        </svg>
+        <!-- <img v-if="formBody.image == undefined" src="/default.webp" class="w-full rounded-5xl"> -->
         <img v-else :src="formBody.image" class="w-full rounded-5xl">
         <Upload v-model="formBody.image" class="m-a mt-10px text-brand2"></Upload>
       </section>
