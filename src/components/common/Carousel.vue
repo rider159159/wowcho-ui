@@ -22,12 +22,14 @@ const props = defineProps({
     :pagination="{
       clickable: true,
     }"
+    navigation
     :modules="[Autoplay, Pagination]"
     v-bind="$attrs"
   >
     <SwiperSlide v-for="(item, index) in props.list" :key="index" class="swiper-slide">
       <!-- 等卡片好了之後放入 -->
-      <div class="h-300px flex justify-center items-center">{{ item }}</div>
+      <CarouselCard imageLink="/test.webp" />
+      <!-- <div class="h-300px flex justify-center items-center">{{ item }}</div> -->
     </SwiperSlide>
   </Swiper>
 </template>

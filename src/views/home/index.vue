@@ -36,6 +36,11 @@ const lists = ref({
     'h000000002'
   ]
 })
+
+const navigation = ref({
+  nextEl: '.swiper-button-next',
+  prevEl: '.swiper-button-prev'
+})
 </script>
 
 <template>
@@ -70,7 +75,8 @@ const lists = ref({
   />
   <!-- 募資專案類別 -->
   <Carousel
-    :list="lists[selectCategory]"
+    class="mb-8 md:mb-10"
+    :list="[{}, {}, {}, {}, {}]"
     :slidesPerView="3"
   />
   <div class="bg-categories | bg-brand-4 flex flex-col justify-content items-center pt-8 pb-10 md:pt-20 md:pb-22 mb-8 md:mb-20">
@@ -131,7 +137,7 @@ const lists = ref({
   </div>
 </template>
 
-<style>
+<style lang="scss">
 body {
   background-image: url('/homeBackground.png');
   background-repeat: no-repeat;
@@ -144,4 +150,45 @@ body {
   background-position: 100%;
 }
 
+.swiper-pagination-bullet {
+  margin-top: 16px;
+
+  @media (min-width: 768px) {
+    margin-top: 24px;
+  }
+
+  &-active {
+    width: 40px;
+    height: 6px;
+    border-radius: 6px;
+
+    @media (min-width: 768px) {
+      height: 8px;
+    }
+  }
+}
+
+.swiper-button {
+  &-prev, &-next {
+    border-radius: 50%;
+    background-color: #fff;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 0px 0px 2px 0px #000;
+
+    &:after {
+      font-size: 12px;
+    }
+  }
+
+  &-prev {
+    left: 31%;
+  }
+
+  &-next {
+    right: 31%;
+  }
+}
 </style>
