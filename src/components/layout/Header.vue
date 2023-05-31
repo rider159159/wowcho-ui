@@ -46,7 +46,6 @@ function logoOut() {
   closeMenu()
 }
 
-const search = ref('')
 const isLogin = computed(() => USER_INFO_REF.value.email.length >= 1)
 
 function toSearchPage () {
@@ -56,7 +55,6 @@ function toSearchPage () {
     router.push(`/proposals?search=${SEARCH_REF.value}`)
   }
 }
-
 
 onMounted(() => {
   window.addEventListener('scroll', () => {
@@ -112,16 +110,16 @@ onMounted(() => {
             </li>
             <li v-if="isLogin"  class="cursor-pointer relative" data-te-nav-item-ref>
               <!-- 使用者預設頭像 -->
-              <svg v-if="USER_INFO_REF.image == null" @click="showMemberMenu = !showMemberMenu" @blur="closeMenu" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg v-if="USER_INFO_REF.image == null" @click="showMemberMenu = !showMemberMenu" tabindex="0"  @blur="closeMenu" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16 33V32C16 28.6863 18.6863 26 22 26H26C29.3137 26 32 28.6863 32 32V33" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
                 <path d="M24 23C21.7909 23 20 21.2091 20 19C20 16.7909 21.7909 15 24 15C26.2091 15 28 16.7909 28 19C28 21.2091 26.2091 23 24 23Z" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
                 <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#70BEFB"/>
               </svg>
               <!-- 使用者頭像 -->
-              <img v-else :src="USER_INFO_REF.image" @click="showMemberMenu = !showMemberMenu" class="w-48px h-48px rounded-full">
+              <img v-else :src="USER_INFO_REF.image" @click="showMemberMenu = !showMemberMenu" tabindex="0" @blur="closeMenu" class="w-48px h-48px rounded-full">
 
-              <!-- 下拉選單 -->
-              <ul tabindex="0" v-if="showMemberMenu" class="member-menu absolute right-0 -bottom-55 w-40 bg-white">
+              <!-- 下拉選單  -->
+              <ul v-if="showMemberMenu" tabindex="0" class="member-menu z-10 absolute right-0 -bottom-55 w-40 bg-white">
                 <li class="px-4 py-3" data-te-nav-item-ref>
                   <RouterLink
                     class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
@@ -139,7 +137,7 @@ onMounted(() => {
                 <li class="px-4 py-3 border-t-1 border-line" data-te-nav-item-ref>
                   <a
                     @click.prevent="logoOut"
-                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+                    class="block w-full cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                     >登出</a
                   >
                 </li>
@@ -231,11 +229,11 @@ onMounted(() => {
     <!-- 登入註冊彈窗 -->
     <Modal v-model="LOGIN_STORE.SHOW_LOGIN_MODAL" @update:modelValue="closeLoginModal">
       <Login v-if="currentComponent === 'Login'"
-            @switchToSignup="currentComponent='Signup'"
-            @closeModal="closeLoginModal"
+        @switchToSignup="currentComponent='Signup'"
+        @closeModal="closeLoginModal"
       />
       <Signup v-if="currentComponent === 'Signup'"
-            @switchToLogin="currentComponent='Login'"
+        @switchToLogin="currentComponent='Login'"
       />
     </Modal>
 

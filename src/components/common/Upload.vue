@@ -14,6 +14,10 @@ const props = defineProps({
     type: String,
     default: '檔案不可大於 5 Mb'
   },
+  labelTitle: {
+    type: String,
+    default: '上傳圖片'
+  },
   class: {
     type: String,
     default: ''
@@ -55,8 +59,8 @@ function checkImage(e:any) {
 
 <template>
   <div>
-    <label for="uploadInput" class="flex justify-center py-8px rounded-20px w-120px cursor-pointer border border-#3989D0 hover:bg-#3989D0/20 duration-300 select-none" :class="props.class">
-      上傳圖片
+    <label for="uploadInput" class="flex justify-center py-8px px-6 rounded-20px cursor-pointer border border-brand1 bg-brand-1 text-white hover:bg-white hover:text-brand1 duration-300 select-none" :class="props.class">
+      {{ props.labelTitle }}
     </label>
     <input @change="checkImage" accept=".jpg, .png, .jpeg" type="file" id="uploadInput" class="hidden">
     <span v-if="showErrorMessage">{{ props.errorMessage }}</span>

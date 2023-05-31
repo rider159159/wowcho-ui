@@ -122,13 +122,13 @@ onMounted(()=>{
     <!-- Category -->
     <div class="w-full py-8 md:py-20 flex flex-col gap-8 items-center relative bg-brand-4 overflow-hidden">
       <!-- Background -->
-      <div class="hidden md:block absolute -right-10 top-0 bottom-0 z-10 transform -translate-y-1/2">
+      <div class="hidden md:block absolute -right-10 top-0 bottom-0 z-0 transform -translate-y-1/2">
         <img class="w-150 h-130" src="/bg_02.png">
       </div>
       <div class="text-h2 md:text-h1 leading-h2 md:leading-h1 text-gray-1 font-bold">募資專案類別</div>
       <ul class="hidden md:flex">
         <li v-for="category in categories" :key="category.path" class="border-line md:text-h4 leading-h6 md:leading-h4 text-gray-2 font-medium px-6">
-          <RouterLink :to="`/proposals?category=${category.path}`" class="block relative z-20">{{ category.name }}</RouterLink>
+          <RouterLink :to="`/proposals?category=${category.path}`" class="block relative z-1">{{ category.name }}</RouterLink>
         </li>
       </ul>
       <div class="flex flex-col md:hidden gap-7">

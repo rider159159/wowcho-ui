@@ -15,7 +15,7 @@ function getRef (swiperInstance:any) {
 </script>
 
 <template>
-  <section class="relative w-full">
+  <section class="relative w-full z-0">
     <Swiper
       :space-between="24"
       :slides-per-view="3"
