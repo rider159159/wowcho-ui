@@ -68,7 +68,7 @@ function togglePasswordType(show:boolean, type:string) {
       <div>
         <label for="account" class="flex flex-col">
           <p class="mb-2 h6">帳號</p>
-          <VField type="text" name="account" label="帳號" rules="required" placeholder="請輸入帳號"
+          <VField type="text" name="account" label="帳號" rules="required" placeholder="請輸入帳號" id="account"
             class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
             :class="{'!border-#FF5D71':errors.account}"
           />
@@ -80,11 +80,11 @@ function togglePasswordType(show:boolean, type:string) {
           <p class="mb-2">密碼</p>
           <VField name="password" label="密碼" rules="required|password" v-slot="{ field }">
             <div class="relative">
-              <input v-bind="field" :type="passwordType" placeholder="請輸入密碼"
+              <input v-bind="field" :type="passwordType" placeholder="請輸入密碼" id="password"
                 class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
                 :class="{'!border-#FF5D71':errors.password}">
-              <span v-if="passwordShow" @click="togglePasswordType(false,'text')" class="mdi mdi-eye text-h4 absolute top-3 right-4 cursor-pointer"></span>
-              <span v-if="!passwordShow" @click="togglePasswordType(true,'password')" class="mdi mdi-eye-off text-h4 absolute top-3 right-4 cursor-pointer"></span>
+              <span v-if="passwordShow" @click="togglePasswordType(false,'text')" class="mdi mdi-eye text-h4 absolute cursor-pointer top-3 right-4 cursor-pointer"></span>
+              <span v-if="!passwordShow" @click="togglePasswordType(true,'password')" class="mdi mdi-eye-off text-h4 absolute cursor-pointer top-3 right-4 cursor-pointer"></span>
             </div>
           </VField>
         </label>

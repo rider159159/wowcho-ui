@@ -30,7 +30,7 @@ const emits = defineEmits(['switchToLogin'])
 
 <template>
   <section class="flex justify-center w-full px-4 pb-12">
-    <VForm @submit="submitForm" v-slot="{ errors }"  class="w-full md:w-75% xl:w-50% flex flex-col gap-4">
+    <VForm @submit="submitForm" v-slot="{ errors }" class="w-full md:w-75% xl:w-50% flex flex-col gap-4">
       <img src="/footer_logo.svg" alt="">
       <div class="text-h3 text-center my-10px">
         <span class="mdi mdi-account-plus text-h3 text-brand6"></span>
@@ -43,8 +43,7 @@ const emits = defineEmits(['switchToLogin'])
       <div>
         <label for="account" class="flex flex-col">
           <p class="mb-2 text-lg">帳號</p>
-          <VField type="text" name="account" label="帳號" rules="required" id="account"
-            placeholder="請輸入帳號"
+          <VField type="text" name="account" label="帳號" rules="required" id="account" placeholder="請輸入帳號"
             class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3" 
             :class="{'!border-#FF5D71':errors.account}"
           />
@@ -54,8 +53,7 @@ const emits = defineEmits(['switchToLogin'])
       <div>
         <label for="username" class="flex flex-col">
           <p class="mb-2 text-lg">用戶名稱</p>
-          <VField type="text" name="username" label="會員名稱" rules="required" id="username"
-            placeholder="請輸入會員名稱"
+          <VField type="text" name="username" label="會員名稱" rules="required" id="username" placeholder="請輸入會員名稱"
             class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3" 
             :class="{'!border-#FF5D71':errors.username}"
           />
@@ -65,8 +63,7 @@ const emits = defineEmits(['switchToLogin'])
       <div>
         <label for="email" class="flex flex-col">
           <p class="mb-2 h6">電子信箱</p>
-          <VField type="email" name="email" label="電子信箱" rules="required|email" id="email"
-            placeholder="請輸入電子信箱"
+          <VField type="email" name="email" label="電子信箱" rules="required|email" id="email" placeholder="請輸入電子信箱"
             class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3" 
             :class="{'!border-#FF5D71':errors.email}"
           />
@@ -78,7 +75,7 @@ const emits = defineEmits(['switchToLogin'])
           <p class="mb-2">密碼</p>
           <VField name="password" label="密碼" rules="required|password" v-slot="{ field }">
             <div class="relative">
-              <input v-bind="field" :type="passwordType" placeholder="請輸入密碼"
+              <input v-bind="field" :type="passwordType" placeholder="請輸入密碼" id="password"
                 class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
                 :class="{'!border-#FF5D71':errors.password}">
               <span v-if="passwordShow" @click="togglePasswordType(false,'text')" class="mdi mdi-eye text-h4 absolute top-3 right-4 cursor-pointer"></span>

@@ -150,6 +150,7 @@ onMounted(() => {
         </div>
       </div>
     </nav>
+    <!-- RWD 選單 -->
     <div v-if="showMenu" class="fixed top-0 w-screen h-screen bg-white py-2 px-8 sm:px-0">
       <div class="container h-full flex flex-col justify-between mx-auto">
         <div>
@@ -171,14 +172,14 @@ onMounted(() => {
             <li data-te-nav-item-ref class="mb-8">
               <RouterLink
                 class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                to="/demo"
+                @click="closeMenu" to="/demo"
                 >範例</RouterLink
               >
             </li>
             <li data-te-nav-item-ref class="mb-8">
               <RouterLink
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                to="/proposals"
+                @click="closeMenu" to="/proposals"
                 >探索</RouterLink
               >
             </li>
@@ -192,7 +193,7 @@ onMounted(() => {
                   <!-- 需建路由 -->
                   <RouterLink
                     class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    to="/setting/sponsorHistory"
+                    @click="closeMenu" to="/setting/sponsorHistory"
                     >贊助紀錄</RouterLink
                   >
                 </li>
@@ -200,7 +201,7 @@ onMounted(() => {
                 <li data-te-nav-item-ref class="mb-3">
                   <RouterLink
                     class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    to="/setting/profile"
+                    @click="closeMenu" to="/setting/profile"
                     >個人設定</RouterLink
                   >
                 </li>
