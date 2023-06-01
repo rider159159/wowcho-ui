@@ -153,7 +153,7 @@ onMounted(()=>{
         </RouterLink>
       </div>
       <div class="w-full flex flex-col md:flex-row justify-between gap-7 md:gap-6">
-        <div v-for="recentlyProposal in recentlyProposalList" :key="recentlyProposal.id" class="w-full md:w-416px h-334px md:h-410px ">
+        <div v-for="recentlyProposal in recentlyProposalList" :key="recentlyProposal.id" class="w-full">
           <ProductCard
             :image="recentlyProposal.image"
             :subtitle="recentlyProposal.summary"
@@ -184,7 +184,7 @@ onMounted(()=>{
         </RouterLink>
       </div>
       <div class="w-full flex flex-col md:flex-row justify-between gap-7 md:gap-6">
-        <div v-for="hotProposal in hotProposalList"  :key="hotProposal.id" class="w-full md:w-416px h-334px md:h-410px ">
+        <div v-for="hotProposal in hotProposalList" :key="hotProposal.id" class="w-full">
           <ProductCard
             :image="hotProposal.image"
             :subtitle="hotProposal.summary"
