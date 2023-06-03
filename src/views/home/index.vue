@@ -153,7 +153,7 @@ onMounted(()=>{
         </RouterLink>
       </div>
       <div class="w-full flex flex-col md:flex-row justify-between gap-7 md:gap-6">
-        <div v-for="recentlyProposal in recentlyProposalList" :key="recentlyProposal.id" class="w-full">
+        <RouterLink :to="`/proposal/${recentlyProposal.customizedUrl}`" v-for="recentlyProposal in recentlyProposalList" :key="recentlyProposal.id" class="w-full">
           <ProductCard
             :image="recentlyProposal.image"
             :subtitle="recentlyProposal.summary"
@@ -162,7 +162,7 @@ onMounted(()=>{
             :target-price="recentlyProposal.targetPrice"
             :end-time="recentlyProposal.endTime"
           />
-        </div>
+        </RouterLink>
 
       </div>
       <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2">
@@ -184,7 +184,7 @@ onMounted(()=>{
         </RouterLink>
       </div>
       <div class="w-full flex flex-col md:flex-row justify-between gap-7 md:gap-6">
-        <div v-for="hotProposal in hotProposalList" :key="hotProposal.id" class="w-full">
+        <RouterLink :to="`/proposal/${hotProposal.customizedUrl}`" v-for="hotProposal in hotProposalList" :key="hotProposal.id" class="w-full">
           <ProductCard
             :image="hotProposal.image"
             :subtitle="hotProposal.summary"
@@ -193,7 +193,7 @@ onMounted(()=>{
             :target-price="hotProposal.targetPrice"
             :end-time="hotProposal.endTime"
           />
-        </div>
+        </RouterLink>
       </div>
       <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2">
         <div>查看更多</div>

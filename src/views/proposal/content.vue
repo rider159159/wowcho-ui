@@ -149,7 +149,7 @@ onMounted(() => {
   <div class="flex flex-col gap-5">
     <div class="flex gap-4 text-xl">
       <p>提案人</p>
-      <a v-if="proposal.ownerId.username!==null" class="text-brand-1 font-medium" href="#">{{ proposal.ownerId.username }}</a>
+      <RouterLink :to="`/users/${proposal.ownerId._id}`" class="text-brand-1 font-medium">{{ proposal.ownerId.businessName }}</RouterLink>
     </div>
     <h1 class="text-h3 leading-h3 md:(text-h2 leading-h2)">{{ proposal.name }}</h1>
     <div class="flex flex-col md:flex-row mt-3 md:mt-5 gap-4 md:gap-10">

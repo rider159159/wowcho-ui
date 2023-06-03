@@ -9,5 +9,7 @@ export const fetchProposal = {
   // 獲得購物車
   getCart: async (params?: any, isUnLoad?: boolean): Promise<ApiResponse> => await http.httpGet('/proposal/cart', { params }, isUnLoad),
   // 搜尋
-  getSearch: async (params?: any, isUnLoad?: boolean): Promise<ApiResponse> => await http.httpGet('/proposal/search', { params }, isUnLoad)
+  getSearch: async (params?: any, isUnLoad?: boolean): Promise<ApiResponse> => await http.httpGet('/proposal/search', { params }, isUnLoad),
+  // 該使用者 proposal
+  getUserProposal:  async (params?: any, isUnLoad?: boolean): Promise<ApiResponse> => await http.httpGet('/proposal/userProposal', { params }, isUnLoad)
 }

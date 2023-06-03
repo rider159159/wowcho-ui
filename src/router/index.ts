@@ -236,6 +236,16 @@ const router = createRouter({
           }
         }
       ]
+    },
+    // 提案者賣場
+    {
+      path: '/users/:userId',
+      name: 'users',
+      component: () => import('../views/users/index.vue'),
+      meta: {
+        keepAlive: false,
+        layout: DefaultLayout
+      }
     }
   ]
 })
