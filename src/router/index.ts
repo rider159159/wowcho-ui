@@ -89,7 +89,8 @@ const router = createRouter({
     {
       path: '/:catchAll(.*)',
       name: 'error',
-      component: () => import('../views/error.vue'),
+      // component: () => import('../views/error.vue'),
+      component: () => import('../views/error/index.vue'),
       meta: {
         keepAlive: false
       }
