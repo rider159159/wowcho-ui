@@ -55,6 +55,7 @@ export interface ISponsor {
   remark: string, // 備註
   option: string [] // 方案規格
   address: string, // 購買人地址
+  updatedAt:string,
 }
 
 export interface ISponsorsFormBody {

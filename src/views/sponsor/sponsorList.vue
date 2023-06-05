@@ -36,7 +36,7 @@ onMounted(() => {
           <th class="rounded-l-lg">訂單編號</th>
           <th>購買日期</th>
           <th>贊助專案</th>
-          <th>方案</th>
+          <th>選擇規格</th>
           <th>金額</th>
           <th>購買人名稱</th>
           <th class="rounded-r-lg">詳細</th>
@@ -44,8 +44,7 @@ onMounted(() => {
         <tbody>
           <tr v-for="sponsor in list" :key="sponsor.id" class="cursor-pointer text-gray-1 rounded-l-lg transition-all transition-duraiotn-500 hover:bg-brand-4 text-center">
             <td>{{ sponsor.MerchantOrderNo }}</td>
-            <td>{{ dateYYYYMMDD(sponsor.PayTime) }}</td>
-            <!-- sponsor.proposalId.name  -->
+            <td>{{ dateYYYYMMDD(sponsor.updatedAt) }}</td>
             <td>{{  sponsor.proposalId.name }}</td>
             <td>{{ sponsor.planId.name }}</td>
             <td>{{ sponsor.planId.actualPrice }}</td>

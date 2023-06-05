@@ -43,14 +43,13 @@ onMounted(() => {
           </div>
           <div class="flex gap-4">
             <div class="text-gray-2">訂購時間</div>
-            <div class="text-gray-1 font-medium">{{ dateTime(sponsor.PayTime) }}</div>
+            <div class="text-gray-1 font-medium">{{ dateTime(sponsor.updatedAt) }}</div>
           </div>
           <div class="flex gap-4">
             <div class="text-gray-2">專案</div>
-
-            <div @click="goProposal()"  class="flex gap-2 text-brand-2 hover:text-brand-1 font-medium cursor-pointer">
+            <!--  @click="goProposal()" -->
+            <div class="flex gap-2 font-medium">
               <div>{{ sponsor.proposalId.name }}</div>
-              <div class="mdi mdi-open-in-new"></div>
             </div>
           </div>
           <div class="flex gap-4">
@@ -65,26 +64,15 @@ onMounted(() => {
             <div class="text-gray-2">總金額</div>
             <div class="text-gray-1 font-medium">NT$ {{ numberWithCommas(sponsor.Amt) }}</div>
           </div>
-          <!-- <div class="flex gap-4">
-            <div class="text-gray-2">運費</div>
-            <div class="text-gray-1 font-medium">NT$ {{ numberWithCommas(data.order.freight) }}</div>
-          </div> -->
+
+          <div class="flex gap-4">
+            <div class="text-gray-2">寄送方式</div>
+            <div class="text-gray-1 font-medium">{{ sponsor.CVSCOM === 0 ? '宅配' : '超商店到店' }}</div>
+          </div>
           <div class="flex gap-4">
             <div class="text-gray-2">付款方式</div>
-            <!-- <div class="text-gray-1 font-medium">{{ sponsor.PaymentType === 'CREDIT' ? '信用卡' : '店到店' }}</div> -->
+            <div class="text-gray-1 font-medium">{{ sponsor.PaymentType === 'CREDIT' ? '信用卡' : '取貨付款' }}</div>
           </div>
-          <!-- <div class="flex gap-4">
-            <div class="text-gray-2">訂單狀態</div>
-            <div class="font-medium" :class="!(data.order.orderStatus === E_ORDER_STATUS.CANCELED) ? 'text-green' : 'text-red'">{{ ORDER_STATUS[data.order.orderStatus] }}</div>
-          </div> -->
-          <!-- <div class="flex gap-4">
-            <div class="text-gray-2">物流方式</div>
-            <div class="text-gray-1 font-medium">{{ data.order.logistics }}</div>
-          </div>
-          <div class="flex gap-4">
-            <div class="text-gray-2">出貨狀態</div>
-            <div class="font-medium" :class="data.order.shippingStatus === E_SHIPPING_STATUS.SHIPPED ? 'text-green' : 'text-red'">{{ SHIPPING_STATUS[data.order.shippingStatus] }}</div>
-          </div> -->
         </div>
       </div>
       <div class="flex flex-col w-full">
@@ -110,10 +98,10 @@ onMounted(() => {
             <div class="text-gray-2">取貨地點</div>
             <div class="text-gray-1 font-medium">{{ sponsor.address.length > 0 ? sponsor.address : `${sponsor.StoreType}-${sponsor.StoreName}` }}</div>
           </div>
-          <!-- <div class="flex gap-4">
-            <div class="text-gray-2">物流寄件編號</div>
-            <div class="text-gray-1 font-medium">{{ data.recipient.info.trackingId }}</div>
-          </div> -->
+          <div class="flex gap-4">
+            <div class="text-gray-2">購買備註</div>
+            <div class="text-gray-1 font-medium">{{ sponsor.remark || '-' }}</div>
+          </div>
         </div>
       </div>
     </div>

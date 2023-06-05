@@ -1,25 +1,34 @@
 <script setup lang="ts">
-  import { fetchProposal, fetchMember } from '@/api'
-  import { dateYYYYMMDD } from '@/composables'
-  import { BusinessProfile } from '@/interface'
-  const route = useRoute()
-  const businessProfile = ref({ ...BusinessProfile })
-  async function getBusinessProfile () {
-    const query = { id: route.params.userId }
-    const res = await fetchMember.getBusinessProfile(query)
-    if (res.status !== 'Success') return
-    businessProfile.value = res.data
-  }
+import { fetchProposal, fetchMember } from '@/api'
+import { dateYYYYMMDD } from '@/composables'
+import { BusinessProfile } from '@/interface'
+const route = useRoute()
+const businessProfile = ref({ ...BusinessProfile })
 
-  const proposalList:any = ref([])
-  async function getUserProposal() {
-  const query = { 
-    id: route.params.userId,
-    pageSize: 10,
-  }
-  const res = await fetchProposal.getUserProposal(query)
+// 獲得商業檔案資料
+async function getBusinessProfile () {
+  const query = { id: route.params.userId }
+  const res = await fetchMember.getBusinessProfile(query)
   if (res.status !== 'Success') return
-  proposalList.value = res.data
+  businessProfile.value = res.data
+}
+
+const data:any = ref({
+list: [],
+totalCount: 0
+})
+
+const formQuery = ref({
+  page: 1,
+  id: route.params.userId,
+  pageSize: 10,
+})
+
+// 獲得該使用者募資活動
+async function getUserProposal() {
+  const res = await fetchProposal.getUserProposal(formQuery.value)
+  if (res.status !== 'Success') return
+  data.value = res.data
 }
 onMounted(() => {
   getUserProposal()
@@ -60,7 +69,7 @@ onMounted(() => {
 
       </div>
     </div>
-    <RouterLink v-for="item in proposalList" :to="`/proposal/${item.customizedUrl}`" :key="item.id" class="block mb-4 last:mb-0" >
+    <RouterLink v-for="item in data.list" :to="`/proposal/${item.customizedUrl}`" :key="item.id" class="block mb-4 last:mb-0" >
       <div class="grid grid-cols-10 gap-6 w-full cursor-pointer ease-in duration-300 hover:-translate-y-4">
         <div class="col-span-3">
           <img :src="item.image" alt="">
@@ -71,5 +80,13 @@ onMounted(() => {
         </div>
       </div>
     </RouterLink>
+      <!-- 分頁 -->
+      <Pagination
+        v-model="formQuery.page"
+        v-if="data.totalCount > 0"
+        class="mb-10"
+        :page-size="formQuery.pageSize"
+        :total="data.totalCount"
+      />
   </section>
 </template>
