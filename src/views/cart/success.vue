@@ -7,7 +7,6 @@ onMounted(async () => {
   try {
     const { ...queryResult } = route.query
     result.value = queryResult // 將路由查詢結果指派給 result
-    // console.log(toRaw(result.value));
   } catch (error) {
     console.error('Error fetching data:', error)
   }

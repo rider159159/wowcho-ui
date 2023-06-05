@@ -123,7 +123,7 @@ onMounted(() => {
                 <li class="px-4 py-3" data-te-nav-item-ref>
                   <RouterLink
                     class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    to="/setting/sponsorHistory"
+                    to="/sponsorList"
                     >贊助紀錄</RouterLink
                   >
                 </li>
@@ -193,7 +193,7 @@ onMounted(() => {
                   <!-- 需建路由 -->
                   <RouterLink
                     class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    @click="closeMenu" to="/setting/sponsorHistory"
+                    @click="closeMenu" to="/sponsorList"
                     >贊助紀錄</RouterLink
                   >
                 </li>

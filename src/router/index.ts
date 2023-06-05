@@ -70,10 +70,11 @@ const router = createRouter({
     {
       path: '/sponsorList',
       name: 'sponsor',
-      component: () => import('../views/sponsor/index.vue'),
+      component: () => import('../views/sponsor/sponsorList.vue'),
       meta: {
         keepAlive: false,
-        layout: DefaultLayout
+        layout: DefaultLayout,
+        requiresAuth: true
       }
     },
     {
@@ -82,7 +83,9 @@ const router = createRouter({
       component: () => import('../views/sponsor/[id].vue'),
       meta: {
         keepAlive: false,
-        layout: DefaultLayout
+        layout: DefaultLayout,
+        requiresAuth: true
+
       }
     },
     // 錯誤頁面
@@ -228,13 +231,6 @@ const router = createRouter({
             requiresAuth: true
           }
         },
-        {
-          path: 'sponsorHistory',
-          component: () => import('../views/setting/sponsorHistory.vue'),
-          meta: {
-            requiresAuth: true
-          }
-        }
       ]
     },
     // 提案者賣場

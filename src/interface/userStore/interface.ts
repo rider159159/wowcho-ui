@@ -1,4 +1,4 @@
-export interface userInfo_interFace{
+export interface IUserInfo{
   account: string
   name: string | null,
   username: string | null,// 用戶名稱

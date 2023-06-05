@@ -29,7 +29,6 @@ async function loginSuccess() {
   setTimeout(() => {
     emits('closeModal')
     // 前往頁面有值，才做頁面切換，否則停留此頁
-    console.log(LOGIN_STORE.TO_ROUTE.length >= 2)
     if (LOGIN_STORE.TO_ROUTE.length >= 2) {
       router.push(LOGIN_STORE.TO_ROUTE)
       LOGIN_STORE.TO_ROUTE = ''

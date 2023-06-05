@@ -1,6 +1,6 @@
-import { userInfo_interFace } from './interface'
+import { IUserInfo } from './interface'
 
-export const UserInfo:userInfo_interFace = {
+export const UserInfo:IUserInfo = {
   account: '',
   name: '',
   username: '',
