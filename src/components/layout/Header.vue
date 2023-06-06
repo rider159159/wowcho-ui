@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { userInfoStore, userLoginStore, searchStore } from '@/stores'
-
+import { useClickOutside } from '@/composables'
 const  { SEARCH_REF, SEARCH_CONTROL } = storeToRefs(searchStore())
 const store = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(store)
@@ -27,10 +27,8 @@ const closeLoginModal = () => {
 }
 
 function closeMenu() {
-  setTimeout(() => {
-    showMenu.value = false
-    showMemberMenu.value = false
-  }, 100)
+  showMenu.value = false
+  showMemberMenu.value = false
 }
 
 function logoOut() {
@@ -55,6 +53,9 @@ function toSearchPage () {
     router.push(`/proposals?search=${SEARCH_REF.value}`)
   }
 }
+const loginMenuRef = ref(null)
+// 點及下拉選單以外地方，皆會關閉下拉選單
+useClickOutside(loginMenuRef, ()=> showMemberMenu.value = false)
 
 onMounted(() => {
   window.addEventListener('scroll', () => {
@@ -86,14 +87,6 @@ onMounted(() => {
             class="hidden lg:flex items-center gap-4">
             <li>
               <RouterLink
-                class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                to="/demo"
-                @click="closeMenu"
-                >範例</RouterLink
-              >
-            </li>
-            <li data-te-nav-item-ref>
-              <RouterLink
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                 to="/proposals"
                 @click="closeMenu"
@@ -101,40 +94,42 @@ onMounted(() => {
               >
             </li>
 
-            <li v-if="!isLogin" data-te-nav-item-ref>
+            <li v-if="!isLogin">
               <div
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                 ><MyButton @click.prevent="openLoginModal" class="bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton>
               </div>
 
             </li>
-            <li v-if="isLogin"  class="cursor-pointer relative" data-te-nav-item-ref>
+            <li v-if="isLogin" ref="loginMenuRef"  class="cursor-pointer relative" >
               <!-- 使用者預設頭像 -->
-              <svg v-if="USER_INFO_REF.image == null" @click="showMemberMenu = !showMemberMenu" tabindex="0"  @blur="closeMenu" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg v-if="USER_INFO_REF.image == null" @click="showMemberMenu = !showMemberMenu" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16 33V32C16 28.6863 18.6863 26 22 26H26C29.3137 26 32 28.6863 32 32V33" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
                 <path d="M24 23C21.7909 23 20 21.2091 20 19C20 16.7909 21.7909 15 24 15C26.2091 15 28 16.7909 28 19C28 21.2091 26.2091 23 24 23Z" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
                 <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#70BEFB"/>
               </svg>
               <!-- 使用者頭像 -->
-              <img v-else :src="USER_INFO_REF.image" @click="showMemberMenu = !showMemberMenu" tabindex="0" @blur="closeMenu" class="w-48px h-48px rounded-full">
+              <img v-else :src="USER_INFO_REF.image" @click="showMemberMenu = !showMemberMenu" class="w-48px h-48px rounded-full">
 
               <!-- 下拉選單  -->
-              <ul v-if="showMemberMenu" tabindex="0" class="member-menu z-10 absolute right-0 -bottom-55 w-40 bg-white">
-                <li class="px-4 py-3" data-te-nav-item-ref>
+              <ul v-if="showMemberMenu"  class="member-menu z-10 absolute right-0 -bottom-55 w-40 bg-white">
+                <li class="px-4 py-3">
                   <RouterLink
-                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+                    @click="showMemberMenu = !showMemberMenu"
                     to="/sponsorList"
+                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                     >贊助紀錄</RouterLink
                   >
                 </li>
-                <li class="px-4 py-3" data-te-nav-item-ref>
+                <li class="px-4 py-3">
                   <RouterLink
-                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+                    @click="showMemberMenu = !showMemberMenu"
                     to="/setting/profile"
+                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                     >個人設定</RouterLink
                   >
                 </li>
-                <li class="px-4 py-3 border-t-1 border-line" data-te-nav-item-ref>
+                <li class="px-4 py-3 border-t-1 border-line">
                   <a
                     @click.prevent="logoOut"
                     class="block w-full cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
@@ -169,27 +164,20 @@ onMounted(() => {
             </svg>
           </div>
           <ul>
-            <li data-te-nav-item-ref class="mb-8">
-              <RouterLink
-                class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                @click="closeMenu" to="/demo"
-                >範例</RouterLink
-              >
-            </li>
-            <li data-te-nav-item-ref class="mb-8">
+            <li class="mb-8">
               <RouterLink
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                 @click="closeMenu" to="/proposals"
                 >探索</RouterLink
               >
             </li>
-            <li v-if="isLogin" data-te-nav-item-ref class="mb-8">
+            <li v-if="isLogin" class="mb-8">
               <div
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 pb-5 [&.active]:text-black/90 border-b-1 border-line"
                 >會員專區</div
               >
               <ul class="mt-3 ml-4">
-                <li data-te-nav-item-ref class="mb-3">
+                <li class="mb-3">
                   <!-- 需建路由 -->
                   <RouterLink
                     class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
@@ -198,7 +186,7 @@ onMounted(() => {
                   >
                 </li>
 
-                <li data-te-nav-item-ref class="mb-3">
+                <li class="mb-3">
                   <RouterLink
                     class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
                     @click="closeMenu" to="/setting/profile"
