@@ -11,5 +11,5 @@ export const fetchProposal = {
   // 搜尋
   getSearch: async (params?: any, isUnLoad?: boolean): Promise<ApiResponse> => await http.httpGet('/proposal/search', { params }, isUnLoad),
   // 該使用者 proposal
-  getUserProposal:  async (params?: any, isUnLoad?: boolean): Promise<ApiResponse> => await http.httpGet('/proposal/userProposal', { params }, isUnLoad)
+  getUserProposal: async (params?: any, isUnLoad?: boolean): Promise<ApiResponse> => await http.httpGet('/proposal/userProposal', { params }, isUnLoad)
 }

@@ -12,6 +12,6 @@ export const fetchMember = {
   getProfile: (params?:any, isUnLoad?: boolean):Promise<ApiResponse> => http.httpGet('/profile', { params }, isUnLoad),
   // 更新帳戶資料
   editProfile: (data?:any, isUnLoad?: boolean):Promise<ApiResponse> => http.httpPatch('/profile', data, isUnLoad),
-  getBusinessProfile:  async (params?: any, isUnLoad?: boolean): Promise<ApiResponse> => await http.httpGet('/profile/getBusinessProfile', { params }, isUnLoad)
+  getBusinessProfile: async (params?: any, isUnLoad?: boolean): Promise<ApiResponse> => await http.httpGet('/profile/getBusinessProfile', { params }, isUnLoad)
 
 }
