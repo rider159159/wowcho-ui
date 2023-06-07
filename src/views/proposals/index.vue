@@ -176,7 +176,7 @@ watch(
 
 watch(
   () => query.value.page,
-  (newPage) => getApiData()
+  () => getApiData()
 )
 
 onMounted(() => {

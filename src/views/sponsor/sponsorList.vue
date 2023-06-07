@@ -8,7 +8,7 @@ const route = useRoute()
 
 // const list = ref()
 const data = ref({
-  list:({ ...SponsorList }),
+  list:{ ...SponsorList },
   totalCount: 0
 })
 function goDetail(id: string) {
@@ -30,6 +30,11 @@ async function getSponsorList () {
   if (res.status !== 'Success') return
   data.value = res.data
 }
+
+watch(
+  () => formQuery.value.page,
+  () => getSponsorList()
+)
 
 onMounted(() => {
   getSponsorList()

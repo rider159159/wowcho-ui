@@ -30,6 +30,12 @@ async function getUserProposal() {
   if (res.status !== 'Success') return
   data.value = res.data
 }
+
+watch(
+  () => formQuery.value.page,
+  () => getUserProposal()
+)
+
 onMounted(() => {
   getUserProposal()
   getBusinessProfile()
