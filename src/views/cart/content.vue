@@ -4,7 +4,7 @@ import { SponsorFormBody } from '@/interface'
 const route = useRoute()
 
 let MerchantID = ''
-const formBody = ref({...SponsorFormBody})
+const formBody = ref({ ...SponsorFormBody })
 const moneyFlowOrder = ref({
   TradeSha: '', // 加密DATA 給藍新必填欄位 參數名不可變動
   TradeInfo: '' // 加密DATA 給藍新必填欄位 參數名不可變動

@@ -33,9 +33,8 @@ const permission = (router:Router) => {
         return true
       }
     }
-
   })
-  router.afterEach((to,from) => {
+  router.afterEach((to, from) => {
     const SEARCH_STORE = searchStore()
     if (from.name === 'proposals' && to.name !== 'proposals') {
       SEARCH_STORE.SEARCH_REF = ''

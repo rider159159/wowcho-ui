@@ -63,13 +63,13 @@ async function init() {
   }
   const promise = [getProposalList(hotQuery), getProposalList(recentlyQuery), getProposalList(carouselQuery)]
   const res:any = await Promise.all(promise)
-  if(res[0].status !== 'Success' || res[1].status !== 'Success'  || res[2].status !== 'Success') return
+  if (res[0].status !== 'Success' || res[1].status !== 'Success' || res[2].status !== 'Success') return
   hotProposalList.value = res[1].data.list
   recentlyProposalList.value = res[0].data.list
   carouselProposalList.value = res[2].data.list
 }
 
-onMounted(()=>{
+onMounted(() => {
   init()
 })
 </script>
@@ -166,7 +166,7 @@ onMounted(()=>{
 
       </div>
       <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2">
-        <div @click="">查看更多</div>
+        <div>查看更多</div>
         <img class="w-3 h-3" src="/arrow.svg" >
       </div>
     </div>

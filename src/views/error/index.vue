@@ -2,82 +2,81 @@
 import { gsap } from '@/plugins/gsap'
 
 const handleResize = () => {
-    const width = window.innerWidth;
-    if (width < 880) {
-        gsap.set("#logo", { y: -500, x: 100, scale: 1.5})
-        gsap.set("#water path", { scale: 2 });
-    } else {
-        gsap.set("#logo", { scale: 1 });
-        gsap.set("#water path", { scale: 1 });
-    }
-};
+  const width = window.innerWidth
+  if (width < 880) {
+    gsap.set('#logo', { y: -500, x: 100, scale: 1.5 })
+    gsap.set('#water path', { scale: 2 })
+  } else {
+    gsap.set('#logo', { scale: 1 })
+    gsap.set('#water path', { scale: 1 })
+  }
+}
 
 onMounted(() => {
-    window.addEventListener('resize', handleResize);
-    // Initial check when component is mounted.
-    handleResize();
-    
-    gsap.to('#logo', {
-        duration: 3, 
-        x:"+=30",
-        y:"+=30",
-        rotation:"-7",
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-    }, 2);
+  window.addEventListener('resize', handleResize)
+  // Initial check when component is mounted.
+  handleResize()
 
-    let tl = gsap.timeline({ repeat: -1, yoyo: true });
-    tl.staggerTo('#water path', 2, {
-        x:"+=10",
-        y:"+=5", 
-        ease: "power3.inOut"
-    }, 1);
+  gsap.to('#logo', {
+    duration: 3,
+    x: '+=30',
+    y: '+=30',
+    rotation: '-7',
+    repeat: -1,
+    yoyo: true,
+    ease: 'power1.inOut'
+  }, 2)
 
-    gsap.to('#bottle', {
-        duration: 3, 
-        x:"+=30",
-        y:"+=5",
-        rotation:"+=7",
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-    });
+  const tl = gsap.timeline({ repeat: -1, yoyo: true })
+  tl.staggerTo('#water path', 2, {
+    x: '+=10',
+    y: '+=5',
+    ease: 'power3.inOut'
+  }, 1)
 
-    let t2 = gsap.timeline({ repeat: -1, yoyo: true });
-    t2.staggerTo('#numbers path', 10, {
-        rotation: -30,
-        skewY: 10,
-        skewX: 10,
-        scale: 4,
-        x:"+=10",
-        y:"+=5",
-        ease: "power1.inOut"
-    }, 1);
+  gsap.to('#bottle', {
+    duration: 3,
+    x: '+=30',
+    y: '+=5',
+    rotation: '+=7',
+    repeat: -1,
+    yoyo: true,
+    ease: 'power1.inOut'
+  })
 
-    gsap.to('#bubbles circle', {
-        duration: 4,
-        x:"+=1",
-        y:"+=80",	
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-    }, '-=5');
+  const t2 = gsap.timeline({ repeat: -1, yoyo: true })
+  t2.staggerTo('#numbers path', 10, {
+    rotation: -30,
+    skewY: 10,
+    skewX: 10,
+    scale: 4,
+    x: '+=10',
+    y: '+=5',
+    ease: 'power1.inOut'
+  }, 1)
 
-    gsap.to('#bubbles2 circle', {
-        duration: 3,
-        x:"+=10",
-        y:"+=40",	
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-    }, '-=5');
+  gsap.to('#bubbles circle', {
+    duration: 4,
+    x: '+=1',
+    y: '+=80',
+    repeat: -1,
+    yoyo: true,
+    ease: 'power1.inOut'
+  }, '-=5')
 
-});
+  gsap.to('#bubbles2 circle', {
+    duration: 3,
+    x: '+=10',
+    y: '+=40',
+    repeat: -1,
+    yoyo: true,
+    ease: 'power1.inOut'
+  }, '-=5')
+})
 
 onUnmounted(() => {
-    window.removeEventListener('resize', handleResize);
-});
+  window.removeEventListener('resize', handleResize)
+})
 
 </script>
 
@@ -139,7 +138,7 @@ onUnmounted(() => {
           c1.066-0.204,2.126-0.431,3.187-0.659c5.371-10.27,9.474-18.127,9.509-18.232l0.093-0.027c8.667-16.526-5.036-10.668,5.175-32.325
           l10.401-19.835l-13.808-7.24l-10.467,19.961c-11.961,20.557-14.931,6.019-23.58,22.513l0.029,0.092
           C605.686,302.203,597.821,317.157,589.59,332.821z"/>
-        
+
           <rect x="641.23" y="254.555" transform="matrix(0.8856 0.4644 -0.4644 0.8856 196.4175 -269.9889)" fill="#C7A66F" width="10.258" height="18.461"/>
         <path fill="#FFFFFF" d="M653.436,273.045c-0.365,0.695-1.232,0.967-1.927,0.602l-16.188-8.488
           c-0.695-0.365-0.966-1.232-0.602-1.928l2.083-3.972c0.365-0.695,1.232-0.966,1.927-0.601l16.188,8.489
@@ -175,14 +174,14 @@ onUnmounted(() => {
     width:100%;
     height:100vh;
     background: #92e0ff;
-    margin:0; 
-    padding:0; 
+    margin:0;
+    padding:0;
     overflow:hidden
   }
 
   svg {
-    position:fixed; 
-    bottom:0; 
+    position:fixed;
+    bottom:0;
     left:0;
     height: 100%;
     width:100%

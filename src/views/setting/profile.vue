@@ -69,7 +69,7 @@ onMounted(() => {
               <span class="text-#FF5D71 mr-1">*</span>
               <p class="text-h5 leading-h5 xl:mr-4 mb-2">用戶名稱</p>
             </div>
-            <VField v-model="formBody.username" type="text" id="username" name="username" label="用戶名稱" rules="required" 
+            <VField v-model="formBody.username" type="text" id="username" name="username" label="用戶名稱" rules="required"
               class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
               :class="{'!border-#FF5D71':errors.username}"
             />
@@ -103,7 +103,7 @@ onMounted(() => {
         </div>
         <div>
           <p class="text-h5 leading-h5 xl:mr-4 mb-2">請選擇性別</p>
-          <select name="gender" v-model="formBody.gender" rules="required" 
+          <select name="gender" v-model="formBody.gender" rules="required"
             class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
           >
             <option v-for="item in genderList" :key="item.value" :value="item.value" >{{ item.name }}</option>
@@ -116,7 +116,7 @@ onMounted(() => {
           <VueDatePicker v-model="formBody.birthday" :enableTimePicker="false" :format="'yyyy/MM/dd'" locale="zh-TW" auto-apply>
             <template #dp-input="{ value }">
               <div class="relative">
-                <input :value="value" type="text" 
+                <input :value="value" type="text"
                 class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3">
                 <!-- <span class="mdi mdi-calendar-month absolute left-2 top-1 transform -translate-y-1"></span> -->
               </div>
@@ -125,7 +125,7 @@ onMounted(() => {
         </label>
         <label for="address" class="flex flex-col">
           <p class="text-h5 leading-h5 xl:mr-4 mb-2">地址</p>
-          <input type="text" v-model="formBody.address" id="address" 
+          <input type="text" v-model="formBody.address" id="address"
             class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3">
         </label>
         <div>

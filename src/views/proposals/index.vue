@@ -4,7 +4,7 @@ import { useClickOutside } from '@/composables'
 import { storeToRefs } from 'pinia'
 import { searchStore } from '@/stores'
 import { proposalQuery } from '@/interface'
-const  { SEARCH_REF, SEARCH_CONTROL } = storeToRefs(searchStore())
+const { SEARCH_REF, SEARCH_CONTROL } = storeToRefs(searchStore())
 
 const route = useRoute()
 const router = useRouter()
@@ -137,7 +137,7 @@ async function searchData() {
 function clearSearch() {
   SEARCH_REF.value = ''
   router.replace({
-      query: {}
+    query: {}
   })
   query.value = { ...proposalQuery }
   getApiData()
@@ -150,11 +150,11 @@ function init() {
     query.value.category = Number(route.query.category)
     const category = categories.value.find((item) => item.value === Number(route.query.category))
     if (category) categoryTitle.value = category.title
-  } else if(route.query.order) {
+  } else if (route.query.order) {
     query.value.order = Number(route.query.order)
     const sort = sortList.value.find((item) => item.value === Number(route.query.order))
     if (sort) sortTitle.value = sort.title
-  } else if(route.query.search) { // 有帶上 search 時 query 帶上並使用 searchData 搜尋
+  } else if (route.query.search) { // 有帶上 search 時 query 帶上並使用 searchData 搜尋
     query.value.search = String(route.query.search)
     searchData()
     return
@@ -164,12 +164,12 @@ function init() {
 
 // SEARCH_CONTROL.value 由 Header 元件操作
 watch(
-  ()=> SEARCH_CONTROL.value, 
-  ()=> {
+  () => SEARCH_CONTROL.value,
+  () => {
     // query 帶上 search 並調整 query
     query.value.search = SEARCH_REF.value
     router.replace({
-      query: { search:query.value.search }
+      query: { search: query.value.search }
     })
     searchData()
   })

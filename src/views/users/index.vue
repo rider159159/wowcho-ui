@@ -14,14 +14,14 @@ async function getBusinessProfile () {
 }
 
 const data:any = ref({
-list: [],
-totalCount: 0
+  list: [],
+  totalCount: 0
 })
 
 const formQuery = ref({
   page: 1,
   id: route.params.userId,
-  pageSize: 10,
+  pageSize: 10
 })
 
 // 獲得該使用者募資活動

@@ -47,9 +47,9 @@ onMounted(() => {
           </div>
           <div class="flex gap-4">
             <div class="text-gray-2">專案</div>
-            <!--  @click="goProposal()" -->
-            <div class="flex gap-2 font-medium">
+            <div class="flex gap-2 text-brand-2 hover:text-brand-1 font-medium cursor-pointer" @click="goProposal()">
               <div>{{ sponsor.proposalId.name }}</div>
+              <div class="mdi mdi-open-in-new"></div>
             </div>
           </div>
           <div class="flex gap-4">
@@ -107,6 +107,5 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
 
 <style lang="scss" scoped></style>

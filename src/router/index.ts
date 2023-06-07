@@ -231,7 +231,7 @@ const router = createRouter({
           meta: {
             requiresAuth: true
           }
-        },
+        }
       ]
     },
     // 提案者賣場

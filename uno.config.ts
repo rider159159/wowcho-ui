@@ -14,18 +14,18 @@ export default defineConfig({
       'border-radius': '2.5rem'
     }],
     ['jagged-top', {
-      'background': 'linear-gradient(45deg, #fff 25%, transparent 25%) 0 50px , linear-gradient(-45deg, white 25%, transparent 25%) 0 50px',
+      background: 'linear-gradient(45deg, #fff 25%, transparent 25%) 0 50px , linear-gradient(-45deg, white 25%, transparent 25%) 0 50px',
       'background-size': '20px 30px',
       'background-color': '#fff0',
-      'height': '18px',
-      'filter': 'drop-shadow(rgba(28, 88, 151, 0.2) 0px -2px 1.3px)'
-    }],    
+      height: '18px',
+      filter: 'drop-shadow(rgba(28, 88, 151, 0.2) 0px -2px 1.3px)'
+    }],
     ['jagged-bottom', {
-      'background': 'linear-gradient(135deg, white 25%, transparent 25%) -50px 0, linear-gradient(225deg, white 25%, transparent 25%) -50px 0, linear-gradient(315deg, white 25%, transparent 25%), linear-gradient(45deg, white 25%, transparent 25%)',
+      background: 'linear-gradient(135deg, white 25%, transparent 25%) -50px 0, linear-gradient(225deg, white 25%, transparent 25%) -50px 0, linear-gradient(315deg, white 25%, transparent 25%), linear-gradient(45deg, white 25%, transparent 25%)',
       'background-size': '20px 30px',
       'background-color': '#fff0',
-      'height': '18px',
-      'filter': 'drop-shadow(rgba(28, 88, 151, 0.2) 0px 2px 1.3px)'
+      height: '18px',
+      filter: 'drop-shadow(rgba(28, 88, 151, 0.2) 0px 2px 1.3px)'
     }]
   ],
   // 有紅底線但能正常使用，是 unocss 本身的 error
@@ -67,6 +67,6 @@ export default defineConfig({
     }
   },
   shortcuts: {
-    'itemList': 'mb-10px',
+    itemList: 'mb-10px'
   }
 })

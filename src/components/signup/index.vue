@@ -44,7 +44,7 @@ const emits = defineEmits(['switchToLogin'])
         <label for="account" class="flex flex-col">
           <p class="mb-2 text-lg">帳號</p>
           <VField type="text" name="account" label="帳號" rules="required" id="account" placeholder="請輸入帳號"
-            class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3" 
+            class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
             :class="{'!border-#FF5D71':errors.account}"
           />
         </label>
@@ -54,7 +54,7 @@ const emits = defineEmits(['switchToLogin'])
         <label for="username" class="flex flex-col">
           <p class="mb-2 text-lg">用戶名稱</p>
           <VField type="text" name="username" label="會員名稱" rules="required" id="username" placeholder="請輸入會員名稱"
-            class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3" 
+            class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
             :class="{'!border-#FF5D71':errors.username}"
           />
         </label>
@@ -64,7 +64,7 @@ const emits = defineEmits(['switchToLogin'])
         <label for="email" class="flex flex-col">
           <p class="mb-2 h6">電子信箱</p>
           <VField type="email" name="email" label="電子信箱" rules="required|email" id="email" placeholder="請輸入電子信箱"
-            class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3" 
+            class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
             :class="{'!border-#FF5D71':errors.email}"
           />
         </label>

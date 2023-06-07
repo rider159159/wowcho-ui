@@ -2,7 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { userInfoStore, userLoginStore, searchStore } from '@/stores'
 import { useClickOutside } from '@/composables'
-const  { SEARCH_REF, SEARCH_CONTROL } = storeToRefs(searchStore())
+const { SEARCH_REF, SEARCH_CONTROL } = storeToRefs(searchStore())
 const store = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(store)
 // 登出方法
@@ -56,14 +56,13 @@ function toSearchPage () {
 }
 const loginMenuRef = ref(null)
 // 點及下拉選單以外地方，皆會關閉下拉選單
-useClickOutside(loginMenuRef, ()=> showMemberMenu.value = false)
+useClickOutside(loginMenuRef, () =>{ showMemberMenu.value = false })
 
 const RWDMenuBtnRef: Ref<null | HTMLElement> = ref(null)
 
 function RWDMenuControl () {
   RWDMenu.value = !RWDMenu.value
 }
-
 
 onMounted(() => {
   window.addEventListener('scroll', () => {
@@ -148,7 +147,7 @@ onMounted(() => {
             </li>
           </ul>
 
-          <a ref="RWDMenuBtnRef" @click.prevent="RWDMenuControl" 
+          <a ref="RWDMenuBtnRef" @click.prevent="RWDMenuControl"
             class="toggle-menu inline-block lg:hidden relative w-50px h-50px  cursor-pointer"
             :class="{'open': RWDMenu}"
           >

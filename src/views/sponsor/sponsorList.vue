@@ -8,7 +8,7 @@ const route = useRoute()
 
 // const list = ref()
 const data = ref({
-  list:{ ...SponsorList },
+  list: { ...SponsorList },
   totalCount: 0
 })
 function goDetail(id: string) {
@@ -18,8 +18,8 @@ function goDetail(id: string) {
   })
 }
 const formQuery = ref({
-  page : 1,
-  pageSize: 10,
+  page: 1,
+  pageSize: 10
 })
 
 async function getSponsorList () {
@@ -70,7 +70,7 @@ onMounted(() => {
         </tbody>
       </table>
     </div>
-    <Pagination 
+    <Pagination
       v-if="data.totalCount > 0"
       v-model="formQuery.page"
       :page-size="formQuery.pageSize"
