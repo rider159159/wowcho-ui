@@ -2,6 +2,7 @@ import { App } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import permission from './permission'
 import DefaultLayout from '@/components/layoutWrapper/DefaultLayout.vue'
+import HomeLayout from '@/components/layoutWrapper/HomeLayout.vue'
 import noneHeader from '@/components/layoutWrapper/noneHeader.vue'
 import FullWidthLayout from '@/components/layoutWrapper/FullWidthLayout.vue'
 const router = createRouter({
@@ -45,7 +46,7 @@ const router = createRouter({
       component: () => import('../views/home/index.vue'),
       meta: {
         keepAlive: false,
-        layout: DefaultLayout
+        layout: HomeLayout
       }
     },
     // {

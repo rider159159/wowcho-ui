@@ -83,22 +83,25 @@ onMounted(()=>{
     </div>
 
     <!-- Banner -->
-    <div class="md:max-w-324 pt-12 md:pt-24 pb-8 md:pb-20 px-3 md:px-0">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        <div class="flex flex-col">
-          <div class="text-brand-1 text-h5 md:text-h4 md:leading-h4 font-medium">Create value, share success!</div>
-          <div class="text-gray-1 text-h2 md:text-h1 leading-h2 md:leading-h1 font-bold mt-3 md:mt-4">支持夢想創造價值，<br>共享成功！</div>
-          <p class="text-gray-2 md:text-h5 leading-30px md:leading-30px mt-4 md:mt-5">每一位賣家都有著獨特的想法和夢想，透過我們的平台而實現。我們的使命是幫助賣家們創造價值，並與支持者共享成功。</p>
-          <p class="text-gray-2 md:text-h5 leading-30px md:leading-30px">透過我們的平台，賣家們可以輕鬆地進行募資活動，並透過與支持者的互動，得到寶貴的反饋和建議。</p>
-          <div class="mt-6 md:mt-10 flex gap-4 md:gap-6">
-            <RouterLink class="rounded-5xl cursor-pointer transition duration-500 px-6 py-3 flex-1 md:flex-none border bg-brand-1 text-white border-2 border-brand-1 py-3 md:text-h5 leading-h6 md:leading-h5 hover:bg-brand-2 hover:border-brand-2" to="/proposals" >我想贊助</RouterLink>
+    <div class="m-auto mt-18 px-3 md:w-4/5 md:max-w-324">
+      <div class="md:max-w-324 pt-12 pb-8 px-3 md:px-0">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 items-center">
+          <div class="flex flex-col">
+            <div class="text-brand-1 text-h5 md:leading-h4 font-medium">Create value, share success!</div>
+            <div class="text-gray-1 text-h2 leading-h2 md:leading-h1 font-bold mt-3 md:mt-4">支持夢想創造價值，<br>共享成功！</div>
+            <p class="text-gray-2 leading-28px mt-4 md:mt-5">每一位賣家都有著獨特的想法和夢想，透過我們的平台而實現。我們的使命是幫助賣家們創造價值，並與支持者共享成功。</p>
+            <p class="text-gray-2 leading-28px">透過我們的平台，賣家們可以輕鬆地進行募資活動，並透過與支持者的互動，得到寶貴的反饋和建議。</p>
+            <div class="mt-6 flex gap-4 md:gap-6">
+              <RouterLink class="rounded-5xl cursor-pointer transition duration-500 px-6 py-3 flex-1 lg:flex-none border bg-brand-1 text-white text-center border-2 border-brand-1 py-3 leading-h6 md:leading-h5 hover:bg-brand-2 hover:border-brand-2" to="/proposals" >我想贊助</RouterLink>
+            </div>
           </div>
-        </div>
-        <div>
-          <img src="/cheers.png">
+          <div>
+            <img src="/cheers.png">
+          </div>
         </div>
       </div>
     </div>
+    
 
     <!-- Celebrities  Live -->
     <!-- <div class="w-full md:max-w-324 px-3 md:px-0 py-8 md:py-20 flex flex-col justify-center items-center gap-6 md:gap-10">
@@ -114,9 +117,17 @@ onMounted(()=>{
     </div> -->
 
     <!-- Carousel -->
-    <div class="flex justify-center items-center w-[calc(100vw-24px)] h-full pt-8 md:py-20 ">
+    <div class="flex justify-center items-center w-[calc(100vw-24px)] h-full py-8 pb-20">
       <!-- 我是為了輪播牆預留的區塊 -->
-      <Carousel :list="carouselProposalList"></Carousel>
+      <Carousel
+        :list="carouselProposalList"
+        :slidesPerView="1"
+        :breakpoints="{
+          960: {
+            slidesPerView: 3,
+          },
+        }"
+      />
     </div>
 
     <!-- Category -->
@@ -125,9 +136,9 @@ onMounted(()=>{
       <div class="hidden md:block absolute -right-10 top-0 bottom-0 z-0 transform -translate-y-1/2">
         <img class="w-150 h-130" src="/bg_02.png">
       </div>
-      <div class="text-h2 md:text-h1 leading-h2 md:leading-h1 text-gray-1 font-bold">募資專案類別</div>
+      <div class="text-h3 leading-h2 md:leading-h1 text-gray-1 font-bold">募資專案類別</div>
       <ul class="hidden md:flex">
-        <li v-for="category in categories" :key="category.path" class="border-line md:text-h4 leading-h6 md:leading-h4 text-gray-2 font-medium px-6">
+        <li v-for="category in categories" :key="category.path" class="border-line md:text-h5 leading-h6 md:leading-h4 text-gray-2 font-medium px-6">
           <RouterLink :to="`/proposals?category=${category.path}`" class="block relative z-1">{{ category.name }}</RouterLink>
         </li>
       </ul>
@@ -140,97 +151,99 @@ onMounted(()=>{
       </div>
     </div>
 
-    <!-- Hot -->
-    <div class="w-full md:max-w-324 px-3 md:px-0 pt-8 md:pt-20 pb-14 flex flex-col justify-center items-center gap-6 md:gap-10 border-b-1 border-line">
-      <div class="w-full flex justify-between items-center">
-        <div class="w-full flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6">
-          <div class="text-center text-h4 md:text-h2 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">熱門精選  MOST MOMENTUM</div>
-          <div class="text-h5 md:text-h4 leading-30px md:leading-9 text-gray-2">最近幾天籌集到最多資金的產品</div>
+    <div class="m-auto px-3 md:w-4/5 md:max-w-324">
+      <!-- Hot -->
+      <div class="w-full md:max-w-324 px-3 md:px-0 pt-8 md:pt-20 flex flex-col justify-center items-center gap-6 md:gap-10 border-b-1 border-line">
+        <div class="w-full flex justify-between items-center">
+          <div class="w-full lg:w-auto flex flex-col lg:flex-row items-center gap-2 lg:gap-6">
+            <div class="text-center text-h4 md:text-h3 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">熱門精選  MOST MOMENTUM</div>
+            <div class="text-h5 leading-30px md:leading-9 text-gray-2">最近幾天籌集到最多資金的產品</div>
+          </div>
+          <RouterLink to="/proposals?order=3" class="hidden text-h5 text-gray-2 lg:flex gap-10px cursor-pointer items-center">
+            <p>查看更多</p>
+            <img class="w-4 h-4" src="/arrow.svg" >
+          </RouterLink>
         </div>
-        <RouterLink to="/proposals?order=3" class="hidden text-h5 text-gray-2 md:flex gap-10px cursor-pointer items-center">
-          <p>查看更多</p>
-          <img class="w-4 h-4" src="/arrow.svg" >
-        </RouterLink>
-      </div>
-      <div class="w-full flex flex-col md:flex-row justify-between gap-7 md:gap-6">
-        <RouterLink :to="`/proposal/${recentlyProposal.customizedUrl}`" v-for="recentlyProposal in recentlyProposalList" :key="recentlyProposal.id" class="w-full">
-          <ProductCard
-            :image="recentlyProposal.image"
-            :subtitle="recentlyProposal.summary"
-            :title="recentlyProposal.name"
-            :current-price="recentlyProposal.nowPrice"
-            :target-price="recentlyProposal.targetPrice"
-            :end-time="recentlyProposal.endTime"
-          />
-        </RouterLink>
+        <div class="w-full flex flex-col lg:flex-row justify-between gap-7 md:gap-6">
+          <RouterLink :to="`/proposal/${recentlyProposal.customizedUrl}`" v-for="recentlyProposal in recentlyProposalList" :key="recentlyProposal.id" class="w-full">
+            <ProductCard
+              :image="recentlyProposal.image"
+              :subtitle="recentlyProposal.summary"
+              :title="recentlyProposal.name"
+              :current-price="recentlyProposal.nowPrice"
+              :target-price="recentlyProposal.targetPrice"
+              :end-time="recentlyProposal.endTime"
+            />
+          </RouterLink>
 
+        </div>
+        <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2 mb-8">
+          <div @click="">查看更多</div>
+          <img class="w-3 h-3" src="/arrow.svg" >
+        </div>
       </div>
-      <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2">
-        <div @click="">查看更多</div>
-        <img class="w-3 h-3" src="/arrow.svg" >
-      </div>
-    </div>
 
-    <!-- Recently -->
-    <div class="w-full md:max-w-324 px-3 md:px-0 pt-7 md:pt-14 pb-10 md:pb-20 flex flex-col justify-center items-center gap-6 md:gap-10">
-      <div class="w-full flex justify-between items-center">
-        <div class="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6">
-          <div class="text-center text-h4 md:text-h2 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">最近推出 RECENTLY LAUNCHED</div>
-          <div class="text-h5 md:text-h4 leading-30px md:leading-9 text-gray-2">最近推出的產品</div>
+      <!-- Recently -->
+      <div class="w-full md:max-w-324 px-3 md:px-0 py-7 md:pt-14 flex flex-col justify-center items-center gap-6 md:gap-10">
+        <div class="w-full flex justify-center lg:justify-between items-center">
+          <div class="flex flex-col lg:flex-row justify-center items-center gap-2 lg:gap-6">
+            <div class="text-center text-h4 md:text-h3 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">最近推出 RECENTLY LAUNCHED</div>
+            <div class="text-h5 leading-30px md:leading-9 text-gray-2">最近推出的產品</div>
+          </div>
+          <RouterLink to="/proposals?order=3" class="hidden text-h5 text-gray-2 lg:flex gap-10px cursor-pointer items-center">
+            <p>查看更多</p>
+            <img class="w-4 h-4" src="/arrow.svg" >
+          </RouterLink>
         </div>
-        <RouterLink to="/proposals?order=3" class="hidden text-h5 text-gray-2 md:flex gap-10px cursor-pointer items-center">
-          <p>查看更多</p>
-          <img class="w-4 h-4" src="/arrow.svg" >
-        </RouterLink>
+        <div class="w-full flex flex-col lg:flex-row justify-between gap-7 md:gap-6">
+          <RouterLink :to="`/proposal/${hotProposal.customizedUrl}`" v-for="hotProposal in hotProposalList" :key="hotProposal.id" class="w-full">
+            <ProductCard
+              :image="hotProposal.image"
+              :subtitle="hotProposal.summary"
+              :title="hotProposal.name"
+              :current-price="hotProposal.nowPrice"
+              :target-price="hotProposal.targetPrice"
+              :end-time="hotProposal.endTime"
+            />
+          </RouterLink>
+        </div>
+        <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center my-2">
+          <div>查看更多</div>
+          <img class="w-3 h-3" src="/arrow.svg" >
+        </div>
       </div>
-      <div class="w-full flex flex-col md:flex-row justify-between gap-7 md:gap-6">
-        <RouterLink :to="`/proposal/${hotProposal.customizedUrl}`" v-for="hotProposal in hotProposalList" :key="hotProposal.id" class="w-full">
-          <ProductCard
-            :image="hotProposal.image"
-            :subtitle="hotProposal.summary"
-            :title="hotProposal.name"
-            :current-price="hotProposal.nowPrice"
-            :target-price="hotProposal.targetPrice"
-            :end-time="hotProposal.endTime"
-          />
-        </RouterLink>
-      </div>
-      <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2">
-        <div>查看更多</div>
-        <img class="w-3 h-3" src="/arrow.svg" >
-      </div>
-    </div>
 
-    <!-- Promises -->
-    <div class="py-8 md:py-20 flex flex-col items-center gap-6 md:gap-10">
-      <div class="flex flex-col items-center gap-2 md:gap-4">
-        <div class="text-gray-1 text-h4 md:text-h2 leading-h4 md:leading-h2 font-medium md:font-bold">給予贊助者的信任承諾</div>
-        <div class="text-center text-gray-2 text-h5 md:text-h4 leading-30px md:leading-9">所有專案皆經由平台把關，<br>致力給贊助會員們最安心的保障！</div>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-24">
-        <div class="flex flex-col gap-4 items-center">
-          <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
-            <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_01.svg">
-          </div>
-          <div class="text-brand-1 text-h5 md:text-h4 leading-h5 md:leading-h4 font-medium">平台徽章認證</div>
+      <!-- Promises -->
+      <div class="pb-10 md:pb-0 flex flex-col items-center gap-6 md:gap-10">
+        <div class="flex flex-col items-center gap-2 md:gap-4">
+          <div class="text-gray-1 text-h4 md:text-h3 leading-h4 md:leading-h2 font-medium md:font-bold">給予贊助者的信任承諾</div>
+          <div class="text-center text-gray-2 text-h5 leading-30px md:leading-9">所有專案皆經由平台把關，<br>致力給贊助會員們最安心的保障！</div>
         </div>
-        <div class="flex flex-col gap-4 items-center">
-          <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
-            <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_02.svg">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-24">
+          <div class="flex flex-col gap-4 items-center">
+            <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
+              <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_01.svg">
+            </div>
+            <div class="text-brand-1 text-h5 text-center leading-h5 md:leading-h4 font-medium">平台徽章認證</div>
           </div>
-          <div class="text-brand-1 text-h5 md:text-h4 leading-h5 md:leading-h4 font-medium">渦潮保障基金</div>
-        </div>
-        <div class="flex flex-col gap-4 items-center">
-          <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
-            <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_03.svg">
+          <div class="flex flex-col gap-4 items-center">
+            <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
+              <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_02.svg">
+            </div>
+            <div class="text-brand-1 text-h5 text-center leading-h5 md:leading-h4 font-medium">渦潮保障基金</div>
           </div>
-          <div class="text-brand-1 text-h5 md:text-h4 leading-h5 md:leading-h4 font-medium">公信力檢驗</div>
-        </div>
-        <div class="flex flex-col gap-4 items-center">
-          <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
-            <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_04.svg">
+          <div class="flex flex-col gap-4 items-center">
+            <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
+              <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_03.svg">
+            </div>
+            <div class="text-brand-1 text-h5 text-center leading-h5 md:leading-h4 font-medium">公信力檢驗</div>
           </div>
-          <div class="text-brand-1 text-h5 md:text-h4 leading-h5 md:leading-h4 font-medium">專案進度標示</div>
+          <div class="flex flex-col gap-4 items-center">
+            <div class="bg-gray-4 w-24 md:w-32 h-24 md:h-32 rounded-16 flex justify-center items-center">
+              <img class="w-14 md:w-20 h-14 md:h-20" src="/promises_04.svg">
+            </div>
+            <div class="text-brand-1 text-h5 text-center leading-h5 md:leading-h4 font-medium">專案進度標示</div>
+          </div>
         </div>
       </div>
     </div>
