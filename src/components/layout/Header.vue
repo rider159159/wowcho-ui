@@ -56,7 +56,7 @@ function toSearchPage () {
 }
 const loginMenuRef = ref(null)
 // 點及下拉選單以外地方，皆會關閉下拉選單
-useClickOutside(loginMenuRef, () =>{ showMemberMenu.value = false })
+useClickOutside(loginMenuRef, () => { showMemberMenu.value = false })
 
 const RWDMenuBtnRef: Ref<null | HTMLElement> = ref(null)
 
