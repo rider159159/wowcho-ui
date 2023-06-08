@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     Footer: typeof import('./src/components/layout/Footer.vue')['default']
     FullWidthLayout: typeof import('./src/components/layoutWrapper/FullWidthLayout.vue')['default']
     Header: typeof import('./src/components/layout/Header.vue')['default']
+    HomeLayout: typeof import('./src/components/layoutWrapper/HomeLayout.vue')['default']
     Loading: typeof import('./src/components/common/Loading.vue')['default']
     Login: typeof import('./src/components/login/index.vue')['default']
     MemberMenu: typeof import('./src/components/common/MemberMenu.vue')['default']
