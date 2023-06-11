@@ -99,7 +99,7 @@ onMounted(() => {
               :class="{'!border-#FF5D71':errors.email}"
             />
           </label>
-          <span v-if="errors.email" class="block text-#FF5D71 text-14px">{{ errors.account }}</span>
+          <span v-if="errors.email" class="block text-#FF5D71 text-14px">{{ errors.email }}</span>
         </div>
         <div>
           <p class="text-h5 leading-h5 xl:mr-4 mb-2">請選擇性別</p>

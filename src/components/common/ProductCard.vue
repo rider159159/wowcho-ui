@@ -54,7 +54,7 @@ const liveTime = new Date(props.liveTime)
 <template>
   <div class="w-full cursor-pointer ease-in duration-300 hover:-translate-y-4 mb-7 md:mb-14">
     <div class="relative">
-      
+
       <img class="w-full aspect-video object-cover mb-4 md:mb-6" :src="props.image" :alt="props.title">
       <div
         v-if="props.isLive"
