@@ -90,9 +90,9 @@ onMounted(() => {
             <div class="text-brand-1 text-h5 md:leading-h4 font-medium">Create value, share success!</div>
             <div class="text-gray-1 text-h2 leading-h2 md:leading-h1 font-bold mt-3 md:mt-4">支持夢想創造價值，<br>共享成功！</div>
             <p class="text-gray-2 leading-28px mt-4 md:mt-5">每一位賣家都有著獨特的想法和夢想，透過我們的平台而實現。我們的使命是幫助賣家們創造價值，並與支持者共享成功。</p>
-            <p class="text-gray-2 leading-28px">透過我們的平台，賣家們可以輕鬆地進行募資活動，並透過與支持者的互動，得到寶貴的反饋和建議。</p>
-            <div class="mt-6 flex gap-4 md:gap-6">
-              <RouterLink class="rounded-5xl cursor-pointer transition duration-500 px-6 py-3 flex-1 lg:flex-none border bg-brand-1 text-white text-center border-2 border-brand-1 py-3 leading-h6 md:leading-h5 hover:bg-brand-2 hover:border-brand-2" to="/proposals" >我想贊助</RouterLink>
+            <p class="text-gray-2 leading-28px mb-10">透過我們的平台，賣家們可以輕鬆地進行募資活動，並透過與支持者的互動，得到寶貴的反饋和建議。</p>
+            <div class="flex justify-center md:justify-start">
+              <RouterLink to="/proposals" class="rounded-5xl transition duration-500 px-12 md:px-8 py-3 border bg-brand-1 text-white text-center border-2 border-brand-1 leading-h6 md:leading-h5 hover:bg-brand-2 hover:border-brand-2">我想贊助</RouterLink>
             </div>
           </div>
           <div>
@@ -101,8 +101,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    
-
     <!-- Celebrities  Live -->
     <!-- <div class="w-full md:max-w-324 px-3 md:px-0 py-8 md:py-20 flex flex-col justify-center items-center gap-6 md:gap-10">
       <div class="flex flex-col justify-center items-center gap-2 md:gap-4">
@@ -177,10 +175,10 @@ onMounted(() => {
           </RouterLink>
 
         </div>
-        <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2 mb-8">
-          <div @click="">查看更多</div>
+        <RouterLink to="/proposals?order=3" class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center mt-2 mb-8">
+          <div>查看更多</div>
           <img class="w-3 h-3" src="/arrow.svg" >
-        </div>
+        </RouterLink>
       </div>
 
       <!-- Recently -->
@@ -190,7 +188,7 @@ onMounted(() => {
             <div class="text-center text-h4 md:text-h3 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">最近推出 RECENTLY LAUNCHED</div>
             <div class="text-h5 leading-30px md:leading-9 text-gray-2">最近推出的產品</div>
           </div>
-          <RouterLink to="/proposals?order=3" class="hidden text-h5 text-gray-2 lg:flex gap-10px cursor-pointer items-center">
+          <RouterLink to="/proposals?order=1" class="hidden text-h5 text-gray-2 lg:flex gap-10px cursor-pointer items-center">
             <p>查看更多</p>
             <img class="w-4 h-4" src="/arrow.svg" >
           </RouterLink>
@@ -207,10 +205,10 @@ onMounted(() => {
             />
           </RouterLink>
         </div>
-        <div class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center my-2">
+        <RouterLink to="/proposals?order=1" class="md:hidden leading-h6 text-gray-2 flex gap-10px cursor-pointer items-center my-2">
           <div>查看更多</div>
           <img class="w-3 h-3" src="/arrow.svg" >
-        </div>
+        </RouterLink>
       </div>
 
       <!-- Promises -->

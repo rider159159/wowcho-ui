@@ -16,4 +16,6 @@ export interface IUserInfo{
   youtube?: string | null // YT 網址
   instagram: null | string,
   facebook: null | string,
+  businessName: string,
+  businessEmail: string
 }

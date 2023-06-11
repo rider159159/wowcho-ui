@@ -16,4 +16,7 @@ export const UserInfo:IUserInfo = {
   youtube: null, // YT 網址
   instagram: null,
   facebook: null,
+  businessName: '',// 商業檔案 名稱
+  businessEmail: '', // 商業檔案 email
+
 }

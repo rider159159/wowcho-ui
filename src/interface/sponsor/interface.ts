@@ -44,8 +44,8 @@ export interface ISponsor {
   LgsNo: string //物流寄件單號(寄件代碼)
 
   // 渦潮自己資料庫需要欄位，新建時觸發
-  buyerId: IUserInfo| string
-  ownerId: IUserInfo| string // 購買會員 id
+  buyerId: IUserInfo
+  ownerId: IUserInfo // 購買會員 id
   planId: IPlan  // 贊助方案 id,
   proposalId : IProposal  // 贊助方案 id,
 

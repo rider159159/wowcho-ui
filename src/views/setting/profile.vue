@@ -50,9 +50,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <div class="w-full text-h4 font-bold p-5 text-center">個人資料設定</div>
-    <VForm @submit="submitForm" v-slot="{ errors }" class="lg-w-1024px m-a flex flex-col lg:flex-row gap-10 items-center lg-items-start">
+  <div class="md:max-w-324 md:mx-auto py-12 md:py-20 lg:max-w-1024px ">
+    <h3 class="text-h2 leading-h2 mb-56px">個人資料設定</h3>
+
+    <VForm @submit="submitForm" v-slot="{ errors }" class="m-a flex flex-col lg:flex-row gap-10 items-center lg-items-start">
       <section class="justify-center lg:w-1/4 pt-40px">
         <svg v-if="formBody.image == undefined" class="w-full" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M16 33V32C16 28.6863 18.6863 26 22 26H26C29.3137 26 32 28.6863 32 32V33" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
@@ -99,7 +100,7 @@ onMounted(() => {
               :class="{'!border-#FF5D71':errors.email}"
             />
           </label>
-          <span v-if="errors.email" class="block text-#FF5D71 text-14px">{{ errors.account }}</span>
+          <span v-if="errors.email" class="block text-#FF5D71 text-14px">{{ errors.email }}</span>
         </div>
         <div>
           <p class="text-h5 leading-h5 xl:mr-4 mb-2">請選擇性別</p>

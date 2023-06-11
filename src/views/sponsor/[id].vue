@@ -37,10 +37,10 @@ onMounted(() => {
       <div class="flex flex-col w-full">
         <div class="text-brand-1 text-h5 leading-h5 md:(text-h4 leading-h4) font-medium border-b-1 border-line py-4">訂單資訊</div>
         <div class="flex flex-col py-4 md:py-6 gap-2 md:gap-3">
-          <div class="flex gap-4">
+          <!-- <div class="flex gap-4">
             <div class="text-gray-2">訂單編號</div>
             <div class="text-gray-1 font-medium">{{ sponsor.MerchantOrderNo }}</div>
-          </div>
+          </div> -->
           <div class="flex gap-4">
             <div class="text-gray-2">訂購時間</div>
             <div class="text-gray-1 font-medium">{{ dateTime(sponsor.updatedAt) }}</div>
@@ -72,6 +72,14 @@ onMounted(() => {
           <div class="flex gap-4">
             <div class="text-gray-2">付款方式</div>
             <div class="text-gray-1 font-medium">{{ sponsor.PaymentType === 'CREDIT' ? '信用卡' : '取貨付款' }}</div>
+          </div>
+          <div class="flex gap-4">
+            <div class="text-gray-2">提案人名稱</div>
+            <div class="text-gray-1 font-medium">{{ sponsor.ownerId.businessName }}</div>
+          </div>
+          <div class="flex gap-4">
+            <div class="text-gray-2">提案人 Email</div>
+            <div class="text-gray-1 font-medium">{{ sponsor.ownerId.businessEmail }}</div>
           </div>
         </div>
       </div>
