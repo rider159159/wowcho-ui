@@ -41,11 +41,11 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="flex gap-x-4 w-full overflow-x-auto p-4" :class="props.class">
+  <div class="flex gap-x-4 w-full pt-4" :class="props.class">
     <PlanCard
       v-for="(item, key) in props.data"
       :key="key"
-      class="w-96 grow-0 shrink-0"
+      class="grow-0 shrink-0"
       :class="props.cardClass"
       :id="item._id"
       :title="item.name"

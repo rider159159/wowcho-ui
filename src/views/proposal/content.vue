@@ -152,16 +152,18 @@ onMounted(() => {
       <RouterLink :to="`/users/${proposal.ownerId._id}`" class="text-brand-1 font-medium">{{ proposal.ownerId.businessName }}</RouterLink>
     </div>
     <h1 class="text-h3 leading-h3 md:(text-h2 leading-h2)">{{ proposal.name }}</h1>
-    <div class="flex flex-col md:flex-row mt-3 md:mt-5 gap-4 md:gap-10">
-      <img class="md:w-70% object-cover aspect-9/5 rounded-2xl" :src="proposal.image" />
-      <div class="flex flex-col justify-between gap-6 md:w-98">
+    <div class="flex flex-col lg:flex-row mt-3 md:mt-5 gap-4 lg:gap-10">
+      <img class="lg:w-70% object-cover aspect-9/5 rounded-2xl" :src="proposal.image" />
+      <div class="flex flex-col justify-between gap-6 lg:w-98">
         <div class="flex flex-col gap-4 md:gap-6">
           <div class="flex">
             <tag class="leading-h6 px-3 py-2">{{ categoryName(proposal.category) }}</tag>
           </div>
           <div>{{ proposal.summary }}</div>
-          <div class="flex gap-4">
-            <div class="w-20 h-20 text-brand-2 text-h5 flex justify-center items-center">{{ proposal.nowPrice / proposal.targetPrice * 100 }}%</div>
+          <ShareButton />
+          <div class="flex items-center gap-4">
+            <!-- <div class="w-20 h-20 text-brand-2 text-h5 flex justify-center items-center">{{ proposal.nowPrice / proposal.targetPrice * 100 }}%</div> -->
+            <ProgressBar :percent="proposal.nowPrice / proposal.targetPrice * 100" />
             <div class="flex flex-col gap-1">
               <div class="text-h2 leading-10 font-bold">NT$ {{ numberWithCommas(proposal.nowPrice) }}</div>
               <div class="text-gray-2">目標 NT$ {{ numberWithCommas(proposal.targetPrice) }}</div>
@@ -186,13 +188,13 @@ onMounted(() => {
         <my-button class="my-2 md:my-0 bg-brand-1 hover:bg-brand-2 text-white">贊助專案</my-button>
       </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-between md:mt-5 gap-2 md:gap-10">
-      <div class="w-full md:max-w-210">
+    <div class="flex flex-col lg:flex-row justify-between lg:mt-5 gap-2 lg:gap-10">
+      <div class="w-full lg:max-w-210">
         <ul class="flex border-b-1 border-gray-4 gap-7 md:gap-16 text-gray-2">
-          <li class="text-h5 leading-30px md:(text-h4 leading-9) py-4 cursor-pointer text-center" :class="content === PROPOSAL.CONTENT ? 'text-gray-1 border-b-4 border-brand-2' : ''" @click="contentHandler(PROPOSAL.CONTENT)">專案內容</li>
-          <li class="text-h5 leading-30px md:(text-h4 leading-9) py-4 cursor-pointer text-center" :class="content === PROPOSAL.PROCESS ? 'text-gray-1 border-b-4 border-brand-2' : ''" @click="contentHandler(PROPOSAL.PROCESS)">專案進度</li>
-          <li class="text-h5 leading-30px md:(text-h4 leading-9) py-4 cursor-pointer text-center" :class="content === PROPOSAL.PROMISES ? 'text-gray-1 border-b-4 border-brand-2' : ''" @click="contentHandler(PROPOSAL.PROMISES)">承諾及告示</li>
-          <li class="text-h5 leading-30px md:(text-h4 leading-9) py-4 cursor-pointer text-center" :class="content === PROPOSAL.FAQ ? 'text-gray-1 border-b-4 border-brand-2' : ''" @click="contentHandler(PROPOSAL.FAQ)">常見問答</li>
+          <li class="text-lg leading-30px py-4 cursor-pointer text-center" :class="content === PROPOSAL.CONTENT ? 'text-gray-1 border-b-4 border-brand-2' : ''" @click="contentHandler(PROPOSAL.CONTENT)">專案內容</li>
+          <li class="text-lg leading-30px py-4 cursor-pointer text-center" :class="content === PROPOSAL.PROCESS ? 'text-gray-1 border-b-4 border-brand-2' : ''" @click="contentHandler(PROPOSAL.PROCESS)">專案進度</li>
+          <li class="text-lg leading-30px py-4 cursor-pointer text-center" :class="content === PROPOSAL.PROMISES ? 'text-gray-1 border-b-4 border-brand-2' : ''" @click="contentHandler(PROPOSAL.PROMISES)">承諾及告示</li>
+          <li class="text-lg leading-30px py-4 cursor-pointer text-center" :class="content === PROPOSAL.FAQ ? 'text-gray-1 border-b-4 border-brand-2' : ''" @click="contentHandler(PROPOSAL.FAQ)">常見問答</li>
         </ul>
         <!-- content -->
         <div class="py-6 md:py-10 w-full" :class="content === PROPOSAL.CONTENT ? 'block' : 'hidden'">
@@ -235,7 +237,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div class="flex flex-col md:w-98">
+      <div class="flex flex-col lg:w-350px xl:w-98">
         <div class="flex flex-col gap-4 bg-brand-4 rounded-2xl px-4 md:px-6 py-5">
           <div class="text-h5 leading-h5 md:(text-h3 leading-h4) font-medium">最新消息</div>
           <div class="flex gap-4 leading-h6">
@@ -244,7 +246,8 @@ onMounted(() => {
           </div>
         </div>
         <!-- 募資方案 -->
-        <PlanList :data="proposal.planIdList" :class="'flex-col gap-12 overflow-x-auto'" :cardClass="'!w-90'"></PlanList>
+        <!-- <PlanList :data="proposal.planIdList" :class="'flex-col gap-12'" :cardClass="'!w-90'"></PlanList> -->
+        <PlanList :data="proposal.planIdList" :class="'flex-col gap-12'" :cardClass="'w-full'"></PlanList>
       </div>
     </div>
   </div>
