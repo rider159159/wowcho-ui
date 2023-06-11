@@ -6,7 +6,6 @@ import { SponsorList } from '@/interface'
 const router = useRouter()
 const route = useRoute()
 
-// const list = ref()
 const data = ref({
   list: { ...SponsorList },
   totalCount: 0

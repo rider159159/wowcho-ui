@@ -51,7 +51,7 @@ onMounted(() => {
 
 <template>
   <div class="md:max-w-324 md:mx-auto py-12 md:py-20 lg:max-w-1024px ">
-    <div class="text-h2 leading-h2 mb-56px">個人資料設定</div>
+    <h3 class="text-h2 leading-h2 mb-56px">個人資料設定</h3>
 
     <VForm @submit="submitForm" v-slot="{ errors }" class="m-a flex flex-col lg:flex-row gap-10 items-center lg-items-start">
       <section class="justify-center lg:w-1/4 pt-40px">
