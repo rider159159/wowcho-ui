@@ -185,7 +185,6 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        <my-button class="my-2 md:my-0 bg-brand-1 hover:bg-brand-2 text-white">贊助專案</my-button>
       </div>
     </div>
     <div class="flex flex-col lg:flex-row justify-between lg:mt-5 gap-2 lg:gap-10">
