@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import { fetchProposal, fetchSponsors } from '@/api'
-import { sponsorFormBody } from '@/interface'
-const tempSponsorFormBody = JSON.parse(JSON.stringify(sponsorFormBody))
+import { fetchProposal, fetchSponsor } from '@/api'
+import { SponsorFormBody } from '@/interface'
 const route = useRoute()
 
 let MerchantID = ''
-const formBody = ref(tempSponsorFormBody)
+const formBody = ref({ ...SponsorFormBody })
 const moneyFlowOrder = ref({
   TradeSha: '', // 加密DATA 給藍新必填欄位 參數名不可變動
   TradeInfo: '' // 加密DATA 給藍新必填欄位 參數名不可變動
@@ -24,11 +23,16 @@ async function submitForm(callBack:any) {
 // 新增訂單
 const createOrder = async () => {
   const orderForm = JSON.parse(JSON.stringify(formBody.value))
+  // 提案 proposal URL (等同 ID)
+  orderForm.customizedUrl = proposal.value.customizedUrl
+  orderForm.proposalId = proposal.value._id
+  // 提案擁有者
+  orderForm.ownerId = proposal.value.ownerId
   // 添加方案 ID
   orderForm.planId = plan.value._id
   // 添加提案名稱
   orderForm.projectTitle = plan.value.name
-  const res = await fetchSponsors.create(orderForm)
+  const res = await fetchSponsor.create(orderForm)
   if (res.status !== 'Success') return
   // 將加密後資訊塞至 input
   moneyFlowOrder.value.TradeSha = res.data.shaEncrypt

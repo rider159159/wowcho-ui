@@ -4,6 +4,8 @@
 
 <template>
   <div>
-    <h1>聯絡客服</h1>
+    <Header></Header>
+    <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>

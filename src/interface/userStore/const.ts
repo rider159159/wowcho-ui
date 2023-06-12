@@ -1,6 +1,6 @@
-import { userInfo_interFace } from './interface'
+import { IUserInfo } from './interface'
 
-export const UserInfo:userInfo_interFace = {
+export const UserInfo:IUserInfo = {
   account: '',
   name: '',
   username: '',
@@ -16,4 +16,7 @@ export const UserInfo:userInfo_interFace = {
   youtube: null, // YT 網址
   instagram: null,
   facebook: null,
+  businessName: '',// 商業檔案 名稱
+  businessEmail: '', // 商業檔案 email
+
 }

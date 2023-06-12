@@ -54,7 +54,8 @@ const liveTime = new Date(props.liveTime)
 <template>
   <div class="w-full cursor-pointer ease-in duration-300 hover:-translate-y-4 mb-7 md:mb-14">
     <div class="relative">
-      <img class="w-full mb-4 md:mb-6" :src="props.image" :alt="props.title">
+
+      <img class="w-full aspect-video object-cover mb-4 md:mb-6" :src="props.image" :alt="props.title">
       <div
         v-if="props.isLive"
         class="absolute left-4 bottom-4 flex items-center gap-x-3 font-medium text-white"
@@ -70,7 +71,7 @@ const liveTime = new Date(props.liveTime)
         </span>
       </div>
     </div>
-    <h3 class="text-xl font-medium md:text-2xl mb-2 md:mb-3">{{ props.title }}</h3>
+    <h3 class="text-lg font-medium mb-2 md:mb-3">{{ props.title }}</h3>
     <p class="text-gray-2 mb-5 md:mb-6">{{ props.subtitle }}</p>
     <div class="flex justify-between mb-2 md:mb-3">
       <div class="w-full bg-gray-4 rounded-md overflow-hidden mr-2">

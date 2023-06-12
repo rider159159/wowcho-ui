@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="circle | rounded-full relative" :style="{'--percent': props.percent}">
+  <div class="circle | rounded-full relative shrink-0" :style="{'--percent': props.percent}">
     <div class="circle-inside | absolute flex left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white items-center justify-center text-xl">
       {{ props.percent }}%
     </div>

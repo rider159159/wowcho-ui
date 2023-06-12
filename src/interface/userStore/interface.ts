@@ -1,4 +1,4 @@
-export interface userInfo_interFace{
+export interface IUserInfo{
   account: string
   name: string | null,
   username: string | null,// 用戶名稱
@@ -16,4 +16,6 @@ export interface userInfo_interFace{
   youtube?: string | null // YT 網址
   instagram: null | string,
   facebook: null | string,
+  businessName: string,
+  businessEmail: string
 }

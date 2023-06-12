@@ -6,5 +6,6 @@ export function setupStore(AppInstance:App<Element>) {
   AppInstance.use(store as any)
 }
 export * from './userInfoStore'
-export * from './messageStore'
+export * from './searchStore'
 export * from './requestStore'
+export * from './userLoginStore'

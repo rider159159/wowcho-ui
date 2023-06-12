@@ -30,10 +30,10 @@ const closeModal = () => {
 <template>
   <transition name="fade">
     <section v-if="modelValue">
-      <div class="fixed top-0 left-0 h-full w-full bg-black/50"></div>
-      <div class="fixed top-0 left-0 z-40 flex h-full w-full items-center justify-center">
+      <div class="fixed top-0 left-0 h-full w-full bg-black/50 z-80"></div>
+      <div class="fixed top-0 left-0 flex h-full w-full items-center justify-center z-80">
         <!-- Modal 整體 -->
-        <div class="max-h-90vh rounded-10px relative overflow-hidden bg-white" :class="props.width ? `${props.width}` : 'w-90% md:w-600px'">
+        <div class="max-h-90vh rounded-10px relative overflow-hidden bg-white z-80" :class="props.width ? `${props.width}` : 'w-90% md:w-600px'">
           <!-- Modal Header -->
           <div class="px-20px py-10px sticky top-0 left-0 flex items-center justify-between" :class="headerClass">
             <h2 class="text-18px fw-700 select-none text-black" :class="titleClass">{{ props.title }}</h2>

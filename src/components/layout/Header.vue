@@ -1,47 +1,92 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { userInfoStore } from '@/stores'
-
+import { userInfoStore, userLoginStore, searchStore } from '@/stores'
+import { useClickOutside } from '@/composables'
+const { SEARCH_REF, SEARCH_CONTROL } = storeToRefs(searchStore())
 const store = userInfoStore()
 const { USER_INFO_REF } = storeToRefs(store)
+// 登出方法
 const { FN_LOGOUT } = userInfoStore()
-
 const router = useRouter()
-
-const showMenu = ref(false)
+// 登入、註冊
+const currentComponent = ref('Login')
+// 監聽登入註冊彈窗狀態
+const LOGIN_STORE = userLoginStore()
+// RWD Menu
+const RWDMenu = ref(false)
+// PC Menu
 const showMemberMenu = ref(false)
-// const isLogin = ref(true)
+// Header 背景色
 const showBgWhite = ref(false)
+
+// 登入註冊彈窗控制
+const openLoginModal = () => { LOGIN_STORE.SHOW_LOGIN_MODAL = true }
+const closeLoginModal = () => {
+  LOGIN_STORE.SHOW_LOGIN_MODAL = false
+  closeMenu()
+}
+
+function closeMenu() {
+  RWDMenu.value = false
+  showMemberMenu.value = false
+}
+
+function logoOut() {
+  FN_LOGOUT()
+  const currentRoute = router.currentRoute.value
+  const routeIsRequiresAuth = currentRoute.meta.requiresAuth
+  // 如果所在頁面需要登入踢回首頁頁面
+  if (routeIsRequiresAuth) {
+    router.push('/')
+  } else { // 不需要登入的頁面刷新頁面
+    location.reload()
+  }
+  closeMenu()
+}
+
 const isLogin = computed(() => USER_INFO_REF.value.email.length >= 1)
+
+function toSearchPage () {
+  RWDMenu.value = false
+  if (router.currentRoute.value.name === 'proposals') { // 列表頁調整 control
+    SEARCH_CONTROL.value = !SEARCH_CONTROL.value
+  } else { // 非列表頁，帶 query
+    router.push(`/proposals?search=${SEARCH_REF.value}`)
+  }
+}
+const loginMenuRef = ref(null)
+// 點及下拉選單以外地方，皆會關閉下拉選單
+useClickOutside(loginMenuRef, () => { showMemberMenu.value = false })
+
+const RWDMenuBtnRef: Ref<null | HTMLElement> = ref(null)
+
+function RWDMenuControl () {
+  RWDMenu.value = !RWDMenu.value
+}
+
 onMounted(() => {
   window.addEventListener('scroll', () => {
     showBgWhite.value = window.pageYOffset > 0
   })
 })
-
-function closeMemberMenu() {
-  setTimeout(() => {
-    showMemberMenu.value = false
-  }, 100)
-}
 </script>
 
 <template>
-  <header class="fixed z-10 top-0 left-0 w-full">
+  <header class="fixed z-10 top-0 left-0 w-full bg-opacity-0">
     <nav
-      class="relative flex w-full items-center justify-between ease-in duration-300 py-2 text-neutral-600 hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 dark:text-neutral-200 md:flex-wrap md:justify-start"
-      :class="{'bg-white': showBgWhite}"
+      class="relative flex w-full h-72px items-center justify-between ease-in duration-300 py-2 text-neutral-600 hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 dark:text-neutral-200 md:flex-wrap md:justify-start"
+      :class="{'bg-white': showBgWhite|| RWDMenu }"
       >
       <div class="flex w-full flex-wrap items-center justify-between px-6">
         <div
           class="container mx-auto !visible grow basis-[100%] items-center flex lg:basis-auto justify-between"
           id="navbarSupportedContentX">
-          <img src="/logo.svg" @click="router.push({ name:'home' })" class="cursor-pointer">
+          <img src="/logo.svg" @click="router.push({ name:'home' })" class="cursor-pointer max-w-[calc(100vw-150px)]">
           <div class="hidden lg:flex justify-between items-center relative">
-            <form action="">
-              <input type="text" name="search" placeholder="搜尋" class="w-80 outline outline-1 outline-brand-3 rounded-3xl py-2 px-5 pl-10">
-            </form>
-            <svg class="absolute left-3 top-1/2 -translate-y-1/2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div>
+              <input @keyup.enter="toSearchPage" v-model="SEARCH_REF" type="text" name="search" placeholder="搜尋" class="w-80 outline outline-1 outline-brand-3 rounded-3xl py-2 px-5 pl-10">
+            </div>
+            <svg @click="toSearchPage" class="absolute left-3 top-1/2 -translate-y-1/2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M20 20L15.514 15.506M18 9.5C18 11.7543 17.1045 13.9163 15.5104 15.5104C13.9163 17.1045 11.7543 18 9.5 18C7.24566 18 5.08365 17.1045 3.48959 15.5104C1.89553 13.9163 1 11.7543 1 9.5C1 7.24566 1.89553 5.08365 3.48959 3.48959C5.08365 1.89553 7.24566 1 9.5 1C11.7543 1 13.9163 1.89553 15.5104 3.48959C17.1045 5.08365 18 7.24566 18 9.5V9.5Z" stroke="#70BEFB" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </div>
@@ -49,42 +94,23 @@ function closeMemberMenu() {
             class="hidden lg:flex items-center gap-4">
             <li>
               <RouterLink
-                class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                to="/demo"
-                >範例</RouterLink
-              >
-            </li>
-            <li data-te-nav-item-ref>
-              <RouterLink
-                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
                 to="/proposals"
+                @click="closeMenu"
                 >探索</RouterLink
               >
             </li>
-            <li data-te-nav-item-ref>
-              <a
-                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                href="https://wowcho-mgmt-ui.onrender.com/#/login"
-                >提案</a
-              >
+
+            <li v-if="!isLogin">
+              <div
+                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
+                ><MyButton @click.prevent="openLoginModal" class="bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton>
+              </div>
+
             </li>
-            <li v-if="!isLogin" data-te-nav-item-ref>
-              <RouterLink
-                class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
-                to="/signup"
-                >註冊</RouterLink
-              >
-            </li>
-            <li v-if="!isLogin" data-te-nav-item-ref>
-              <RouterLink
-                class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
-                to="/login"
-                >登入</RouterLink
-              >
-            </li>
-            <li v-if="isLogin"  class="cursor-pointer relative" data-te-nav-item-ref>
+            <li v-if="isLogin" ref="loginMenuRef"  class="cursor-pointer relative" >
               <!-- 使用者預設頭像 -->
-              <svg v-if="USER_INFO_REF.image == null" @click="showMemberMenu = !showMemberMenu" @blur="closeMemberMenu" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg v-if="USER_INFO_REF.image == null" @click="showMemberMenu = !showMemberMenu" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16 33V32C16 28.6863 18.6863 26 22 26H26C29.3137 26 32 28.6863 32 32V33" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
                 <path d="M24 23C21.7909 23 20 21.2091 20 19C20 16.7909 21.7909 15 24 15C26.2091 15 28 16.7909 28 19C28 21.2091 26.2091 23 24 23Z" stroke="#369CF0" stroke-width="2" stroke-linecap="round"/>
                 <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#70BEFB"/>
@@ -92,128 +118,187 @@ function closeMemberMenu() {
               <!-- 使用者頭像 -->
               <img v-else :src="USER_INFO_REF.image" @click="showMemberMenu = !showMemberMenu" class="w-48px h-48px rounded-full">
 
-              <!-- 下拉選單 -->
-              <ul tabindex="0" v-if="showMemberMenu" class="member-menu absolute right-0 -bottom-55 w-40 bg-white">
-                <li class="px-4 py-3" data-te-nav-item-ref>
+              <!-- 下拉選單  -->
+              <ul v-if="showMemberMenu"  class="member-menu z-10 absolute right-0 -bottom-40 w-40 bg-white">
+                <li class="px-4 py-3">
                   <RouterLink
-                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    to="/setting/sponsorHistory"
+                    @click="showMemberMenu = !showMemberMenu"
+                    to="/sponsorList"
+                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
                     >贊助紀錄</RouterLink
                   >
                 </li>
-                <li class="px-4 py-3" data-te-nav-item-ref>
+                <li class="px-4 py-3">
                   <RouterLink
-                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+                    @click="showMemberMenu = !showMemberMenu"
                     to="/setting/profile"
+                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
                     >個人設定</RouterLink
                   >
                 </li>
-                <li class="px-4 py-3 border-t-1 border-line" data-te-nav-item-ref>
+                <li class="px-4 py-3 border-t-1 border-line">
                   <a
-                    @click.prevent="FN_LOGOUT"
-                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+                    @click.prevent="logoOut"
+                    class="block w-full cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
                     >登出</a
                   >
                 </li>
               </ul>
             </li>
           </ul>
-          <svg @click="showMenu = true" class="lg:hidden cursor-pointer" width="26" height="18" viewBox="0 0 26 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0.333496 2.05545C0.333496 1.28839 0.955323 0.666565 1.72239 0.666565H23.9446C24.7117 0.666565 25.3335 1.28839 25.3335 2.05545C25.3335 2.82252 24.7117 3.44434 23.9446 3.44434H1.72239C0.955324 3.44434 0.333496 2.82252 0.333496 2.05545ZM0.333496 8.9999C0.333496 8.23284 0.955323 7.61101 1.72239 7.61101H23.9446C24.7117 7.61101 25.3335 8.23284 25.3335 8.9999C25.3335 9.76696 24.7117 10.3888 23.9446 10.3888H1.72239C0.955324 10.3888 0.333496 9.76696 0.333496 8.9999ZM0.333496 15.9443C0.333496 15.1773 0.955323 14.5555 1.72239 14.5555H23.9446C24.7117 14.5555 25.3335 15.1773 25.3335 15.9443C25.3335 16.7114 24.7117 17.3332 23.9446 17.3332H1.72239C0.955324 17.3332 0.333496 16.7114 0.333496 15.9443Z" fill="#636466"/>
-          </svg>
+
+          <a ref="RWDMenuBtnRef" @click.prevent="RWDMenuControl"
+            class="toggle-menu inline-block lg:hidden relative w-50px h-50px  cursor-pointer"
+            :class="{'open': RWDMenu}"
+          >
+            <i></i>
+            <i></i>
+            <i></i>
+          </a>
+
         </div>
       </div>
     </nav>
-    <div v-if="showMenu" class="fixed top-0 w-screen h-screen bg-white py-2 px-8 sm:px-0">
-      <div class="container h-full flex flex-col justify-between mx-auto">
-        <div>
-          <div class="flex justify-between items-center mb-8">
-            <img src="/logo.svg" alt="">
-            <svg @click="showMenu = false;" class="cursor-pointer" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18.9929 3.02143C19.5491 2.4652 19.5491 1.56337 18.9929 1.00714C18.4366 0.450913 17.5348 0.450913 16.9786 1.00714L10 7.98571L3.02143 1.00714C2.4652 0.450912 1.56337 0.450913 1.00714 1.00714C0.450913 1.56337 0.450913 2.4652 1.00714 3.02143L7.98571 10L1.00714 16.9786C0.450912 17.5348 0.450913 18.4366 1.00714 18.9929C1.56337 19.5491 2.4652 19.5491 3.02143 18.9929L10 12.0143L16.9786 18.9929C17.5348 19.5491 18.4366 19.5491 18.9929 18.9929C19.5491 18.4366 19.5491 17.5348 18.9929 16.9786L12.0143 10L18.9929 3.02143Z" fill="#636466"/>
-            </svg>
+    <!-- RWD 選單 -->
+    <transition name="slide">
+      <div v-if="RWDMenu" class="fixed top-72px left-0 w-screen h-[calc(100vh-72px)] bg-white py-4 px-8">
+        <div class="container h-full flex flex-col justify-between mx-auto">
+          <div>
+            <div class="w-full flex justify-between items-center relative mb-8">
+              <input @keyup.enter="toSearchPage" v-model="SEARCH_REF" type="text" name="search" placeholder="搜尋" class="w-full outline outline-1 outline-brand-3 rounded-3xl py-2 px-5 pl-10">
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 20L15.514 15.506M18 9.5C18 11.7543 17.1045 13.9163 15.5104 15.5104C13.9163 17.1045 11.7543 18 9.5 18C7.24566 18 5.08365 17.1045 3.48959 15.5104C1.89553 13.9163 1 11.7543 1 9.5C1 7.24566 1.89553 5.08365 3.48959 3.48959C5.08365 1.89553 7.24566 1 9.5 1C11.7543 1 13.9163 1.89553 15.5104 3.48959C17.1045 5.08365 18 7.24566 18 9.5V9.5Z" stroke="#70BEFB" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <ul>
+              <li class="mb-8">
+                <RouterLink
+                  class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 text-lg py-2"
+                  @click="closeMenu" to="/proposals"
+                  >探索</RouterLink
+                >
+              </li>
+              <li v-if="isLogin" class="mb-8">
+                <div
+                  class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 text-lg border-b-1 border-line pb-5"
+                  >會員專區</div
+                >
+                <ul class="mt-3 ml-4">
+                  <li class="mb-3">
+                    <RouterLink
+                      class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 py-2"
+                      @click="closeMenu" to="/sponsorList"
+                      >贊助紀錄</RouterLink
+                    >
+                  </li>
+
+                  <li>
+                    <RouterLink
+                      class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 py-2"
+                      @click="closeMenu" to="/setting/profile"
+                      >個人設定</RouterLink
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </div>
-          <div class="w-full flex justify-between items-center relative mb-8">
-            <form class="w-full" action="">
-              <input type="text" name="search" placeholder="搜尋" class="w-full outline outline-1 outline-brand-3 rounded-3xl py-2 px-5 pl-10">
-            </form>
-            <svg class="absolute left-3 top-1/2 -translate-y-1/2" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 20L15.514 15.506M18 9.5C18 11.7543 17.1045 13.9163 15.5104 15.5104C13.9163 17.1045 11.7543 18 9.5 18C7.24566 18 5.08365 17.1045 3.48959 15.5104C1.89553 13.9163 1 11.7543 1 9.5C1 7.24566 1.89553 5.08365 3.48959 3.48959C5.08365 1.89553 7.24566 1 9.5 1C11.7543 1 13.9163 1.89553 15.5104 3.48959C17.1045 5.08365 18 7.24566 18 9.5V9.5Z" stroke="#70BEFB" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <ul>
-            <li data-te-nav-item-ref class="mb-8">
-              <RouterLink
-                class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                to="/demo"
-                >範例</RouterLink
-              >
-            </li>
-            <li data-te-nav-item-ref class="mb-8">
-              <RouterLink
-                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                to="/proposals"
-                >探索</RouterLink
-              >
-            </li>
-            <li v-if="isLogin" data-te-nav-item-ref class="mb-8">
-              <div
-                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 pb-5 [&.active]:text-black/90 border-b-1 border-line"
-                >會員專區</div
-              >
-              <ul class="mt-3 ml-4">
-                <li data-te-nav-item-ref class="mb-3">
-                  <!-- 需建路由 -->
-                  <RouterLink
-                    class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    to="/setting/sponsorHistory"
-                    >贊助紀錄</RouterLink
-                  >
-                </li>
-                <!-- <li data-te-nav-item-ref class="mb-3">
-                  <RouterLink
-                    class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    href=""
-                    >提案紀錄</RouterLink
-                  >
-                </li> -->
-                <li data-te-nav-item-ref class="mb-3">
-                  <RouterLink
-                    class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-                    to="/setting/profile"
-                    >個人設定</RouterLink
-                  >
-                </li>
-              </ul>
-            </li>
-          </ul>
+
+          <a
+            v-if="!isLogin"
+            class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
+            href="#!"
+            ><MyButton @click.prevent="openLoginModal" class="w-full bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton>
+          </a>
+
+          <a
+            v-if="isLogin"
+            @click.prevent="logoOut"
+            class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
+            href="#!"
+            ><MyButton class="w-full outline outline-2 outline-brand-1 bg-white text-brand-1 hover:bg-brand-1 hover:text-white">登出</MyButton></a
+          >
         </div>
-        <RouterLink
-          v-if="!isLogin"
-          class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
-          to="/signup"
-          >註冊</RouterLink
-        >
-        <RouterLink
-          v-if="!isLogin"
-          class="rounded-5xl cursor-pointer transition duration-500 px-6 py-2 w-1/2 md:w-auto bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1"
-          to="/login"
-          >登入</RouterLink
-        >
-        <a
-          v-if="isLogin"
-          @click.prevent="FN_LOGOUT"
-          class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-          href="#!"
-          ><MyButton class="w-full outline outline-2 outline-brand-1 bg-white text-brand-1 hover:bg-brand-1 hover:text-white">登出</MyButton></a
-        >
       </div>
-    </div>
+    </transition>
+    <!-- 登入註冊彈窗 -->
+    <Modal v-model="LOGIN_STORE.SHOW_LOGIN_MODAL" @update:modelValue="closeLoginModal">
+      <Login v-if="currentComponent === 'Login'"
+        @switchToSignup="currentComponent='Signup'"
+        @closeModal="closeLoginModal"
+      />
+      <Signup v-if="currentComponent === 'Signup'"
+        @switchToLogin="currentComponent='Login'"
+      />
+    </Modal>
+
   </header>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .member-menu {
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease-out;
+}
+
+.slide-enter-from {
+  transform: translateX(-100%);
+}
+
+.slide-enter-to {
+  transform: translateX(0);
+}
+
+.slide-leave-to {
+  transform: translateX(-100%);
+}
+
+.toggle-menu {
+  & i {
+    position: absolute;
+    display: block;
+    height: 4px;
+    background: #636466;
+    left: 0px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    border-radius: 20px;
+  }
+
+  & i:nth-child(1) {
+    top: 16px;
+    width: 32px;
+  }
+
+  & i:nth-child(2) {
+    top: 26px;
+    left: 3px;
+    width: 25px;
+  }
+
+  & i:nth-child(3) {
+    top: 36px;
+    width: 32px;
+  }
+
+  &.open i:nth-child(1) {
+    top: 25px;
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
+  }
+
+  &.open i:nth-child(2) {
+    background: transparent;
+  }
+
+  &.open i:nth-child(3) {
+    top: 25px;
+    -webkit-transform: rotateZ(-45deg);
+    transform: rotateZ(-45deg);
+  }
 }
 </style>
