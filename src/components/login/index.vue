@@ -1,23 +1,45 @@
 <script setup lang="ts">
 import { fetchMember } from '@/api'
-import { SET_TOKEN } from '@/utils'
+import { SET_TOKEN, REMOVE_TOKEN } from '@/utils'
 import { Swal } from '@/plugins/sweet-alert'
 import { userInfoStore, userLoginStore } from '@/stores'
+import { storeToRefs } from 'pinia'
+
+const store = userInfoStore()
+const { USER_INFO_REF } = storeToRefs(store)
 const emits = defineEmits(['switchToSignup', 'closeModal', 'loginTure'])
 const router = useRouter()
-const USER_STORE = userInfoStore()
 const LOGIN_STORE = userLoginStore()
+
+// 密碼顯示切換
+const passwordShow = ref(true)
+const passwordType = ref('password')
+
+function togglePasswordType(show:boolean, type:string) {
+  passwordShow.value = show
+  passwordType.value = type
+}
 
 async function submitForm(value:any) {
   const formBody = value
   const res = await fetchMember.login(formBody)
   if (res.status !== 'Success') return
   SET_TOKEN(res.data.token)
+  await getProfile()
+}
+
+async function getProfile() {
+  const res = await fetchMember.getProfile()
+  if (res.status !== 'Success') return
+  // 如果停權，跳 swal 並刪除 cookie
+  // userSuspend()
+  // 正常狀態使用 loginSuccess
+  USER_INFO_REF.value = res.data
   loginSuccess()
 }
 
 // 登入成功，關閉彈窗，切換頁面，並打個人資料 API
-async function loginSuccess() {
+function loginSuccess() {
   Swal.fire({
     icon: 'success',
     title: '登入成功',
@@ -34,20 +56,22 @@ async function loginSuccess() {
       LOGIN_STORE.TO_ROUTE = ''
     }
   }, 2000)
-
-  // 獲得 token，打 get 個人資料 API
-  const profileRes = await fetchMember.getProfile()
-  USER_STORE.USER_INFO_REF = profileRes.data
 }
 
-// 密碼顯示切換
-const passwordShow = ref(true)
-const passwordType = ref('password')
+// function userSuspend() {
+//   REMOVE_TOKEN()
+//   Swal.fire({
+//     icon: 'warning',
+//     text: '帳號已被停權，請聯繫渦潮管理員。',
+//     confirmButtonText: '確定',
+//     confirmButtonColor: '#2378BF',
+//     timer: 3000
+//   })
+//   setTimeout(() => {
+//     emits('closeModal')
+//   }, 2000)
+// }
 
-function togglePasswordType(show:boolean, type:string) {
-  passwordShow.value = show
-  passwordType.value = type
-}
 </script>
 
 <template>
