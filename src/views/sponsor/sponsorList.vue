@@ -42,7 +42,8 @@ onMounted(() => {
 
 <template>
   <div class="md:(max-w-324 mx-auto) flex flex-col justify-center py-12 md:py-20">
-    <div class="text-h2 leading-h2 mb-56px">贊助列表</div>
+    <div class="text-h2 leading-h2 mb-4">贊助列表</div>
+    <p class=" mb-56px">可點擊想要查看的贊助項目，即會進入該贊助項目的贊助詳情頁。</p>
     <div class="w-full overflow-x-auto rounded-t-2 mb-8">
       <table class="min-w-324">
         <thead class="h-50px bg-gray-4 rounded-lg text-gray-2 font-medium">
@@ -52,23 +53,23 @@ onMounted(() => {
           <th>贊助方案</th>
           <th>提案人名稱</th>
           <th>提案人 Email</th>
-          <th>詳細</th>
-          <th class="rounded-r-lg">金額</th>
+          <!-- <th>詳細</th> -->
+          <th class="text-right rounded-r-lg">金額</th>
         </thead>
         <tbody>
-          <tr v-for="sponsor in data.list" :key="sponsor.id" class="cursor-pointer text-gray-1 rounded-l-lg transition-all transition-duraiotn-500 hover:bg-brand-4 text-center">
+          <tr v-for="sponsor in data.list" :key="sponsor.id" class="cursor-pointer text-gray-1 rounded-l-lg transition-all transition-duraiotn-500 hover:bg-brand-4 text-center" @click="goDetail(sponsor.id)">
             <!-- <td>{{ sponsor.MerchantOrderNo }}</td> -->
             <td>{{ dateYYYYMMDD(sponsor.updatedAt) }}</td>
             <td class="text-left">{{ sponsor.proposalId.name }}</td>
             <td class="text-left">{{ sponsor.planId.name }}</td>
             <td class="text-left">{{ sponsor.ownerId.businessName }}</td>
             <td>{{ sponsor.ownerId.businessEmail }}</td>
-            <td class="text-brand-2 hover:text-brand-1 transition transition-all transition-duration-500 rounded-r-lg" @click="goDetail(sponsor.id)">
+            <!-- <td class="text-brand-2 hover:text-brand-1 transition transition-all transition-duration-500 rounded-r-lg" @click="goDetail(sponsor.id)">
               <div class="flex justify-center items-center">
                 <div>詳情</div>
                 <div class="mdi mdi-chevron-right w-6 h-6"></div>
               </div>
-            </td>
+            </td> -->
             <td class="text-right">{{ sponsor.planId.actualPrice?.toLocaleString() }}</td>
           </tr>
         </tbody>
