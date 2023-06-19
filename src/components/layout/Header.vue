@@ -91,10 +91,10 @@ onMounted(() => {
             </svg>
           </div>
           <ul
-            class="hidden lg:flex items-center gap-4">
+            class="hidden lg:flex items-center gap-x-10">
             <li>
               <RouterLink
-                class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
+                class="block text-gray-2 transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
                 to="/proposals"
                 @click="closeMenu"
                 >探索</RouterLink

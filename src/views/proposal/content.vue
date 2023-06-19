@@ -75,7 +75,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-5">
+  <div class="flex flex-col gap-5 mt-4 lg:mt-18">
     <div class="flex gap-4 text-xl">
       <p>提案人</p>
       <RouterLink :to="`/users/${proposal.ownerId._id}`" class="text-brand-1 font-medium">{{ proposal.ownerId.businessName }}</RouterLink>
@@ -98,7 +98,7 @@ onMounted(() => {
               <div class="text-gray-2">目標 NT$ {{ numberWithCommas(proposal.targetPrice) }}</div>
             </div>
           </div>
-          <div class="flex flex-col gap-2 md:gap-6 border-line border-t-1 pt-4 md:pt-6">
+          <div class="flex flex-col gap-y-2 border-line border-t-1 pt-4 md:pt-6">
             <div class="flex justify-between">
               <div class="text-gray-2">贊助人數</div>
               <div class="text-gray-1">{{ proposal.nowBuyers }} 人</div>
@@ -118,11 +118,11 @@ onMounted(() => {
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-12 lg:mt-5 gap-2 lg:gap-10">
       <div class="w-full lg:col-span-8">
-        <ul class="flex border-b-1 border-gray-4 gap-7 md:gap-16 text-gray-2">
-          <li class="text-lg leading-30px py-4 cursor-pointer text-center border-b-4 b-b-white duration-300" :class="content === PROPOSAL.CONTENT ? 'text-gray-1 !border-brand-2' : ''" @click="contentHandler(PROPOSAL.CONTENT)">專案內容</li>
-          <li v-if="proposal.placardIdList.length>0" class="text-lg leading-30px py-4 cursor-pointer text-center border-b-4 b-b-white duration-300" :class="content === PROPOSAL.PROCESS ? 'text-gray-1 !border-brand-2' : ''" @click="contentHandler(PROPOSAL.PROCESS)">專案進度</li>
-          <li class="text-lg leading-30px py-4 cursor-pointer text-center border-b-4 b-b-white duration-300" :class="content === PROPOSAL.PROMISES ? 'text-gray-1 !border-brand-2' : ''" @click="contentHandler(PROPOSAL.PROMISES)">承諾及告示</li>
-          <li v-if="proposal.faqIdList.length>0" class="text-lg leading-30px py-4 cursor-pointer text-center border-b-4 b-b-white duration-300" :class="content === PROPOSAL.FAQ ? 'text-gray-1 !border-brand-2' : ''" @click="contentHandler(PROPOSAL.FAQ)">常見問答</li>
+        <ul class="flex border-b-1 border-gray-4 gap-x-5 sm:gap-x-7 md:gap-16 text-gray-2">
+          <li class="text-base sm:text-lg leading-30px py-4 cursor-pointer text-center border-b-4 b-b-white duration-300" :class="content === PROPOSAL.CONTENT ? 'text-gray-1 !border-brand-2' : ''" @click="contentHandler(PROPOSAL.CONTENT)">專案內容</li>
+          <li v-if="proposal.placardIdList.length>0" class="text-base sm:text-lg leading-30px py-4 cursor-pointer text-center border-b-4 b-b-white duration-300" :class="content === PROPOSAL.PROCESS ? 'text-gray-1 !border-brand-2' : ''" @click="contentHandler(PROPOSAL.PROCESS)">專案進度</li>
+          <li class="text-base sm:text-lg leading-30px py-4 cursor-pointer text-center border-b-4 b-b-white duration-300" :class="content === PROPOSAL.PROMISES ? 'text-gray-1 !border-brand-2' : ''" @click="contentHandler(PROPOSAL.PROMISES)">承諾及告示</li>
+          <li v-if="proposal.faqIdList.length>0" class="text-base sm:text-lg leading-30px py-4 cursor-pointer text-center border-b-4 b-b-white duration-300" :class="content === PROPOSAL.FAQ ? 'text-gray-1 !border-brand-2' : ''" @click="contentHandler(PROPOSAL.FAQ)">常見問答</li>
         </ul>
         <!-- content -->
         <transition name="fade">

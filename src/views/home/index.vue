@@ -115,17 +115,29 @@ onMounted(() => {
     </div> -->
 
     <!-- Carousel -->
-    <div class="flex justify-center items-center w-[calc(100vw-24px)] h-full py-8 pb-20">
+    <div class="w-[calc(100vw-24px)] md:w-4/5 md:max-w-324 h-full py-8 pb-20">
+      <div class="w-full flex justify-between items-center mb-10">
+        <div class="w-full lg:w-auto flex flex-col lg:flex-row items-center gap-2 lg:gap-6">
+          <div class="text-center text-h4 md:text-h3 leading-h4 md:leading-h2 text-brand-1 font-medium md:font-bold">搶先收看 Sneak Peek</div>
+          <div class="text-h5 leading-30px md:leading-9 text-gray-2">走過路過千萬不要錯過</div>
+        </div>
+        <RouterLink to="/proposals" class="hidden text-h5 text-gray-2 lg:flex gap-10px cursor-pointer items-center">
+          <p>查看更多</p>
+          <img class="w-4 h-4" src="/arrow.svg" >
+        </RouterLink>
+      </div>
       <!-- 我是為了輪播牆預留的區塊 -->
-      <Carousel
-        :list="carouselProposalList"
-        :slidesPerView="1"
-        :breakpoints="{
-          960: {
-            slidesPerView: 3,
-          },
-        }"
-      />
+      <div class="flex justify-center items-center">
+        <Carousel
+          :list="carouselProposalList"
+          :slidesPerView="1"
+          :breakpoints="{
+            1024: {
+              slidesPerView: 3,
+            },
+          }"
+        />
+      </div>
     </div>
 
     <!-- Category -->
@@ -163,7 +175,7 @@ onMounted(() => {
           </RouterLink>
         </div>
         <div class="w-full flex flex-col lg:flex-row justify-between gap-7 md:gap-6">
-          <RouterLink :to="`/proposal/${recentlyProposal.customizedUrl}`" v-for="recentlyProposal in recentlyProposalList" :key="recentlyProposal.id" class="w-full">
+          <RouterLink :to="`/proposal/${recentlyProposal.customizedUrl}`" v-for="recentlyProposal in recentlyProposalList" :key="recentlyProposal.id" class="w-full flex items-stretch">
             <ProductCard
               :image="recentlyProposal.image"
               :subtitle="recentlyProposal.summary"
@@ -194,7 +206,7 @@ onMounted(() => {
           </RouterLink>
         </div>
         <div class="w-full flex flex-col lg:flex-row justify-between gap-7 md:gap-6">
-          <RouterLink :to="`/proposal/${hotProposal.customizedUrl}`" v-for="hotProposal in hotProposalList" :key="hotProposal.id" class="w-full">
+          <RouterLink :to="`/proposal/${hotProposal.customizedUrl}`" v-for="hotProposal in hotProposalList" :key="hotProposal.id" class="w-full flex items-stretch">
             <ProductCard
               :image="hotProposal.image"
               :subtitle="hotProposal.summary"

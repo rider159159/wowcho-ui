@@ -97,12 +97,12 @@ onMounted(async () => {
             <div>{{ plan.actualPrice.toLocaleString() }}</div>
           </div>
           <div class="flex w-full justify-between text-14px b-gray-3 border-b-3 py-4">
-            <p>運費 ：N/A</p>
+            <p>運費 ：</p>
             <div>+ (未知)</div>
           </div>
-          <div class="flex w-full justify-between text-h5 pt-4">
+          <div class="flex w-full justify-between items-center text-h5 pt-4">
             <p>選項金額</p>
-            <div>{{ plan.actualPrice.toLocaleString() }}</div>
+            <div class="text-brand-1 text-3xl">{{ plan.actualPrice.toLocaleString() }}</div>
           </div>
         </div>
       </div>
@@ -123,22 +123,22 @@ onMounted(async () => {
             <div>
               <h6 class="text-28px mb-4">物流方式 </h6>
               <ul class="flex">
-                <li @click="formBody.CVSCOM = 0" class="flex items-center cursor-pointer border-b-4 border-#fff py-4 px-9 duration-300 hover:bg-brand-4 hover:border-brand-2" :class="{'bg-brand-4 border-brand-2': formBody.CVSCOM === 0}">
+                <li @click="formBody.CVSCOM = 0" class="flex items-center cursor-pointer border-b-4 border-#fff rounded-t-2 py-4 px-9 duration-300 hover:bg-brand-4 hover:border-brand-2" :class="{'bg-brand-4 border-brand-2': formBody.CVSCOM === 0}">
                   宅配
                 </li>
-                <li  @click="formBody.CVSCOM = 3" class="flex items-center cursor-pointer border-b-4 border-#fff py-4 px-9 duration-300 hover:bg-brand-4 hover:border-brand-2"  :class="{'bg-brand-4 border-brand-2': formBody.CVSCOM === 3}">
+                <li  @click="formBody.CVSCOM = 3" class="flex items-center cursor-pointer border-b-4 border-#fff rounded-t-2 py-4 px-9 duration-300 hover:bg-brand-4 hover:border-brand-2"  :class="{'bg-brand-4 border-brand-2': formBody.CVSCOM === 3}">
                   超商店到店
                 </li>
               </ul>
             </div>
             <!-- 表單內容  宅配-->
-            <div v-if="formBody.CVSCOM === 0" class="flex flex-col gap-6 bg-gray-4 py-6 px-4 mb-8">
+            <div v-if="formBody.CVSCOM === 0" class="flex flex-col gap-6 bg-gray-4 rounded-b-2 rounded-e-2 p-6 mb-8">
               <div>
                 <label for="CVSCOMName" class="flex text-h5 leading-h5 mb-4">
                   <span class="text-#FF5D71 mr-1">*</span>
                   <p>收件人姓名</p>
                 </label>
-                <VField v-model="formBody.CVSCOMName" name="CVSCOMName" id="CVSCOMName" label="收件人姓名" rules="required"
+                <VField v-model="formBody.CVSCOMName" name="CVSCOMName" id="CVSCOMName" type="text" label="收件人姓名" rules="required"
                   class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
                   :class="{'!border-#FF5D71':errors.CVSCOMName}" >
                 </VField>
@@ -150,7 +150,7 @@ onMounted(async () => {
                   <span class="text-#FF5D71 mr-1">*</span>
                   <p>收件人連絡電話</p>
                 </label>
-                <VField v-model="formBody.CVSCOMPhone" name="CVSCOMPhone" id="CVSCOMPhone" type="phone" label="收件人連絡電話" rules="required"
+                <VField v-model="formBody.CVSCOMPhone" name="CVSCOMPhone" id="CVSCOMPhone" type="tel" label="收件人連絡電話" rules="required"
                   class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
                   :class="{'!border-#FF5D71':errors.CVSCOMPhone}"
                 >
@@ -163,7 +163,7 @@ onMounted(async () => {
                   <span class="text-#FF5D71 mr-1">*</span>
                   <p> 收件人 Email</p>
                 </label>
-                <VField v-model="formBody.Email" name="Email" id="Email" label="收件人 Email" type="Email" rules="required|email"
+                <VField v-model="formBody.Email" name="Email" id="Email" label="收件人 Email" type="email" rules="required|email"
                   class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
                   :class="{'!border-#FF5D71':errors.Email}"
                 >
@@ -176,7 +176,7 @@ onMounted(async () => {
                   <span class="text-#FF5D71 mr-1">*</span>
                   <p> 收件人地址</p>
                 </label>
-                <VField v-model="formBody.address" name="address" id="address" label="收件人地址" rules="required"
+                <VField v-model="formBody.address" name="address" id="address" label="收件人地址" type="text" rules="required"
                   class="w-full h-48px text-h6 leading-h4 px-2 rounded-8px b-2px border-line focus:outline-none focus:border-brand3"
                   :class="{'!border-#FF5D71':errors.address}"
                 >
@@ -195,7 +195,7 @@ onMounted(async () => {
             </div>
             <!-- 表單內容 超商店到店 -->
 
-            <div v-if="formBody.CVSCOM === 3" class="flex flex-col gap-6 bg-gray-4 py-6 px-4 mb-8">
+            <div v-if="formBody.CVSCOM === 3" class="flex flex-col gap-6 bg-gray-4 rounded-2 p-6 mb-8">
               <div>
                 <label for="Email" class="flex text-h5 leading-h5 mb-4">
                   <span class="text-#FF5D71 mr-1">*</span>
@@ -234,7 +234,7 @@ onMounted(async () => {
             <input type="hidden" name="TradeSha" v-model="moneyFlowOrder.TradeSha" />
             <input type="hidden" name="TradeInfo" v-model="moneyFlowOrder.TradeInfo" />
             <div class="w-full flex mb-8">
-              <button @click="submitForm(validate)" type="button" class="px-8 py-2 rounded-full bg-brand-1 text-white outline outline-2 duration-300 outline-brand-1 hover:bg-white hover:text-brand-1">
+              <button @click="submitForm(validate)" type="button" class="px-8 py-2 rounded-full bg-brand-1 text-white outline outline-2 duration-300 outline-brand-1 ms-auto hover:bg-white hover:text-brand-1">
                 立即贊助 NT$ {{ plan.actualPrice.toLocaleString() }}
               </button>
             </div>

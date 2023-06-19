@@ -47,6 +47,9 @@ const formattedCurrentPrice = computed(() => {
   return props.currentPrice.toLocaleString()
 })
 
+const formattedTargetPrice = computed(() => {
+  return props.targetPrice.toLocaleString()
+})
 </script>
 
 <template>
@@ -59,7 +62,7 @@ const formattedCurrentPrice = computed(() => {
       <div class="flex items-center">
         <span class="font-bold">NT$ {{ formattedCurrentPrice }}</span>
         <span class="mx-1">/</span>
-        <span class="text-sm">目標 NT$ {{ props.targetPrice }}</span>
+        <span class="text-sm">目標 NT$ {{ formattedTargetPrice }}</span>
       </div>
     </div>
   </div>

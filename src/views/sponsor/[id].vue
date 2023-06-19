@@ -42,43 +42,43 @@ onMounted(() => {
             <div class="text-gray-1 font-medium">{{ sponsor.MerchantOrderNo }}</div>
           </div> -->
           <div class="flex gap-4">
-            <div class="text-gray-2">訂購時間</div>
+            <div class="text-gray-2 min-w-24">訂購時間</div>
             <div class="text-gray-1 font-medium">{{ dateTime(sponsor.updatedAt) }}</div>
           </div>
           <div class="flex gap-4">
-            <div class="text-gray-2">專案</div>
+            <div class="text-gray-2 min-w-24">專案</div>
             <div class="flex gap-2 text-brand-2 hover:text-brand-1 font-medium cursor-pointer" @click="goProposal()">
               <div>{{ sponsor.proposalId.name }}</div>
               <div class="mdi mdi-open-in-new"></div>
             </div>
           </div>
           <div class="flex gap-4">
-            <div class="text-gray-2">訂購方案</div>
+            <div class="text-gray-2 min-w-24">訂購方案</div>
             <div class="text-gray-1 font-medium">{{ sponsor.planId.name }}</div>
           </div>
           <div class="flex gap-4">
-            <div class="text-gray-2">訂購規格</div>
+            <div class="text-gray-2 min-w-24">訂購規格</div>
             <div class="text-gray-1 font-medium">{{ sponsor.option.join('、') }}</div>
           </div>
           <div class="flex gap-4">
-            <div class="text-gray-2">總金額</div>
+            <div class="text-gray-2 min-w-24">總金額</div>
             <div class="text-gray-1 font-medium">NT$ {{ numberWithCommas(sponsor.Amt) }}</div>
           </div>
 
           <div class="flex gap-4">
-            <div class="text-gray-2">寄送方式</div>
+            <div class="text-gray-2 min-w-24">寄送方式</div>
             <div class="text-gray-1 font-medium">{{ sponsor.CVSCOM === 0 ? '宅配' : '超商店到店' }}</div>
           </div>
           <div class="flex gap-4">
-            <div class="text-gray-2">付款方式</div>
+            <div class="text-gray-2 min-w-24">付款方式</div>
             <div class="text-gray-1 font-medium">{{ sponsor.PaymentType === 'CREDIT' ? '信用卡' : '取貨付款' }}</div>
           </div>
           <div class="flex gap-4">
-            <div class="text-gray-2">提案人名稱</div>
+            <div class="text-gray-2 min-w-24">提案人名稱</div>
             <div class="text-gray-1 font-medium">{{ sponsor.ownerId.businessName }}</div>
           </div>
           <div class="flex gap-4">
-            <div class="text-gray-2">提案人 Email</div>
+            <div class="text-gray-2 min-w-24">提案人 Email</div>
             <div class="text-gray-1 font-medium">{{ sponsor.ownerId.businessEmail }}</div>
           </div>
         </div>
@@ -87,15 +87,15 @@ onMounted(() => {
         <div class="text-brand-1 text-h5 leading-h5 md:(text-h4 leading-h4) font-medium border-b-1 border-line py-4">收件者資訊</div>
         <div class="flex flex-col py-4 md:py-6 gap-2 md:gap-3">
           <div class="flex gap-4">
-            <div class="text-gray-2">姓名</div>
+            <div class="text-gray-2 min-w-24">姓名</div>
             <div class="text-gray-1 font-medium">{{ sponsor.CVSCOMName }}</div>
           </div>
           <div class="flex gap-4">
-            <div class="text-gray-2">電話</div>
+            <div class="text-gray-2 min-w-24">電話</div>
             <div class="text-gray-1 font-medium">{{ sponsor.CVSCOMPhone }}</div>
           </div>
           <div class="flex gap-4">
-            <div class="text-gray-2">Email</div>
+            <div class="text-gray-2 min-w-24">Email</div>
             <div class="text-gray-1 font-medium">{{ sponsor.Email }}</div>
           </div>
           <!-- <div class="flex gap-4">
@@ -103,11 +103,11 @@ onMounted(() => {
             <div class="text-gray-1 font-medium">{{ data.recipient.info.method }}</div>
           </div> -->
           <div class="flex gap-4">
-            <div class="text-gray-2">取貨地點</div>
+            <div class="text-gray-2 min-w-24">取貨地點</div>
             <div class="text-gray-1 font-medium">{{ sponsor.address.length > 0 ? sponsor.address : `${sponsor.StoreType}-${sponsor.StoreName}` }}</div>
           </div>
           <div class="flex gap-4">
-            <div class="text-gray-2">購買備註</div>
+            <div class="text-gray-2 min-w-24">購買備註</div>
             <div class="text-gray-1 font-medium">{{ sponsor.remark || '-' }}</div>
           </div>
         </div>

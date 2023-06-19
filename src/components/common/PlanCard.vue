@@ -97,7 +97,8 @@ const discountDifference = computed(() => {
   writing-mode: vertical-lr;
 }
 .writingVerticalLr{
-  writing-mode:lr
+  writing-mode: lr;
+  letter-spacing: 1px;
 }
 .subtract {
   background-image: url('/subtract.png');
@@ -105,7 +106,7 @@ const discountDifference = computed(() => {
   -webkit-writing-mode: vertical-lr;
   writing-mode: vertical-lr;
   text-orientation: upright;
-  letter-spacing: 5px;
+  letter-spacing: 15px;
   width: 48px;
   height: 67px;
 }

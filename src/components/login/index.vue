@@ -76,7 +76,7 @@ function loginSuccess() {
 
 <template>
   <section class="flex flex-col items-center w-full px-4">
-    <VForm @submit="submitForm" v-slot="{ errors }" class="w-full md:w-75% xl:w-50% flex flex-col gap-4">
+    <VForm @submit="submitForm" v-slot="{ errors }" class="w-full md:w-90% flex flex-col gap-4 md:mb-12">
       <img src="/footer_logo.svg" alt="">
       <div class="text-h3 text-center my-10px">
         <span class="mdi mdi-account-circle text-h3 text-brand6"></span> 登入
