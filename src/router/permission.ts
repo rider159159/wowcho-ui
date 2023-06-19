@@ -6,6 +6,8 @@ import { userInfoStore, userLoginStore, searchStore } from '@/stores'
 
 const permission = (router:Router) => {
   router.beforeEach(async (to, from) => {
+    const pageTitle = to.meta.title as string || '渦潮 WowCho' // 如果頁面沒有定義標題，則使用默認標題
+    document.title = pageTitle
     const USER_TOKEN = GET_TOKEN()
 
     const USER_STORE = userInfoStore()
