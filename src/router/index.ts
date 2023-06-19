@@ -7,7 +7,7 @@ import noneHeader from '@/components/layoutWrapper/noneHeader.vue'
 import FullWidthLayout from '@/components/layoutWrapper/FullWidthLayout.vue'
 const router = createRouter({
   history: createWebHashHistory(),
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior() {
     return { top: 0 }
   },
   routes: [
@@ -28,14 +28,6 @@ const router = createRouter({
       meta: {
         keepAlive: false,
         layout: DefaultLayout
-      }
-    },
-    {
-      path: '/projects/:id',
-      name: 'projects',
-      component: () => import('../views/projects/[id].vue'),
-      meta: {
-        keepAlive: false
       }
     },
     // 以上範例用
@@ -75,7 +67,8 @@ const router = createRouter({
       meta: {
         keepAlive: false,
         layout: DefaultLayout,
-        requiresAuth: true
+        requiresAuth: true,
+        title: '贊助紀錄 | 渦潮 WowCho'
       }
     },
     {
@@ -85,7 +78,8 @@ const router = createRouter({
       meta: {
         keepAlive: false,
         layout: DefaultLayout,
-        requiresAuth: true
+        requiresAuth: true,
+        title: '贊助詳情 | 渦潮 WowCho'
 
       }
     },
@@ -96,7 +90,8 @@ const router = createRouter({
       // component: () => import('../views/error.vue'),
       component: () => import('../views/error/index.vue'),
       meta: {
-        keepAlive: false
+        keepAlive: false,
+        title: '404 | 渦潮 WowCho'
       }
     },
     // 關於我們
@@ -106,7 +101,8 @@ const router = createRouter({
       component: () => import('../views/about/index.vue'),
       meta: {
         keepAlive: false,
-        layout: FullWidthLayout
+        layout: FullWidthLayout,
+        title: '關於我們 | 渦潮 WowCho'
       }
     },
     // 使用條款
@@ -146,7 +142,8 @@ const router = createRouter({
       component: () => import('../views/proposals/index.vue'),
       meta: {
         keepAlive: false,
-        layout: DefaultLayout
+        layout: DefaultLayout,
+        title: '探索提案 | 渦潮 WowCho'
       }
     },
     // 商品詳細
@@ -163,14 +160,17 @@ const router = createRouter({
         {
           path: '',
           name: 'proposalContent',
-          component: () => import('../views/proposal/content.vue')
-        },
-        // 查看與選擇贊助方案
-        {
-          path: 'plan',
-          name: 'proposalPlan',
-          component: () => import('../views/proposal/plan.vue')
+          component: () => import('../views/proposal/content.vue'),
+          meta: {
+            title: '提案詳情 | 渦潮 WowCho'
+          }
         }
+        // 查看與選擇贊助方案
+        // {
+        //   path: 'plan',
+        //   name: 'proposalPlan',
+        //   component: () => import('../views/proposal/plan.vue')
+        // }
       ]
     },
     // 選擇贊助方式
@@ -188,13 +188,19 @@ const router = createRouter({
         {
           path: '',
           name: 'cartContent',
-          component: () => import('../views/cart/content.vue')
+          component: () => import('../views/cart/content.vue'),
+          meta: {
+            title: '贊助提案 | 渦潮 WowCho'
+          }
         },
         // 查看與選擇贊助方案
         {
           path: 'success',
           name: 'cartSuccess',
-          component: () => import('../views/cart/success.vue')
+          component: () => import('../views/cart/success.vue'),
+          meta: {
+            title: '贊助成功 | 渦潮 WowCho'
+          }
           // component: () => import('../views/cart/content2.vue'), //test
         }
       ]
@@ -230,7 +236,9 @@ const router = createRouter({
           path: 'profile',
           component: () => import('../views/setting/profile.vue'),
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            title: '個人資料 | 渦潮 WowCho'
+
           }
         }
       ]
