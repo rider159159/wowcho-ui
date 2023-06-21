@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { fetchProposal, fetchSponsor } from '@/api'
 import { SponsorFormBody } from '@/interface'
+import { scrollToError, checkObjKey } from '@/composables'
+
 const route = useRoute()
 
 let MerchantID = ''
@@ -11,17 +13,8 @@ const moneyFlowOrder = ref({
 })
 const formHtml = ref <HTMLFormElement | null>(null)
 
-async function submitForm(callBack:any) {
-  callBack().then((result:any) => {
-    // 表單驗證通過
-    if (result.valid) {
-      createOrder()
-    }
-  })
-}
-
 // 新增訂單
-const createOrder = async () => {
+const onSubmit = async () => {
   const orderForm = JSON.parse(JSON.stringify(formBody.value))
   // 提案 proposal URL (等同 ID)
   orderForm.customizedUrl = proposal.value.customizedUrl
@@ -60,6 +53,13 @@ async function getProposalCart () {
   formBody.value.ItemDesc = plan.value.name
   formBody.value.Amt = plan.value.actualPrice
 }
+
+function onInvalidSubmit({ errors }:any) {
+  if (checkObjKey(errors).length > 0) {
+    scrollToError()
+  }
+}
+
 onMounted(async () => {
   MerchantID = import.meta.env.VITE_MerchantID ? import.meta.env.VITE_MerchantID : ''
   getProposalCart()
@@ -107,13 +107,16 @@ onMounted(async () => {
         </div>
       </div>
       <div class="col-span-1 lg:col-span-2">
-        <VForm v-slot="{ errors, validate}" as="div">
+        <VForm v-slot="{ errors}" @submit="onSubmit" @invalid-submit="onInvalidSubmit" as="div">
           <form ref="formHtml" action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post">
             <h5 class="text-28px font-700 mb-6">方案規格</h5>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
               <div v-for="(item,index) in plan.specification" :key="index">
-                <p class="mb-4 text-6">{{ item.title }}</p>
-                <VField v-model="formBody.option[index]" :name="`option${index + 1}`" as="select" :label="`募資方案規格${index + 1}`" rules="required" class="w-full text-h6 leading-h4 p-2 mb-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-brand-1 focus:border-brand-1">
+                <p class="mb-4 text-6" :class="{'errorMessage': errors[`option${index + 1}`] }">{{ item.title }}</p>
+                <VField v-model="formBody.option[index]" :name="`option${index + 1}`" as="select" :label="`規格-${item.title}`" rules="required"
+                  class="w-full text-h6 leading-h4 p-2 mb-2 rounded b border-[#ccc] focus:outline-none focus:ring-1 focus:ring-brand-1 focus:border-brand-1"
+                  :class="{'!border-#FF5D71': errors[`option${index + 1}`]}"
+                >
                   <option value="" disabled class="text-#B0B1C8">請選擇規格</option>
                   <option v-for="i in item.option" :key="i" :value="i" >{{ i }}</option>
                 </VField>
@@ -134,7 +137,8 @@ onMounted(async () => {
             <!-- 表單內容  宅配-->
             <div v-if="formBody.CVSCOM === 0" class="flex flex-col gap-6 bg-gray-4 rounded-b-2 rounded-e-2 p-6 mb-8">
               <div>
-                <label for="CVSCOMName" class="flex text-h5 leading-h5 mb-4">
+                <label for="CVSCOMName" class="flex text-h5 leading-h5 mb-4"
+                  :class="{'errorMessage': errors.CVSCOMName }" >
                   <span class="text-#FF5D71 mr-1">*</span>
                   <p>收件人姓名</p>
                 </label>
@@ -146,7 +150,8 @@ onMounted(async () => {
               </div>
 
               <div>
-                <label for="CVSCOMPhone" class="flex text-h5 leading-h5 mb-4">
+                <label for="CVSCOMPhone" class="flex text-h5 leading-h5 mb-4"
+                  :class="{'errorMessage': errors.CVSCOMPhone }">
                   <span class="text-#FF5D71 mr-1">*</span>
                   <p>收件人連絡電話</p>
                 </label>
@@ -159,7 +164,8 @@ onMounted(async () => {
               </div>
 
               <div>
-                <label for="Email" class="flex text-h5 leading-h5 mb-4">
+                <label for="Email" class="flex text-h5 leading-h5 mb-4"
+                :class="{'errorMessage': errors.Email }">
                   <span class="text-#FF5D71 mr-1">*</span>
                   <p> 收件人 Email</p>
                 </label>
@@ -172,7 +178,8 @@ onMounted(async () => {
               </div>
 
               <div>
-                <label for="address" class="flex text-h5 leading-h5 mb-4">
+                <label for="address" class="flex text-h5 leading-h5 mb-4"
+                :class="{'errorMessage': errors.address }">
                   <span class="text-#FF5D71 mr-1">*</span>
                   <p> 收件人地址</p>
                 </label>
@@ -197,7 +204,7 @@ onMounted(async () => {
 
             <div v-if="formBody.CVSCOM === 3" class="flex flex-col gap-6 bg-gray-4 rounded-2 p-6 mb-8">
               <div>
-                <label for="Email" class="flex text-h5 leading-h5 mb-4">
+                <label for="Email" class="flex text-h5 leading-h5 mb-4" :class="{'errorMessage': errors.Email }">
                   <span class="text-#FF5D71 mr-1">*</span>
                   <p> 收件人 Email</p>
                 </label>
@@ -234,7 +241,7 @@ onMounted(async () => {
             <input type="hidden" name="TradeSha" v-model="moneyFlowOrder.TradeSha" />
             <input type="hidden" name="TradeInfo" v-model="moneyFlowOrder.TradeInfo" />
             <div class="w-full flex mb-8">
-              <button @click="submitForm(validate)" type="button" class="px-8 py-2 rounded-full bg-brand-1 text-white outline outline-2 duration-300 outline-brand-1 ms-auto hover:bg-white hover:text-brand-1">
+              <button type="submit" class="px-8 py-2 rounded-full bg-brand-1 text-white outline outline-2 duration-300 outline-brand-1 ms-auto hover:bg-white hover:text-brand-1">
                 立即贊助 NT$ {{ plan.actualPrice.toLocaleString() }}
               </button>
             </div>
