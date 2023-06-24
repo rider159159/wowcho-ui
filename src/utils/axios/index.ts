@@ -6,7 +6,7 @@ import { requestStore } from '@/stores'
 const defaultConfig = {
   timeout: 30000,
   // 判斷環境變數
-  baseURL: import.meta.env.VITE_BASE_URL ? import.meta.env.VITE_BASE_URL : 'http://localhost:3034'
+  baseURL: import.meta.env.VITE_BASE_URL ? import.meta.env.VITE_BASE_URL : 'http://localhost:3000'
 }
 
 // 將 _id 轉換回 id 方法，於攔截器 request 使用
