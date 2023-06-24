@@ -11,7 +11,7 @@ export default defineConfig(({ command, mode }) => {
   console.log('command', command)
   console.log('mode', mode)
   return {
-    base: './',
+    base: '/',
     plugins: [
       vue(),
       AutoImport({
