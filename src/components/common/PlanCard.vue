@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { calculateDiscount } from '@/composables'
+import { formatDateAccomplish } from '@/composables'
 const props = defineProps({
   id: {
     type: String
@@ -37,6 +37,10 @@ const props = defineProps({
   type: {
     type: String,
     default: 'default'
+  },
+  pickupDate: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -57,36 +61,39 @@ const discountDifference = computed(() => {
   <div>
     <div class="relative">
       <img class="w-full rounded-2xl mb-4 md:mb-6" :src="props.image" :alt="props.title">
-      <div v-if="props.originPrice !== null" class="subtract | absolute top-0 right-4 flex justify-center items-center font-medium text-white">
-        <span class="writingVerticalLr">{{ calculateDiscount(props.originPrice, props.price) }}</span>
-        折
-      </div>
-      <div v-if="props.count !== null" class="absolute left-4 bottom-4 bg-brand-2 font-medium text-white rounded-lg px-3 py-2">剩餘 {{ count }} 份</div>
     </div>
-    <h2 class="text-xl md:text-2xl font-medium mb-3 md:mb-4">
+    <h2 class="text-xl font-bold mb-3 md:mb-4">
       {{ props.title }}
     </h2>
-    <p class="text-2xl md:text-3xl font-medium text-brand-1 mb-1 md:mb-2">
-      NT$ {{ price }}
-    </p>
-    <p v-if="props.originPrice !== null" class="text-sm md:text-base text-gray-2 mb-3 md:mb-4">
+    <div class="flex items-center justify-between mb-1 md:mb-2">
+      <p class="text-xl font-bold text-brand-1">
+        NT$ {{ price }}
+      </p>
+    </div>
+
+    <p v-if="props.originPrice !== null" class="text-sm text-gray-2 mb-1 md:mb-2">
       原價 NT{{ originPrice }}，現省 NT{{ discountDifference }}
     </p>
+
+    <p v-if="props.count !== null" class="text-sm bg-#EDECF2 inline-block text-#555 p-2 rounded-8px" >剩餘 {{ count }} 份</p>
+
     <ul class="text-gray-1">
       <!-- <li class="border-t-1 border-gray-4 pt-3 md:pt-4 mb-3 md:mb-4">
         <h3 class="text-sm md:text-base mb-2">目前現貨</h3>
         <p class="font-medium md:text-xl">{{ props.spotGoods }}</p>
       </li> -->
-      <li class="border-t-1 border-gray-4 pt-3 md:pt-4 mb-3 md:mb-4">
+      <li class=" border-gray-4 pt-3 md:pt-4 mb-3 md:mb-4">
         <h3 class="text-sm md:text-base mb-2">方案內容</h3>
         <div v-html="props.content"></div>
       </li>
     </ul>
+    <p v-if="pickupDate!==null" class="text-sm text-gray-2 text-center mb-4"> {{ formatDateAccomplish(props.pickupDate) }} </p>
+
     <!-- <p class="text-brand-2 mb-3 md:mb-4">由於螢幕、拍攝會有色差等原因,以實際商品顏色為主</p> -->
     <!-- <div class="bg-gray-4 rounded-2xl px-4 py-3 mb-4 md:mb-6" v-html="props.shipping" /> -->
     <!-- props.id -->
     <router-link v-if="props.type === 'default'" :to="`/cart?id=${props.id}`">
-      <MyButton class="bg-brand-1 w-full text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">贊助專案</MyButton>
+      <MyButton class="bg-brand-1 w-full !py-2 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">贊助專案</MyButton>
     </router-link>
   </div>
 </template>

@@ -18,7 +18,7 @@ interface IPlan {
   // 該方案已賣出數量
   nowBuyers: number,
   // 出貨日期
-  pickupDate:number | null,
+  pickupDate:number,
   // 給贊助者的話
   toSponsor: string,
   // 募資方案 - 規格，規格標題、選項
@@ -41,7 +41,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="flex gap-x-4 w-full pt-4" :class="props.class">
+  <div class="flex gap-x-4 w-full pt-10" :class="props.class">
     <PlanCard
       v-for="(item, key) in props.data"
       :key="key"
@@ -52,6 +52,7 @@ const props = defineProps<{
       :image="item.image"
       :price="item.actualPrice"
       :origin-price="item.originalPrice"
+      :pickupDate="item.pickupDate"
       discount-text="5折"
       :count="item.quantity"
       :content="item.summary"

@@ -49,7 +49,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="flex justify-center">
     <div id="g_id_onload"
       :data-client_id="oauthId"
       data-context="signin"

@@ -12,9 +12,9 @@ export function calculateDiscount(originPrice:number = 0, discountPrice:number =
 }
 
 // 計算目標 % 數， 4890%
-export function calcTargetPrice(targetPrice = 0, currentPrice = 0) {
-  const divisionResult = targetPrice / currentPrice
-  const roundedResult = Math.round(divisionResult * 10) / 10
+export function calcTargetPrice(currentPrice = 0, targetPrice = 0) {
+  const divisionResult = currentPrice / targetPrice
+  const roundedResult = Math.round(divisionResult * 100) / 100
   return Math.round(roundedResult * 100)
 }
 

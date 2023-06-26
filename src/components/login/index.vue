@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { fetchMember } from '@/api'
-import { SET_TOKEN, REMOVE_TOKEN } from '@/utils'
+import { SET_TOKEN } from '@/utils'
 import { Swal } from '@/plugins/sweet-alert'
 import { userInfoStore, userLoginStore } from '@/stores'
 import { storeToRefs } from 'pinia'
@@ -15,6 +15,11 @@ const LOGIN_STORE = userLoginStore()
 const passwordShow = ref(true)
 const passwordType = ref('password')
 
+async function oauthLoginSuccess() {
+  await getProfile()
+  loginSuccess()
+}
+
 function togglePasswordType(show:boolean, type:string) {
   passwordShow.value = show
   passwordType.value = type
@@ -26,6 +31,7 @@ async function submitForm(value:any) {
   if (res.status !== 'Success') return
   SET_TOKEN(res.data.token)
   await getProfile()
+  loginSuccess()
 }
 
 async function getProfile() {
@@ -35,7 +41,6 @@ async function getProfile() {
   // userSuspend()
   // 正常狀態使用 loginSuccess
   USER_INFO_REF.value = res.data
-  loginSuccess()
 }
 
 // 登入成功，關閉彈窗，切換頁面，並打個人資料 API
@@ -86,7 +91,7 @@ function loginSuccess() {
         <button type="button" @click="emits('switchToSignup')" class="text-brand2 bg-white">註冊帳號</button>
       </div>
 
-      <Oauth @oauthLoginSuccess="loginSuccess"></Oauth>
+      <Oauth @oauthLoginSuccess="oauthLoginSuccess"></Oauth>
 
       <div>
         <label for="account" class="flex flex-col">
