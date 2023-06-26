@@ -120,26 +120,26 @@ onMounted(() => {
 
               <!-- 下拉選單  -->
               <ul v-if="showMemberMenu"  class="member-menu z-10 absolute right-0 -bottom-40 w-40 bg-white">
-                <li class="px-4 py-3">
+                <li>
                   <RouterLink
                     @click="showMemberMenu = !showMemberMenu"
                     to="/sponsorList"
-                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
+                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 px-4 py-3"
                     >贊助紀錄</RouterLink
                   >
                 </li>
-                <li class="px-4 py-3">
+                <li>
                   <RouterLink
                     @click="showMemberMenu = !showMemberMenu"
                     to="/setting/profile"
-                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
+                    class="block cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 px-4 py-3"
                     >個人設定</RouterLink
                   >
                 </li>
-                <li class="px-4 py-3 border-t-1 border-line">
+                <li class="border-t-1 border-line">
                   <a
                     @click.prevent="logoOut"
-                    class="block w-full cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
+                    class="block w-full cursor-pointer transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 px-4 py-3"
                     >登出</a
                   >
                 </li>

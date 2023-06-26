@@ -23,16 +23,13 @@ function getRef (swiperInstance:any) {
 
 <template>
   <section class="relative w-full z-0">
+
     <Swiper
-      :space-between="24"
       :slides-per-view="3"
-      :centered-slides="true"
-      :loop="true"
-      :grab-cursor="true"
-      :initial-slide="0"
-      :watch-slides-progress="true"
+      :space-between="24"
+
       :autoplay="{
-        delay: 200000,
+        delay: 3000,
         disableOnInteraction: false,
       }"
       :pagination="{
@@ -40,18 +37,17 @@ function getRef (swiperInstance:any) {
       }"
       :modules="[Autoplay, Pagination]"
       @swiper="getRef"
-      v-bind="$attrs"
+      class="relative z-0"
     >
     <!-- Manipulation -->
       <SwiperSlide v-for="(item, index) in props.list" :key="index" class="swiper-slide">
-        <!-- 等卡片好了之後放入 -->
         <RouterLink :to="`/proposal/${item.customizedUrl}`" class="w-full">
           <img :src="item.image" class="w-full aspect-video object-cover object-cover cursor-pointer">
         </RouterLink>
       </SwiperSlide>
     </Swiper>
-    <img @click="swiper.slidePrev()" class="hidden lg:block absolute left-[calc(33%-24px)] top-[calc(50%-24px)] z-10 cursor-pointer" src="/carousel/prev.svg">
-    <img @click="swiper.slideNext()" class="hidden lg:block absolute right-[calc(33%-24px)] top-[calc(50%-24px)] z-10 cursor-pointer" src="/carousel/next.svg">
+    <img @click="swiper.slidePrev()" class="hidden lg:block z-10 absolute left-[calc(33%-24px)] top-[calc(50%-24px)] z-10 cursor-pointer" src="/carousel/prev.svg">
+    <img @click="swiper.slideNext()" class="hidden lg:block z-10 absolute right-[calc(33%-24px)] top-[calc(50%-24px)] z-10 cursor-pointer" src="/carousel/next.svg">
   </section>
 </template>
 

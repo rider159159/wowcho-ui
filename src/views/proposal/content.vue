@@ -1,7 +1,7 @@
 <!-- eslint-disable no-unused-vars -->
 <script lang="ts" setup>
 // composables
-import { numberWithCommas, timeStampChangeString, formatRemainingTime, dateYYYYMMDD } from '@/composables'
+import { calcTargetPrice, numberWithCommas, timeStampChangeString, formatRemainingTime, dateYYYYMMDD } from '@/composables'
 import { fetchProposal } from '@/api'
 enum PROPOSAL {
   CONTENT, PROCESS, PROMISES, FAQ
@@ -80,7 +80,7 @@ onMounted(() => {
       <p>提案人</p>
       <RouterLink :to="`/users/${proposal.ownerId._id}`" class="text-brand-1 font-medium">{{ proposal.ownerId.businessName }}</RouterLink>
     </div>
-    <h1 class="text-h3 leading-h3 md:(text-h2 leading-h2)">{{ proposal.name }}</h1>
+    <h1 class="text-h4 leading-h4 md:(text-h3 leading-h3) font-bold">{{ proposal.name }}</h1>
     <div class="grid grid-cols-1 lg:grid-cols-12 mt-3 md:mt-5 gap-4 lg:gap-10">
       <img class="lg:col-span-8 object-cover aspect-9/5 rounded-2xl" :src="proposal.image" />
       <div class="lg:col-span-4 flex flex-col justify-between gap-6">
@@ -92,9 +92,9 @@ onMounted(() => {
           <ShareButton />
           <div class="flex items-center gap-4">
             <!-- <div class="w-20 h-20 text-brand-2 text-h5 flex justify-center items-center">{{ proposal.nowPrice / proposal.targetPrice * 100 }}%</div> -->
-            <ProgressBar :percent="proposal.nowPrice / proposal.targetPrice * 100" />
+            <ProgressBar :percent="calcTargetPrice(proposal.nowPrice,proposal.targetPrice )" />
             <div class="flex flex-col gap-1">
-              <div class="text-h2 leading-10 font-bold">NT$ {{ numberWithCommas(proposal.nowPrice) }}</div>
+              <div class="text-h3 leading-10 font-bold">NT$ {{ numberWithCommas(proposal.nowPrice) }}</div>
               <div class="text-gray-2">目標 NT$ {{ numberWithCommas(proposal.targetPrice) }}</div>
             </div>
           </div>
