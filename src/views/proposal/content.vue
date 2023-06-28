@@ -182,7 +182,7 @@ onMounted(() => {
           </div>
         </div>
         <!-- 募資方案 -->
-        <PlanList :data="proposal.planIdList" :class="'flex-col gap-12'" :cardClass="'w-full'"></PlanList>
+        <PlanList :data="proposal.planIdList" :proposalStatus="proposal.status" :class="'flex-col gap-12'" :cardClass="'w-full'"></PlanList>
       </div>
     </div>
   </div>

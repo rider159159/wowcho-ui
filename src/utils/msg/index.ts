@@ -5,6 +5,7 @@ export function errorMsg(msg:string) {
     icon: 'error',
     text: msg,
     showConfirmButton: true,
+    confirmButtonColor: '#2378BF',
     confirmButtonText: '確定'
   })
 }

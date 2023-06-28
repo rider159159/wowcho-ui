@@ -2,8 +2,7 @@
 <script setup lang="ts">
 import { fetchMember } from '@/api'
 import { SET_TOKEN } from '@/utils'
-// import { Swal } from '@/plugins/sweet-alert'
-// import { userInfoStore } from '@/stores'
+
 const emits = defineEmits(['oauthLoginSuccess'])
 const oauthId = import.meta.env.VITE_OAUTH_ID
 async function handleCredentialResponse (response:any) {
@@ -14,27 +13,6 @@ async function handleCredentialResponse (response:any) {
   if (res.status !== 'Success') return
   SET_TOKEN(res.data.token)
   emits('oauthLoginSuccess')
-  // Swal.fire({
-  //   icon: 'success',
-  //   title: '登入成功，為您跳轉頁面',
-  //   confirmButtonText: '確定',
-  //   confirmButtonColor: '#2378BF',
-  //   timer: 3000
-  // })
-  // if (toRoute.length > 0) {
-  //   setTimeout(() => {
-  //     router.push(toRoute)
-  //     USER_STORE.USER_LOGIN_ROUTE_REF = ''
-  //   }, 2000)
-  // } else {
-  //   setTimeout(() => {
-  //     router.push('/')
-  //   }, 2000)
-  // }
-
-  // // 獲得 token，打 get 個人資料 API
-  // const profileRes = await fetchMember.getProfile()
-  // USER_STORE.USER_INFO_REF = profileRes.data
 }
 
 onMounted(() => {
