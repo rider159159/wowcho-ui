@@ -89,6 +89,7 @@ onMounted(async () => {
           :origin-price="plan.originalPrice"
           :count="plan.quantity"
           :content="plan.summary"
+          :pickupDate="plan.pickupDate"
           :type="'car'"
         ></PlanCard>
         <div class="w-full">

@@ -37,8 +37,6 @@ async function submitForm(value:any) {
 async function getProfile() {
   const res = await fetchMember.getProfile()
   if (res.status !== 'Success') return
-  // 如果停權，跳 swal 並刪除 cookie
-  // userSuspend()
   // 正常狀態使用 loginSuccess
   USER_INFO_REF.value = res.data
 }
@@ -62,20 +60,6 @@ function loginSuccess() {
     }
   }, 2000)
 }
-
-// function userSuspend() {
-//   REMOVE_TOKEN()
-//   Swal.fire({
-//     icon: 'warning',
-//     text: '帳號已被停權，請聯繫渦潮管理員。',
-//     confirmButtonText: '確定',
-//     confirmButtonColor: '#2378BF',
-//     timer: 3000
-//   })
-//   setTimeout(() => {
-//     emits('closeModal')
-//   }, 2000)
-// }
 
 </script>
 

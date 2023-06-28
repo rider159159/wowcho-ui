@@ -18,14 +18,12 @@ function goDetail(id: string) {
 }
 const formQuery = ref({
   page: 1,
-  pageSize: 10
+  pageSize: 10,
+  customizedUrl: route.params.proposal
 })
 
 async function getSponsorList () {
-  const query = {
-    customizedUrl: route.params.proposal
-  }
-  const res = await fetchSponsor.getList(query)
+  const res = await fetchSponsor.getList(formQuery.value)
   if (res.status !== 'Success') return
   data.value = res.data
 }

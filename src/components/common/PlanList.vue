@@ -36,7 +36,8 @@ const props = defineProps<{
   data: IPlan[],
   class: String
     // type: String,
-  cardClass:String
+  cardClass:String,
+  proposalStatus:number
 }>()
 </script>
 
@@ -56,6 +57,7 @@ const props = defineProps<{
       discount-text="5折"
       :count="item.quantity"
       :content="item.summary"
+      :proposal-status="props.proposalStatus"
       shipping="出貨方式 : 現貨商品<br>本島免運 / 外島 150 元 / 港澳 300 元"
     />
     <!--  spot-goods="岩石灰、午夜藍、藤黃色、灰棕色 ( 其他缺貨中 )" -->

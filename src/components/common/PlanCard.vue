@@ -41,6 +41,10 @@ const props = defineProps({
   pickupDate: {
     type: Number,
     default: 0
+  },
+  proposalStatus: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -78,23 +82,19 @@ const discountDifference = computed(() => {
     <p v-if="props.count !== null" class="text-sm bg-#EDECF2 inline-block text-#555 p-2 rounded-8px" >剩餘 {{ count }} 份</p>
 
     <ul class="text-gray-1">
-      <!-- <li class="border-t-1 border-gray-4 pt-3 md:pt-4 mb-3 md:mb-4">
-        <h3 class="text-sm md:text-base mb-2">目前現貨</h3>
-        <p class="font-medium md:text-xl">{{ props.spotGoods }}</p>
-      </li> -->
+
       <li class=" border-gray-4 pt-3 md:pt-4 mb-3 md:mb-4">
         <h3 class="text-sm md:text-base mb-2">方案內容</h3>
         <div v-html="props.content"></div>
       </li>
     </ul>
-    <p v-if="pickupDate!==null" class="text-sm text-gray-2 text-center mb-4"> {{ formatDateAccomplish(props.pickupDate) }} </p>
+    <p v-if="props.pickupDate!==0" class="text-sm text-gray-2 text-center mb-4"> {{ formatDateAccomplish(props.pickupDate) }} </p>
 
-    <!-- <p class="text-brand-2 mb-3 md:mb-4">由於螢幕、拍攝會有色差等原因,以實際商品顏色為主</p> -->
-    <!-- <div class="bg-gray-4 rounded-2xl px-4 py-3 mb-4 md:mb-6" v-html="props.shipping" /> -->
-    <!-- props.id -->
-    <router-link v-if="props.type === 'default'" :to="`/cart?id=${props.id}`">
+    <router-link v-if="props.type === 'default' && props.proposalStatus !==5 " :to="`/cart?id=${props.id}`">
       <MyButton class="bg-brand-1 w-full !py-2 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">贊助專案</MyButton>
     </router-link>
+    <MyButton v-else-if="props.proposalStatus == 5" class="bg-#FF5D71 w-full !py-2 text-white outline outline-2 outline-#FF5D71 hover:bg-white hover:text-#FF5D71">專案以下架</MyButton>
+
   </div>
 </template>
 
