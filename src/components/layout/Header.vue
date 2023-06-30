@@ -104,7 +104,7 @@ onMounted(() => {
             <li v-if="!isLogin">
               <div
                 class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
-                ><MyButton @click.prevent="openLoginModal" class="bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton>
+                ><MyButton @click.prevent="openLoginModal" class="bg-brand-1 text-white hover:bg-white hover:text-brand-1">登入/註冊</MyButton>
               </div>
 
             </li>
@@ -208,7 +208,7 @@ onMounted(() => {
             v-if="!isLogin"
             class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
             href="#!"
-            ><MyButton @click.prevent="openLoginModal" class="w-full bg-brand-1 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">登入/註冊</MyButton>
+            ><MyButton @click.prevent="openLoginModal" class="w-full bg-brand-1 text-white hover:bg-white hover:text-brand-1">登入/註冊</MyButton>
           </a>
 
           <a
@@ -216,7 +216,7 @@ onMounted(() => {
             @click.prevent="logoOut"
             class="block transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 "
             href="#!"
-            ><MyButton class="w-full outline outline-2 outline-brand-1 bg-white text-brand-1 hover:bg-brand-1 hover:text-white">登出</MyButton></a
+            ><MyButton class="w-full bg-white text-brand-1 hover:bg-brand-1 hover:text-white">登出</MyButton></a
           >
         </div>
       </div>
