@@ -90,8 +90,9 @@ const discountDifference = computed(() => {
     </ul>
     <p v-if="props.pickupDate!==0" class="text-sm text-gray-2 text-center mb-4"> {{ formatDateAccomplish(props.pickupDate) }} </p>
 
-    <router-link v-if="props.type === 'default' && props.proposalStatus !==5 " :to="`/cart?id=${props.id}`">
-      <MyButton class="bg-brand-1 w-full !py-2 text-white outline outline-2 outline-brand-1 hover:bg-white hover:text-brand-1">贊助專案</MyButton>
+    <router-link v-if="props.type === 'default' && props.proposalStatus !==5 " :to="`/cart?id=${props.id}`"
+      class="w-full  text-center inline-block bg-brand-1 px-4 py-2 md:px-6 md:py-3 text-white hover:bg-white hover:text-brand-1 hover:border-brand-1 b-1 rounded-full  duration-300">
+      贊助專案
     </router-link>
     <MyButton v-else-if="props.proposalStatus == 5" class="bg-#FF5D71 w-full !py-2 text-white outline outline-2 outline-#FF5D71 hover:bg-white hover:text-#FF5D71">專案以下架</MyButton>
 

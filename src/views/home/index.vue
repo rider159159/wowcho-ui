@@ -130,12 +130,7 @@ onMounted(() => {
       <div class="flex justify-center items-center">
         <Carousel
           :list="carouselProposalList"
-          :slidesPerView="1"
-          :breakpoints="{
-            1024: {
-              slidesPerView: 3,
-            },
-          }"
+
         />
       </div>
     </div>
@@ -154,8 +149,13 @@ onMounted(() => {
       </ul>
       <div class="flex flex-col md:hidden gap-7">
         <ul class="flex">
-          <li v-for="category in categories.slice(0,4)" :key="category.path" class="border-line md:text-h4 leading-h6 md:leading-h4 text-gray-2 font-medium px-6">{{ category.name }}</li>
-        </ul><ul class="flex">
+          <li v-for="category in categories.slice(0,4)" :key="category.path" class="border-line md:text-h4 leading-h6 md:leading-h4 text-gray-2 font-medium px-6">
+            <RouterLink :to="`/proposals?category=${category.path}`" class="block relative z-1">
+              {{ category.name }}
+            </RouterLink>
+          </li>
+        </ul>
+        <ul class="flex">
           <li v-for="category in categories.slice(4)" :key="category.path" class="border-line md:text-h4 leading-h6 md:leading-h4 text-gray-2 font-medium px-6">{{ category.name }}</li>
         </ul>
       </div>
