@@ -116,7 +116,7 @@ onMounted(() => {
                 <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#70BEFB"/>
               </svg>
               <!-- 使用者頭像 -->
-              <img v-else :src="USER_INFO_REF.image" @click="showMemberMenu = !showMemberMenu" class="w-48px h-48px rounded-full">
+              <img v-else :src="USER_INFO_REF.image" @click="showMemberMenu = !showMemberMenu" class="w-48px h-48px rounded-full object-cover">
 
               <!-- 下拉選單  -->
               <ul v-if="showMemberMenu"  class="member-menu z-10 absolute right-0 -bottom-40 w-40 bg-white">
