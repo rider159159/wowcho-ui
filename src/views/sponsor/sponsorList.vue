@@ -73,7 +73,7 @@ onMounted(() => {
         </tbody>
       </table>
     </div>
-    <Pagination
+    <MyPagination
       v-if="data.totalCount > 0"
       v-model="formQuery.page"
       :page-size="formQuery.pageSize"
