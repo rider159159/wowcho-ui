@@ -31,9 +31,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            nvm install 16.19.0
             nvm use 16.19.0
-            cd /path/to/your/project
+            cd /project/wowcho-ui
             git pull origin main
             npm install
             npm run build
