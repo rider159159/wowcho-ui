@@ -87,7 +87,7 @@ onMounted(() => {
       </div>
     </RouterLink>
       <!-- 分頁 -->
-      <Pagination
+      <MyPagination
         v-model="formQuery.page"
         v-if="data.totalCount > 0"
         class="mb-10"

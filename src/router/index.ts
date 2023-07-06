@@ -11,26 +11,6 @@ const router = createRouter({
     return { top: 0 }
   },
   routes: [
-    {
-      path: '/demo',
-      name: 'demo',
-      component: () => import('../views/demo.vue'),
-      meta: {
-        keepAlive: false,
-        layout: noneHeader,
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/demo2',
-      name: 'demo2',
-      component: () => import('../views/demo2.vue'),
-      meta: {
-        keepAlive: false,
-        layout: DefaultLayout
-      }
-    },
-    // 以上範例用
     // 首頁
     {
       path: '/',

@@ -288,7 +288,7 @@ onMounted(() => {
       <p class="text-center">目前沒有資料</p>
     </div>
     <!-- 分頁 -->
-    <Pagination
+    <MyPagination
       v-if="data.totalCount > 0"
       class="mb-10"
       v-model="query.page"
