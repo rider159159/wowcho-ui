@@ -25,14 +25,10 @@ jobs:
         run: npm run build
 
       - name: Deploy
-        uses: appleboy/ssh-action@master
+        uses: a @master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: |
-            nvm use 16.19.0
-            cd /project/wowcho-ui
-            git pull origin main
-            npm install
-            npm run build
+          source: "dist/"
+          target: ${{ secrets.REMOTE_TARGET }}
