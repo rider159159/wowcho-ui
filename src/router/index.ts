@@ -231,6 +231,15 @@ const router = createRouter({
         keepAlive: false,
         layout: DefaultLayout
       }
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('../views/test.vue'),
+      meta: {
+        keepAlive: false,
+        layout: DefaultLayout
+      }
     }
   ]
 })
