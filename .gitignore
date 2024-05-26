@@ -15,7 +15,7 @@ lerna-debug.log*
 node_modules
 dist
 *.local
-package-lock.json
+
 pnpm-lock.yaml
 
 # Editor directories and files
